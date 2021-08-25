@@ -34,7 +34,8 @@ class AppFixtures extends Fixture
                     ->setLastName('beddarem')
                     ->setEmail('elhadibeddarem@gmail.com')
                     ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
-                    
+                    ->setAgreeTerms(1)
+                    ->setIsVerified(1)
                     ->addGrade($adminRole);
 
 
@@ -60,11 +61,9 @@ class AppFixtures extends Fixture
                 ->setFirstName($faker->firstname($genre))
                 ->setLastName($faker->lastname)
                 ->setEmail($faker->email)
-                
                 ->setPassword($hash)
-                
-                
-                
+                ->setIsVerified(1)
+                ->setAgreeTerms(1)
             ;
 
             $manager->persist($user);
