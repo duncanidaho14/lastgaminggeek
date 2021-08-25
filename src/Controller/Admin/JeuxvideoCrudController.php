@@ -22,7 +22,6 @@ class JeuxvideoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            // IdField::new('id'),
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
             ImageField::new('coverImage')
@@ -32,7 +31,10 @@ class JeuxvideoCrudController extends AbstractCrudController
                 ->setRequired(false),
             MoneyField::new('price')->setCurrency('EUR'),
             TextareaField::new('description'),
-            AssociationField::new('categories')
+            AssociationField::new('categories'),
+            AssociationField::new('user'),
+            AssociationField::new('comments')
+            
         ];
     }
     

@@ -6,3 +6,15 @@ body {
     background-color: white;
 }
 
+.jeux-cont {
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+}
+
+.jeux-item {
+    align-self: flex-start;
+    flex-grow: 4;
+    order: 3;
+}
