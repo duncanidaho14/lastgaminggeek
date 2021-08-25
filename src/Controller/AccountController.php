@@ -15,18 +15,6 @@ class AccountController extends AbstractController
 {
 
     /**
-     * Undocumented function
-     * @Route("/compte", name="account")
-     * @return void
-     */
-    public function index(UserRepository $userRepo): Response
-    {
-        return $this->render('account/index.html.twig',[
-            'user' => $userRepo
-        ]);
-    }
-
-    /**
      * @Route("/compte/changer-mon-mot-de-passe", name="account_change_password")
      */
     public function changePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager): Response
@@ -45,10 +33,30 @@ class AccountController extends AbstractController
                 $user->setPassword($password);
                 $manager->persist($user);
                 $manager->flush();
+                $this->addFlash(
+                    'success',
+                    'Votre mot de passe a été correctement mise à jour !'
+                );
             }
         }
         return $this->render('account/password.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * Afficher le compte utilisateur
+     * 
+     * @Route("/compte", name="account")
+     * @return Response
+     */
+    public function index(UserRepository $userRepo): Response
+    {
+        return $this->render('account/index.html.twig',[
+            'user' => $userRepo
+        ]);
+    }
+
+    
 }
