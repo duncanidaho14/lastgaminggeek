@@ -15,6 +15,11 @@
 
                     <img src="{{jeux.coverImage}}" alt="{{jeux.name}}" style="width: 400px; height: 300px;">
                     <h5>{{jeux.name}}</h5>
+                    <p>{{jeux.description}}</p>
+                    <h6>{{jeux.user.firstName}}</h6>
+                    {% for categorie in jeux.categories %}
+                        <h4>{{categorie.name}}</h4>
+                    {% endfor %}
                 </div>
             {% endfor %}
         </div>
