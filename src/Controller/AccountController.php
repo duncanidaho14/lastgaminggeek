@@ -33,6 +33,10 @@ class AccountController extends AbstractController
                 $user->setPassword($password);
                 $manager->persist($user);
                 $manager->flush();
+                $this->addFlash(
+                    'success',
+                    'Votre mot de passe a été correctement mise à jour !'
+                );
             }
         }
         return $this->render('account/password.html.twig', [
