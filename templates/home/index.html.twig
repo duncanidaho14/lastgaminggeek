@@ -9,17 +9,18 @@
     <div class="container">
         <h1>Jeux video d'occasion</h1>
         <h2>Jeux d'occaz</h2>
-        <div class="col-md-12">
+        <div class="jeux-cont">
             {% for jeux in jeuxvideo %}
-            <div class="col-sm-4 ">
-
-                    <img src="{{jeux.coverImage}}" alt="{{jeux.name}}" style="width: 400px; height: 300px;">
-                    <h5>{{jeux.name}}</h5>
-                    <p>{{jeux.description}}</p>
-                    <h6>{{jeux.user.firstName}}</h6>
-                    {% for categorie in jeux.categories %}
-                        <h4>{{categorie.name}}</h4>
-                    {% endfor %}
+                <div class="col-md-4">
+                    <div class="jeux-item">
+                        <img src="{{jeux.coverImage}}" alt="{{jeux.name}}" class="accueil-img">
+                        <h5>{{jeux.name}}</h5>
+                        <p>{{jeux.description}}</p>
+                        <h6>{{jeux.user.firstName}}</h6>
+                        {% for categorie in jeux.categories %}
+                            <h4>{{categorie.name}}</h4>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

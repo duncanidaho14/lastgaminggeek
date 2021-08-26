@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -8,13 +10,15 @@ body {
 
 .jeux-cont {
     display: flex;
-    flex-direction: row wrap;
-    justify-content: space-around;
-    align-content: flex-start;
+    
 }
 
 .jeux-item {
-    align-self: flex-start;
-    flex-grow: 4;
-    order: 3;
+    
+    flex-grow: 3;
+}
+
+.accueil-img {
+    width: 200px;
+    height: 300px;
 }

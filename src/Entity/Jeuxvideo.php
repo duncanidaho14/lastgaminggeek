@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\JeuxvideoRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 
 /**
  * @ORM\Entity(repositoryClass=JeuxvideoRepository::class)
@@ -58,9 +59,26 @@ class Jeuxvideo
     private $comments;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @var \DateTime $created_at
+     * 
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime $updated_at
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+    */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -195,10 +213,13 @@ class Jeuxvideo
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        $this->slug = $slug;
+        return $this->createdAt;
+    }
 
-        return $this;
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

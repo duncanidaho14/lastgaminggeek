@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
+        
         $adminRole = new Role();
         $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole);
@@ -36,7 +37,10 @@ class AppFixtures extends Fixture
                     ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
-                    ->addGrade($adminRole);
+                    ->addGrade($adminRole)
+                    ->setFullName('elhadi-beddarem')
+                    
+        ;
 
 
         $manager->persist($adminUser);
@@ -64,6 +68,8 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
+                ->setFullName($faker->name())
+                
             ;
 
             $manager->persist($user);
@@ -87,7 +93,8 @@ class AppFixtures extends Fixture
             if (mt_rand(1, 12)) {
                 $comment = new Comment();
 
-                $comment->setComment($faker->text())
+                $comment->setTitle($faker->company())
+                        ->setComment($faker->text())
                         ->setGame($jeuxvideo)
                         ->setUser($user)
                 ;
