@@ -8,17 +8,22 @@ body {
     background-color: white;
 }
 
-.jeux-cont {
-    display: flex;
+.container {
     
 }
 
+.jeux-cont {
+    border: 3px solid blueviolet;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .jeux-item {
-    
-    flex-grow: 3;
+    border: 2px dashed greenyellow;
 }
 
 .accueil-img {
     width: 200px;
     height: 300px;
+    border: 2px solid red;
 }
