@@ -25,14 +25,6 @@ class RegistrationFormType extends AbstractType
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
             // ->add('isVerified', TextType::class)
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => true,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
             ->add('password', PasswordType::class)
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -50,9 +42,17 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('submit', SubmitType::class)
-        ;
+                ])
+                ->add('agreeTerms', CheckboxType::class, [
+                    'mapped' => true,
+                    'constraints' => [
+                        new IsTrue([
+                            'message' => 'You should agree to our terms.',
+                        ]),
+                    ],
+                ])
+                ->add('submit', SubmitType::class)
+                ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

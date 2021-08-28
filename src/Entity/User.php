@@ -85,14 +85,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $agreeTerms;
 
-    /**
-     * @ORM\Column(type="string", length=150, unique=true)
-     */
-    private $fullName;
+    
 
     /**
-     * @Gedmo\Slug(fields={"fullName"})
-     * @ORM\Column(length=150, unique=true)
+     * @Gedmo\Slug(fields={"firstName", "lastName"})
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -121,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString()
     {
-        return $this->getFullName();
+        return $this->getEmail();
     }
 
     public function getId(): ?int
@@ -356,18 +353,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAgreeTerms(bool $agreeTerms): self
     {
         $this->agreeTerms = $agreeTerms;
-
-        return $this;
-    }
-
-    public function getFullName(): ?string
-    {
-        return $this->firstName . ' ' . $this->lastName;
-    }
-
-    public function setFullName(string $fullName): self
-    {
-        $this->fullName = $fullName;
 
         return $this;
     }

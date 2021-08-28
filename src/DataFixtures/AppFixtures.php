@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
                     ->addGrade($adminRole)
-                    ->setFullName('elhadi-beddarem')
+                    
                     
         ;
 
@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
-                ->setFullName($faker->name())
+                
                 
             ;
 
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
         for ($jeu=0; $jeu < 100; $jeu++) { 
             $jeuxvideo = new Jeuxvideo();
 
-            for ($cate=0; $cate < 7; $cate++) { 
+            for ($cate=0; $cate < 3; $cate++) { 
                 $categorie = new Categorie();
 
                 $categorie->setName($faker->name())

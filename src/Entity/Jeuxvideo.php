@@ -23,7 +23,7 @@ class Jeuxvideo
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=120)
      */
     private $name;
 
@@ -60,7 +60,7 @@ class Jeuxvideo
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -226,5 +226,11 @@ class Jeuxvideo
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function setSlug(string $slug): string
+    {
+        $this->slug = $slug;
+        return $this;
     }
 }

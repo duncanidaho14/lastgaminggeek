@@ -8,19 +8,54 @@ use App\Entity\Categorie;
 use App\Entity\Jeuxvideo;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\Admin\JeuxvideoCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Repository\JeuxvideoRepository;
+use App\Repository\UserRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\CommentRepository;
 
 
 class DashboardController extends AbstractDashboardController
 {
+    protected $jeuxvideoRepository;
+    protected $userRepository;
+    protected $categorieRepository;
+    protected $commentRepository;
+
+    public function __construct(JeuxvideoRepository $jeuxvideoRepository, UserRepository $userRepository, CategorieRepository $categorieRepository, CommentRepository $commentRepository)
+    {
+        $this->jeuxvideoRepository = $jeuxvideoRepository;
+        $this->userRepository= $userRepository;
+        $this->categorieRepository = $categorieRepository;
+        $this->commentRepository = $commentRepository;
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        return parent::index();
+        //  $routeBuilder = $this->get(AdminUrlGenerator::class);
+
+        // return $this->redirect($routeBuilder->setController(JeuxvideoCrudController::class)->generateUrl());
+
+        // you can also redirect to different pages depending on the current user
+        // if ('jane' === $this->getUser()->getUsername()) {
+        //     return $this->redirect('...');
+        // }
+
+        // you can also render some template to display a proper Dashboard
+        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
+        return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
+            'countAllUser' => $this->userRepository->countAllUser(),
+            'countAllJeuxvideo' => $this->jeuxvideoRepository->countAllJeuxvideo(),
+            'countAllCategorie' => $this->categorieRepository->countAllCategorie(),
+            'countAllComment' => $this->commentRepository->countAllComment(),
+            'jeuxvideo' => $this->jeuxvideoRepository->findAll()
+        ]);
     }
 
     public function configureDashboard(): Dashboard
