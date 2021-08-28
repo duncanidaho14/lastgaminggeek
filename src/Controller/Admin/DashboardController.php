@@ -6,17 +6,19 @@ use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Categorie;
 use App\Entity\Jeuxvideo;
+use App\Repository\UserRepository;
+use App\Repository\CommentRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\JeuxvideoRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\JeuxvideoCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use App\Repository\JeuxvideoRepository;
-use App\Repository\UserRepository;
-use App\Repository\CategorieRepository;
-use App\Repository\CommentRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 
 
 class DashboardController extends AbstractDashboardController
@@ -71,5 +73,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Jeux Video', 'fas fa-tablet-alt', Jeuxvideo::class);
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-tag', Comment::class);
+    }
+
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+                        ->setName($user->getUsername())
+                        ->setGravatarEmail($user->getUsername())
+                        ->displayUserAvatar(true)
+        ;
     }
 }
