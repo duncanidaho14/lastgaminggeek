@@ -21,8 +21,8 @@ class CategorieCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             ImageField::new('image')
-                ->setBasePath('uploads/')
-                ->setUploadDir('public/build/uploads/')
+                ->setBasePath('uploads/categories')
+                ->setUploadDir('public/uploads/categories')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             AssociationField::new('game')
