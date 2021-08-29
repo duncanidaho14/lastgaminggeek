@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\JeuxvideoRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
  * @ORM\Entity(repositoryClass=JeuxvideoRepository::class)
+ * @Vich\Uploadable
  * @ApiResource
  */
 class Jeuxvideo
@@ -28,9 +36,18 @@ class Jeuxvideo
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $coverImage;
+
+    /**
+     * @Vich\UploadableField(mapping="jeuxvideo_images", fileNameProperty="coverImage")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    
 
     /**
      * @ORM\Column(type="float")
@@ -76,7 +93,7 @@ class Jeuxvideo
      * @var \DateTime $updated_at
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
     */
     private $updatedAt;
 
@@ -113,7 +130,7 @@ class Jeuxvideo
         return $this->coverImage;
     }
 
-    public function setCoverImage(string $coverImage): self
+    public function setCoverImage(?string $coverImage): self
     {
         $this->coverImage = $coverImage;
 
@@ -228,9 +245,48 @@ class Jeuxvideo
         return $this->updatedAt;
     }
 
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): ?\DateTimeInterface
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
     public function setSlug(string $slug): string
     {
         $this->slug = $slug;
         return $this;
     }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param File|null $imageFile
+     * 
+     */
+    public function setImageFile(?File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        // Vérifie s'il y a un changement de propriété de l'imageFile
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    // public function getImageSize(): ?int
+    // {
+    //     return $this->imageSize;
+    // }
+
+    // public function setImageSize(?int $imageSize): void
+    // {
+    //     $this->imageSize = $imageSize;
+    // }
 }
