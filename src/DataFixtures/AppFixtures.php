@@ -37,6 +37,7 @@ class AppFixtures extends Fixture
                     ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
+                    ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
                     ->addGrade($adminRole)
                     
                     
@@ -68,7 +69,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
-                
+                ->setAvatar($faker->imageUrl())
                 
             ;
 
@@ -76,45 +77,49 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }   
 
-        for ($jeu=0; $jeu < 100; $jeu++) { 
-            $jeuxvideo = new Jeuxvideo();
+        for ($cat=0; $cat < 5; $cat++) { 
+            $categorie = new Categorie();
 
-            for ($cate=0; $cate < 3; $cate++) { 
-                $categorie = new Categorie();
+            
 
-                $categorie->setName($faker->name())
+            
+
+            for ($jeu=0; $jeu < 20; $jeu++) { 
+                $jeuxvideo = new Jeuxvideo();
+
+                if (mt_rand(1, 12)) {
+                    $comment = new Comment();
+
+                    $comment->setTitle($faker->company())
+                            ->setComment($faker->text())
+                            ->setGame($jeuxvideo)
+                            ->setUser($user)
+                    ;
+                    $manager->persist($comment);
+                }
+
+                $jeuxvideo->setName($faker->name())
+                            ->setCoverImage($faker->imageUrl())
+                            ->setDescription($faker->text())
+                            ->setPrice($faker->numberBetween(0, 80))
+                            ->addCategory($categorie)
+                            ->addComment($comment)
+                            ->setUser($user)
+                ;
+
+                $manager->persist($jeuxvideo);
+            }
+
+            $categorie->setName($faker->name())
                         ->setImage($faker->imageUrl())
                         ->addGame($jeuxvideo)
-                ;
-
-                $manager->persist($categorie);
-            }
-
-            if (mt_rand(1, 12)) {
-                $comment = new Comment();
-
-                $comment->setTitle($faker->company())
-                        ->setComment($faker->text())
-                        ->setGame($jeuxvideo)
-                        ->setUser($user)
-                ;
-                $manager->persist($comment);
-            }
-
-            $jeuxvideo->setName($faker->name())
-                        ->setCoverImage($faker->imageUrl())
-                        ->setDescription($faker->text())
-                        ->setPrice($faker->numberBetween(0, 125))
-                        ->addCategory($categorie)
-                        ->addComment($comment)
-                        ->setUser($user)
             ;
 
-            
+                $manager->persist($categorie);
 
             
 
-            $manager->persist($jeuxvideo);
+            
         }
 
             

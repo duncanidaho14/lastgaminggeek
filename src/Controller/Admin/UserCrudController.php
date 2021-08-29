@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -28,6 +29,11 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastName'),
             BooleanField::new('isVerified'),
             BooleanField::new('agreeTerms'),
+            ImageField::new('avatar')
+                ->setBasePath('uploads/user')
+                ->setUploadDir('public/uploads/user/')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setRequired(false),
             // DateTimeField::new('createdAt'),
             // DateTimeField::new('updatedAt'),
             // SlugField::new('slug')

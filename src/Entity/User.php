@@ -3,20 +3,26 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation\Timestampable;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  * @ApiResource
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
@@ -59,6 +65,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=60)
      */
     private $lastName;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @Vich\UploadableField(mapping="user_images", fileNameProperty="avatar")
+     *
+     * @var File
+     */
+    private $imageFile;
+
 
     /**
      * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="user")
@@ -357,6 +376,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -372,5 +403,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): ?\DateTimeInterface
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function setSlug(string $slug): string
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param File|null $imageFile
+     * 
+     */
+    public function setImageFile(?File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        // Vérifie s'il y a un changement de propriété de l'imageFile
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTime();
+        }
+    }
 }
