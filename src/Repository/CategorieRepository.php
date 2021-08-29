@@ -36,6 +36,17 @@ class CategorieRepository extends ServiceEntityRepository
     }
     */
 
+    /**
+     * @return Int Categorie
+     */
+    public function countAllCategorie()
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('c as categorie, COUNT(c) as categorieCount')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Categorie
     {

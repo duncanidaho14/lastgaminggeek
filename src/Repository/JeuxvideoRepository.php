@@ -22,19 +22,29 @@ class JeuxvideoRepository extends ServiceEntityRepository
     // /**
     //  * @return Jeuxvideo[] Returns an array of Jeuxvideo objects
     //  */
-    /*
-    public function findByExampleField($value)
+    // public function findByJeuxvideoField($value)
+    // {
+    //     return $this->createQueryBuilder('j')
+    //         ->andWhere('j.name = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('j.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
+    /**
+     * @return Int Jeuxvideo
+     */
+    public function countAllJeuxvideo()
     {
         return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('j.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+                    ->select('j as jeuxvideo, COUNT(j) as jeuxvideoCount')
+                    ->getQuery()
+                    ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Jeuxvideo
