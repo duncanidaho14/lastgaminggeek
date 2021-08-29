@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,9 +18,12 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    protected $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, User::class);
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -53,6 +57,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     */
 
+    /**
+     * @return Int User
+     */
+    public function countAllUser()
+    {
+        return $this->createQueryBuilder('u')
+                    ->select('u as user, COUNT(u) as userCount')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?User
     {
