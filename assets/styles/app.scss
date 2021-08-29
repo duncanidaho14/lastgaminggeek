@@ -13,17 +13,29 @@ body {
 }
 
 .jeux-cont {
-    border: 3px solid blueviolet;
     display: flex;
     flex-wrap: wrap;
 }
 
 .jeux-item {
-    border: 2px dashed greenyellow;
+    
 }
 
 .accueil-img {
-    width: 200px;
+    width: 350px;
     height: 300px;
-    border: 2px solid red;
+    padding: 10px 10px 10px 10px;
+}
+
+.jeux-description {
+    text-align: center;
+}
+
+.jeux-user {
+    text-align: center;
+    
+}
+
+.jeux-categorie {
+    text-align: center;
 }

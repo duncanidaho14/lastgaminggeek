@@ -1,1 +1,3 @@
-# implémenter le full name slug
+# image avec categorie
+# vichuploader avec easyadmin
+

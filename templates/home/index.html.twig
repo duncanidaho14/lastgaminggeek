@@ -13,12 +13,14 @@
             {% for jeux in jeuxvideo %}
                 <div class="col-md-4">
                     <div class="jeux-item">
-                        <img src="{{jeux.coverImage}}" alt="{{jeux.name}}" class="accueil-img"/>
+                        <a href=""><img src="{{jeux.coverImage}}" alt="{{jeux.name}}" class="accueil-img"/></a>
                         <h5>{{jeux.name}}</h5>
-                        <p>{{jeux.description}}</p>
-                        <h6>{{jeux.user.firstName}}</h6>
+                        <p class="jeux-description">{{jeux.description|raw}}</p>
+                        <h6>Utilsateurs :</h6>
+                        <h4 class="jeux-user">{{jeux.user.firstName}}</h4>
+                        <h6>Categorie :</h6>
                         {% for categorie in jeux.categories %}
-                            <h4>{{categorie.name}}</h4>
+                            <h4 class="jeux-categorie">{{categorie.name}}</h4>
                         {% endfor %}
                     </div>
                 </div>

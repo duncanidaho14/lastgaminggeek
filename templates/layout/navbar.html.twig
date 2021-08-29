@@ -26,15 +26,6 @@
                 </li>
             </ul>
             
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-                </li>
-            </ul>
-            
         </div>
 
         <form class="form-inline my-2 my-lg-0">
@@ -53,5 +44,15 @@
                 </div>
             </div>
         {% endif %}
+        {% if not app.user %}
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+                    </li>
+                </ul>
+            {% endif %}
     </nav>
 </header>
