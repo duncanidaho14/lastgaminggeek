@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\Jeuxvideo;
 use App\Entity\Comment;
 use App\Entity\Categorie;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AppFixtures extends Fixture
 {
@@ -38,6 +40,7 @@ class AppFixtures extends Fixture
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
                     ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
+                    //->setImageFile('8c9b82bc035d2ec941c0eb426c31f34f79931076.gif')
                     ->addGrade($adminRole)
                     
                     
@@ -69,8 +72,8 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
-                ->setAvatar($faker->imageUrl())
-                
+                ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
+                //->setImageFile('8c9b82bc035d2ec941c0eb426c31f34f79931076.gif')
             ;
 
             $manager->persist($user);
@@ -79,10 +82,6 @@ class AppFixtures extends Fixture
 
         for ($cat=0; $cat < 5; $cat++) { 
             $categorie = new Categorie();
-
-            
-
-            
 
             for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
@@ -99,7 +98,8 @@ class AppFixtures extends Fixture
                 }
 
                 $jeuxvideo->setName($faker->name())
-                            ->setCoverImage($faker->imageUrl())
+                            ->setSlug($faker->slug())
+                            ->setCoverImage($picture)
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
                             ->addCategory($categorie)
@@ -111,7 +111,8 @@ class AppFixtures extends Fixture
             }
 
             $categorie->setName($faker->name())
-                        ->setImage($faker->imageUrl())
+                        ->setImage($picture)
+                        //->setImageFile('2d541afdd35227a6116806f85d18eaf4a430ccc7.gif')
                         ->addGame($jeuxvideo)
             ;
 

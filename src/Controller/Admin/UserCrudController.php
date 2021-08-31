@@ -3,14 +3,15 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -32,12 +33,15 @@ class UserCrudController extends AbstractCrudController
             ImageField::new('avatar')
                 ->setBasePath('uploads/user')
                 ->setUploadDir('public/uploads/user/')
-                ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setRequired(false),
-            // DateTimeField::new('createdAt'),
-            // DateTimeField::new('updatedAt'),
-            // SlugField::new('slug')
-            //     ->setTargetFieldName('firstName'),
+                ->setUploadedFileNamePattern('[randomhash].[extension]'),
+            TextField::new('imageFile')
+                ->setFormType(VichImageType::class)
+                ->onlyOnCreate(),
+            DateField::new('createdAt'),
+            DateField::new('updatedAt'),
+            SlugField::new('slug')
+                ->setTargetFieldName('firstName', 'lastName')
+                ->hideOneIndex(),
             // AssociationField::new('grade'),
             // AssociationField::new('game'),
             // AssociationField::new('comments')
