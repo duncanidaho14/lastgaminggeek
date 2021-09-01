@@ -9,26 +9,37 @@
             <pre>
                 {{ dump(basket) }}
             </pre>
+            {% if basket|length > 0 %}
+                
+            
             <div class="basket">
                 <div>
                     <div class="col-sm-3 basket-title">Produit</div>
                     <div class="col-sm-3 basket-title">Quantité</div>
                     <div class="col-sm-3 basket-title">Prix</div>
                     <div class="col-sm-3 basket-title">Total</div>
+                    <div class="col-sm-3 basket-title"></div>
                 </div>
 
                 <div>
+                    {% set total = null %}
                     {% for product in basket %}
                         <img src="/uploads/images/{{product.jeuxvideo.coverImage}}" alt="{{product.jeuxvideo.name}}" height="75px">
                         <div class="col-sm-3 basket-field"> {{product.jeuxvideo.name}} </div>
                         <div class="col-sm-3 basket-field"> {{product.quantity}} </div>
-                        <div class="col-sm-3 basket-field"> {{(product.jeuxvideo.price / 100)|number_format(2, ',', '.')}}</div>
-                        <div class="col-sm-3 basket-field"> {{((product.jeuxvideo.price * product.quantity)/100)|number_format(2, ',', '.')}} </div>
+                        <div class="col-sm-3 basket-field"> {{(product.jeuxvideo.price )|number_format(2, ',', '.')}}</div>
+                        <div class="col-sm-3 basket-field"> {{((product.jeuxvideo.price * product.quantity))|number_format(2, ',', '.')}} </div>
+                        <div class="col-sm-3 basket-field"><a href="{{path('delete_to_basket', {'id': product.jeuxvideo.id})}}"><i class="fas fa-cart-minus"></i></a></div>
+                        <div class="col-sm-3 basket-field"><a href="{{path('add_to_basket', {'id': product.jeuxvideo.id})}}"><i class="fas fa-cart-plus"></i></a></div>
+                        {% set total = total + (product.jeuxvideo.price * product.quantity) %}
                     {% endfor %} 
                     
                 </div>
             </div>
-                
+            {% else %}
+                <hr>
+                <p>Votre panier est vide</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

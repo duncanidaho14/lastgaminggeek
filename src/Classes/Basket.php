@@ -36,4 +36,13 @@ class Basket
     {
         return $this->session->remove('basket');
     }
+
+    public function delete($id)
+    {
+        $basket = $this->session->get('basket', []);
+
+        unset($basket[$id]);
+
+        return $this->session->set('basket', $basket);
+    }
 }
