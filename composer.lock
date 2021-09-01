@@ -82,6 +82,7 @@
                 "issues": "https://github.com/antishov/StofDoctrineExtensionsBundle/issues",
                 "source": "https://github.com/antishov/StofDoctrineExtensionsBundle/tree/v1.4.3"
             },
+
             "time": "2020-12-10T20:46:02+00:00"
         },
         {
@@ -286,10 +287,6 @@
                 "slug",
                 "transliterator"
             ],
-            "support": {
-                "issues": "https://github.com/Behat/Transliterator/issues",
-                "source": "https://github.com/Behat/Transliterator/tree/v1.3.0"
-            },
             "time": "2020-01-14T16:39:13+00:00"
         },
         {
@@ -2187,12 +2184,15 @@
                 "tree",
                 "uploadable"
             ],
+<<<<<<< Updated upstream
             "support": {
                 "email": "gediminas.morkevicius@gmail.com",
                 "issues": "https://github.com/doctrine-extensions/DoctrineExtensions/issues",
                 "source": "https://github.com/doctrine-extensions/DoctrineExtensions/tree/v3.1.0",
                 "wiki": "https://github.com/Atlantic18/DoctrineExtensions/tree/main/doc"
             },
+=======
+>>>>>>> Stashed changes
             "time": "2021-06-22T11:23:22+00:00"
         },
         {
@@ -11209,5 +11209,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

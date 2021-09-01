@@ -70,6 +70,7 @@ class Comment
         return $this->getTitle();
     }
     
+
     public function getId(): ?int
     {
         return $this->id;

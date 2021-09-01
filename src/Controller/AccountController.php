@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ChangePasswordType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Repository\UserRepository;
 
 class AccountController extends AbstractController
 {
@@ -48,13 +50,14 @@ class AccountController extends AbstractController
     /**
      * Afficher le compte utilisateur
      * 
-     * @Route("/compte", name="account")
+     * @Route("/compte/{slug}", name="account")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
-    public function index(UserRepository $userRepo): Response
+    public function index(User $user): Response
     {
         return $this->render('account/index.html.twig',[
-            'user' => $userRepo
+            'user' => $user
         ]);
     }
 

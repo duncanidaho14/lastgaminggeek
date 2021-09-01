@@ -9,6 +9,7 @@
         },
         "files": [
             "./config/packages/stof_doctrine_extensions.yaml"
+
         ]
     },
     "api-platform/api-pack": {
@@ -182,6 +183,9 @@
     },
     "phar-io/version": {
         "version": "3.1.0"
+    },
+    "php": {
+        "version": "7.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"

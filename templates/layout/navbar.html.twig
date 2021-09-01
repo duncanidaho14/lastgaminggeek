@@ -11,7 +11,7 @@
                 <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#"></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
@@ -47,7 +47,7 @@
                     Information Personnel
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{path('account')}}">Mon Compte</a>
+                    <a class="dropdown-item" href="{{path('account', {'slug' : app.user.slug })}}">Mon Compte</a>
                     <a class="dropdown-item" href="{{path('account_change_password')}}">Changer le mot de passe</a>
                     <a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
                 </div>

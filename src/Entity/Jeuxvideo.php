@@ -9,6 +9,7 @@ use App\Repository\JeuxvideoRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 
+
 /**
  * @ORM\Entity(repositoryClass=JeuxvideoRepository::class)
  * @ApiResource
@@ -90,7 +91,7 @@ class Jeuxvideo
     {
         return $this->getName();
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -218,6 +219,7 @@ class Jeuxvideo
         return $this->slug;
     }
 
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -227,4 +229,5 @@ class Jeuxvideo
     {
         return $this->updatedAt;
     }
+
 }

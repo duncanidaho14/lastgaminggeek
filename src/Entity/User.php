@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation\Timestampable;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,10 +16,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 
+
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -86,7 +90,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $agreeTerms;
 
     /**
-     * @ORM\Column(type="string", length=150, unique=true)
+     * @Gedmo\Slug(fields={"firstName", "lastName"})
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $fullName;
 
@@ -360,9 +365,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+
     public function getFullName(): ?string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->firstName . '-' . $this->lastName;
     }
 
     public function setFullName(string $fullName): self
@@ -372,10 +384,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -386,6 +394,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->updatedAt;
     }
-
-    
 }

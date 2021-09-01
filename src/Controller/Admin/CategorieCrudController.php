@@ -21,10 +21,10 @@ class CategorieCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             ImageField::new('image')
-                ->setBasePath('uploads/')
-                ->setUploadDir('public\build\uploads\/')
-                ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setRequired(false),
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/build/uploads/')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setRequired(false),
             AssociationField::new('game')
         ];
     }

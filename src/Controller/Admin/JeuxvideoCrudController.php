@@ -26,7 +26,7 @@ class JeuxvideoCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('name'),
             ImageField::new('coverImage')
                 ->setBasePath('uploads/')
-                ->setUploadDir('public\build\uploads\/')
+                ->setUploadDir('public/build/uploads/')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             MoneyField::new('price')->setCurrency('EUR'),

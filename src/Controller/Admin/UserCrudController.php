@@ -26,7 +26,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('pseudo'),
             TextField::new('firstName'),
             TextField::new('lastName'),
-            TextField::new('fullName'),
+            SlugField::new('fullName')->setTargetFieldName('firstName', 'lastName'),
             BooleanField::new('isVerified'),
             BooleanField::new('agreeTerms'),
             DateTimeField::new('createdAt'),

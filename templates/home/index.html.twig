@@ -11,16 +11,17 @@
         <h2>Jeux d'occaz</h2>
         <div class="jeux-cont">
             {% for jeux in jeuxvideo %}
-                <div class="col-md-4">
-                    <div class="jeux-item">
-                        <img src="{{jeux.coverImage}}" alt="{{jeux.name}}" class="accueil-img">
-                        <h5>{{jeux.name}}</h5>
-                        <p>{{jeux.description}}</p>
-                        <h6>{{jeux.user.firstName}}</h6>
-                        {% for categorie in jeux.categories %}
-                            <h4>{{categorie.name}}</h4>
-                        {% endfor %}
-                    </div>
+
+            <div class="col-sm-3">
+                
+                    <img class="accueil-img" src="{{jeux.coverImage}}" alt="{{jeux.name}}">
+                    <h5>{{jeux.name}}</h5>
+                    <p>{{jeux.description}}</p>
+                    <h6>{{jeux.user.firstName}}</h6>
+                    {% for categorie in jeux.categories %}
+                        <h4>{{categorie.name}}</h4>
+                        <img class="accueil-img-categorie" src="{{categorie.image}}" alt="{{categorie.name}}">
+                    {% endfor %}
                 </div>
             {% endfor %}
         </div>

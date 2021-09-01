@@ -38,9 +38,10 @@ class AppFixtures extends Fixture
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
                     ->addGrade($adminRole)
-                    ->setFullName('elhadi-beddarem')
+                    //->setFullName('elhadi-beddarem')
                     
         ;
+
 
 
         $manager->persist($adminUser);
@@ -68,8 +69,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
-                ->setFullName($faker->name())
-                
+                //->setFullName($faker->name())
             ;
 
             $manager->persist($user);
@@ -108,19 +108,10 @@ class AppFixtures extends Fixture
                         ->addCategory($categorie)
                         ->addComment($comment)
                         ->setUser($user)
-            ;
-
-            
-
-            
+            ;         
 
             $manager->persist($jeuxvideo);
-        }
-
-            
-        
-
-        
+        }  
         
         $manager->flush();
     }
