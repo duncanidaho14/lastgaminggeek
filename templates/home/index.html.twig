@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <div class="jeux-item">
                         {# <a href=""><img src="{{ asset(jeux.coverImage) }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a> #}
-                        <a href=""><img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a> 
+                        <a href="{{path('add_to_basket', {'id': jeux.id})}}"><img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a> 
                         <h5>{{jeux.name}}</h5>
                         <p class="jeux-description">{{jeux.description|raw}}</p>
                         <h6>Utilsateurs :</h6>
