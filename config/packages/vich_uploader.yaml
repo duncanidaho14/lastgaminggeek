@@ -3,18 +3,18 @@ vich_uploader:
 
     mappings:
         jeuxvideo_images:
-            uri_prefix: /uploads/images
-            upload_destination: '%kernel.project_dir%/public/uploads/images'
+            uri_prefix: '%app.path.jeuxvideo_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.jeuxvideo_images%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
         categorie_images:
-            uri_prefix: /uploads/categories
-            upload_destination: '%kernel.project_dir%/public/uploads/categories'
+            uri_prefix: '%app.path.categorie_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.categorie_images%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         
         user_images:
-            uri_prefix: /uploads/user
-            upload_destination: '%kernel.project_dir%/public/uploads/user'
+            uri_prefix: '%app.path.user_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.user_images%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
             inject_on_load: false

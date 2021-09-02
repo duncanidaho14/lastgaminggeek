@@ -28,22 +28,11 @@ class JeuxvideoCrudController extends AbstractCrudController
             ImageField::new('coverImage')
                     ->setBasePath('uploads/images/')
                     ->setUploadDir('public/uploads/images')
-                    ->setUploadedFileNamePattern('[randomhash].[extension]'),
-                    //->setFormType(VichImageType::class)
-                    //->setLabel('coverImage'),
-                    //->setRequired(false),
-            // ImageField::new('coverImage')
-            //         ->setBasePath("/uploads/images")
-            //         ->setUploadDir('public/build/uploads/images')
-            //         ->setUploadedFileNamePattern('[randomhash].[extension]')
-            //         ->setLabel('coverImage'),
-            // ImageField::new('imageFile')
-            // ->setBasePath('uploads/images/')
-            // ->setUploadDir('public/build/uploads/images')
-            // ->setFormType(VichImageType::class, [
-            //     'allow_delete' => true,
-
-            // ])
+                    ->setUploadedFileNamePattern('[randomhash].[extension]')
+                    ->onlyOnIndex(),
+            TextField::new('imageFile')
+                    ->setFormType(VichImageType::class)
+                    ->onlyWhenCreating(),
             // ->setLabel('Image'),
 
             // ImageField::new('coverImage')

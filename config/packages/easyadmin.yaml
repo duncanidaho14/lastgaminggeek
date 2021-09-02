@@ -1,0 +1,49 @@
+easy_admin:
+    entities:
+        Jeuxvideo:
+            # ...
+            list:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'coverImage', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'home/index.html.twig' }
+                    
+            # ...
+            show:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'coverImage', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'home/index.html.twig' }
+            form:
+                fields:
+                    - { property: 'imageFile', type: 'vich_image' }
+        
+        Categorie:
+            # ...
+            list:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'image', type: 'vich_file', base_path: '%app.path.categorie_images%', template: 'home/index.html.twig' }
+                    
+            # ...
+            show:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'image', type: 'vich_file', base_path: '%app.path.categorie_images%', template: 'home/index.html.twig' }
+            form:
+                fields:
+                    - { property: 'imageFile', type: 'vich_image' }
+
+        User:
+            # ...
+            list:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'avatar', type: 'vich_file', base_path: '%app.path.user_images%', template: 'home/index.html.twig' }
+                    
+            # ...
+            show:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.jeuxvideo_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'avatar', type: 'vich_file', base_path: '%app.path.user_images%', template: 'home/index.html.twig' }
+            form:
+                fields:
+                    - { property: 'imageFile', type: 'vich_image' }
