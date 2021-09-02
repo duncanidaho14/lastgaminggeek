@@ -24,7 +24,8 @@ class CategorieCrudController extends AbstractCrudController
             ImageField::new('image')
                 ->setBasePath('uploads/categories')
                 ->setUploadDir('public/uploads/categories')
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->onlyOnIndex(),
             TextField::new('imageFile')
                     ->setFormType(VichImageType::class)
                     ->onlyWhenCreating(),

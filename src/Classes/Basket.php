@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Classes;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+use App\Entity\Jeuxvideo;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class Basket
 {
     private $session;
+    private $entityManager;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->session = $session;
+        $this->entityManager = $entityManager;
     }
 
     public function add($id)
@@ -44,5 +48,37 @@ class Basket
         unset($basket[$id]);
 
         return $this->session->set('basket', $basket);
+    }
+
+    public function decrease($id)
+    {
+        $basket = $this->session->get('basket', []);
+
+        if ($basket[$id] > 1) {
+            $basket[$id]--;
+        } else {
+            unset($basket[$id]);
+        }
+
+        return $this->session->set('basket', $basket);
+    }
+
+    public function getAllBasket()
+    {
+        $basketOver = [];
+        if ($this->get()) {
+            foreach($this->get() as $id => $quantity) {
+                $jeuxvideo = $this->entityManager->getRepository(Jeuxvideo::class)->findOneById($id);
+                if (!$jeuxvideo) {
+                    $this->delete($id);
+                    continue;
+                }
+                $basketOver[] = [
+                    'jeuxvideo' => $jeuxvideo,
+                    'quantity' => $quantity
+                ];
+            }
+        }
+        return $basketOver;
     }
 }

@@ -25,22 +25,9 @@ class BasketController extends AbstractController
     public function index(Basket $basket): Response
     {   
         
-        $basketOver = [];
-        if ($basket->get() !== null) {
-            foreach($basket->get() as $id => $quantity) {
-                $basketOver[] = [
-                    'jeuxvideo' => $this->entityManager->getRepository(Jeuxvideo::class)->findOneById($id),
-                    'quantity' => $quantity
-                ];
-            }
-            return $this->render('basket/index.html.twig', [
-                'basket' => $basketOver,
-            ]);
-        } else {
-            return $this->render('basket/vide.html.twig');
-        }
-        
-
+        return $this->render('basket/index.html.twig',[
+            'basket' => $basket->getAllBasket(),
+        ]);
         
     }
 
@@ -71,6 +58,15 @@ class BasketController extends AbstractController
     {
         $basket->delete($id);
 
+        return $this->redirectToRoute('basket');
+    }
+
+    /**
+     * @Route("/mon-panier/decrease/{id}", name="decrease_to_basket")
+     */
+    public function decrease(Basket $basket, $id): Response
+    {
+        $basket->decrease($id);
         return $this->redirectToRoute('basket');
     }
 }

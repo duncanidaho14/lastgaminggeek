@@ -30,13 +30,6 @@ class JeuxvideoCrudController extends AbstractCrudController
                     ->setUploadDir('public/uploads/images')
                     ->setUploadedFileNamePattern('[randomhash].[extension]')
                     ->onlyOnIndex(),
-                    //->setLabel('coverImage'),
-                    //->setRequired(false),
-            // ImageField::new('coverImage')
-            //         ->setBasePath("/uploads/images")
-            //         ->setUploadDir('public/build/uploads/images')
-            //         ->setUploadedFileNamePattern('[randomhash].[extension]')
-            //         ->setLabel('coverImage'),
             TextField::new('imageFile')
                     ->setFormType(VichImageType::class)
                     ->onlyWhenCreating(),
