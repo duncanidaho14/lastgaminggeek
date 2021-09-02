@@ -2,7 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: 
         ['bootstrap_5_layout.html.twig',
-        '@EasyAdmin/form/bootstrap_4.html.twig',
+        # '@EasyAdmin/form/bootstrap_4.html.twig',
         '@VichUploader/Form/fields.html.twig']
 
 when@test:
