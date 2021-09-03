@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello JeuxvideoController!{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="container">
+        <h1> {{ jeuxvideo.name }} ! ✅</h1>
+        <img src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}">
+        
+        <p>{{jeuxvideo.description|raw}}</p>
+        <h6>Date de création {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h6>
+        {% for jeux in jeuxvideo.categories %}
+            <h2>{{jeux.name}}</h2>
+            <img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
+        {% endfor %}
+
+        <hr>
+        
+            <h3>{{jeuxvideo.user.pseudo}}</h3>
+            <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
+
+        <hr>
+
+        <button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier {{jeuxvideo.name}}</a></button>
+        <hr>
+        <div>
+        {% if app.user.email == jeuxvideo.user.email %}
+            <div>
+                <button class="btn btn-danger"><a href="{{path('edit_article', {'slug': jeuxvideo.slug})}}">Modifier {{jeuxvideo.name}}</a></button>
+            </div>
+        {% else %}
+            <div>
+                <p>Vous ne pouvez modifier cette article</p>
+            </div>
+            
+        {% endif %}
+        </div>
+        
+        salut tt le monde
+    </div>
+</div>
+{% endblock %}

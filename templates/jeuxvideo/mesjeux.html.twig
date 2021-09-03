@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Mes Articles de Jeux Vidéo !
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="container">
+        <h1>Mes Jeux video</h1>
+        <ul>
+        {% for jeux in jeuxvideo %}
+            <li>{{jeux.name}}</li>
+            <img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
+            <div>
+                <button class="btn btn-outline-primary"><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></button>
+                <button class="btn btn-danger"><a href="{{path('article_delete', {'slug': jeux.slug})}}">Supprimer le jeux {{jeux.name}}</a></button>
+            </div>
+        {% endfor %}
+        
+        </ul>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+            retourner au près de nos jeux vidéo
+            <a href="{{path('accueil')}}">Jeux vidéo</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
