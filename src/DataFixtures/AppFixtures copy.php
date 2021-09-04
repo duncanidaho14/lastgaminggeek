@@ -13,7 +13,6 @@ use App\Entity\Comment;
 use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Entity\Address;
 
 class AppFixtures extends Fixture
 {
@@ -79,58 +78,13 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
             $users[] = $user;
-        }
-        
-        for ($addr=0; $addr < 2; $addr++) { 
-            $address = new Address();
-
-            $address->setName($faker->name())
-                    ->setFirstName($faker->firstName())
-                    ->setLastName($faker->lastName())
-                    ->setCompany($faker->company())
-                    ->setAddress($faker->address())
-                    ->setCity($faker->city())
-                    ->setZip($faker->secondaryAddress())
-                    ->setPhone($faker->phoneNumber())
-                    ->setUser($user)
-            ;
-
-            $manager->persist($address);
-        }
+        }   
 
         for ($cat=0; $cat < 5; $cat++) { 
             $categorie = new Categorie();
 
-            
-
-            $categorie->setName($faker->name())
-                        ->setImage('')
-                        
-                        
-            ;
-
-                $manager->persist($categorie);
-
-            
-
-            
-        }
-
-        for ($jeu=0; $jeu < 20; $jeu++) { 
+            for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
-
-                
-
-                $jeuxvideo->setName($faker->name())
-                            ->setSlug($faker->slug())
-                            ->setCoverImage('c7ada067ad55eb09c41c110ccac118ba78df1c84.gif')
-                            ->setDescription($faker->text())
-                            ->setPrice($faker->numberBetween(0, 80))
-                            ->addCategory($categorie)
-                            ->addComment($comment)
-                            ->setUser($user)
-                ;
-
 
                 if (mt_rand(1, 12)) {
                     $comment = new Comment();
@@ -143,9 +97,33 @@ class AppFixtures extends Fixture
                     $manager->persist($comment);
                 }
 
+                $jeuxvideo->setName($faker->name())
+                            ->setSlug($faker->slug())
+                            ->setCoverImage($picture)
+                            ->setDescription($faker->text())
+                            ->setPrice($faker->numberBetween(0, 80))
+                            ->addCategory($categorie)
+                            ->addComment($comment)
+                            ->setUser($user)
+                ;
 
                 $manager->persist($jeuxvideo);
-            }    
+            }
+
+            $categorie->setName($faker->name())
+                        ->setImage($picture)
+                        //->setImageFile('2d541afdd35227a6116806f85d18eaf4a430ccc7.gif')
+                        ->addGame($jeuxvideo)
+            ;
+
+                $manager->persist($categorie);
+
+            
+
+            
+        }
+
+            
         
 
         

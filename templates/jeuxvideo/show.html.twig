@@ -19,7 +19,10 @@
         <hr>
         
             <h3>{{jeuxvideo.user.pseudo}}</h3>
+            {% if jeuxvideo.user.avatar != null %}
             <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
+                
+            {% endif %}
 
         <hr>
 
