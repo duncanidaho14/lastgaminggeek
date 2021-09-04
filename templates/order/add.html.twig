@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Récapitulatif de la commande
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="container">
+            <h1>Recapitulatif de la commande</h1>
+            <a href="" class="btn btn-block btn-outline-danger">Payer</a>
+            <hr>
+            {% set total = null %}
+            <div class="row col-md-12">
+                {% for key, product in basket %}
+                    <div class="col-md-6">
+                        <img src="{{vich_uploader_asset(product.jeuxvideo, 'imageFile')}}" alt="{{product.jeuxvideo.name}}" height="95px">
+                        <h3>{{product.jeuxvideo.name}}</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Prix de {{product.jeuxvideo.name}} est de {{product.jeuxvideo.price|number_format(2, ',', '.')}} € à l'unité</p>
+                        <p>Prix total : {{((product.jeuxvideo.price * product.quantity))|number_format(2, ',', '.')}} €</p>
+                        {% set total = total + (product.jeuxvideo.price * product.quantity) %}
+                    </div>
+                {% endfor %}
+                <hr>
+            </div>
+                <div class="col-md-4 float-right">
+                    <p>sous total : {{(total /100)|number_format(2, ',', '.')}} €</p>
+                    <p>Livraison : {{carrier[0].price|number_format(2, ',', '.')}} €</p>
+                    <p>total : {{((total/100) + carrier[0].price)|number_format(2, ',', '.')}} €</p>
+                </div>
+                <div class="col-md-8">
+                    <a href="" class="btn btn-block btn-outline-danger">Payer</a>
+                </div>
+        </div>
+    </div>
+{% endblock %}

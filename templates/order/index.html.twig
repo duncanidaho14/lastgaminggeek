@@ -10,16 +10,28 @@
 
         <div class="row">
             <div class="col-md-6">
-                <p>Choisir mon adresse de livraison</p>
-                <p>Choisir mon transporteur</p>
+                {% set formHtml  %}
+                    {{ form_start(form, {action:path('order_recap')}) }}
+                    {{ form_end(form) }}
+                {% endset %}
+                {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
-                <p>Récapitulatif de ma commande</p>
-                <p>boutton pour payer</p>
+                <h3>Récapitulatif de ma commande</h3>
+                {% for product in basket %}
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="{{vich_uploader_asset(product.jeuxvideo, 'imageFile')}}" alt="{{product.jeuxvideo.name}}" height="75px;" width="80px" />
+                        </div>
+                        <div class="col-8">{{product.jeuxvideo.name}}</div>
+                        <div class="col-2">{{product.quantity}}</div>
+                    </div>
+                {% endfor %}
+                <a href="">Payer</a>
             </div>
         </div>
+
+        
     </div>
 </div>
 {% endblock %}
