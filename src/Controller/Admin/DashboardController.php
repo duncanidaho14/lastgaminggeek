@@ -6,10 +6,12 @@ use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Categorie;
 use App\Entity\Jeuxvideo;
+use App\Entity\Address;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\JeuxvideoRepository;
+use App\Repository\AddressRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\JeuxvideoCrudController;
@@ -19,6 +21,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
+use App\Entity\Carrier;
+
 
 
 class DashboardController extends AbstractDashboardController
@@ -70,9 +74,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Adresses', 'fas fa-map-marked', Address::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Jeux Video', 'fas fa-tablet-alt', Jeuxvideo::class);
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-tag', Comment::class);
+        yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
