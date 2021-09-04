@@ -44,7 +44,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/commande/recapitulatif", name="order_recap")
+     * @Route("/commande/recapitulatif", name="order_recap", methods={"POST"})
      */
     public function add(Basket $basket, Request $request): Response
     {
@@ -97,10 +97,15 @@ class OrderController extends AbstractController
             }
             
             $this->entityManager->flush();
+
+            return $this->render('order/add.html.twig', [
+                'basket' => $basket->getAllBasket(),
+                'carrier' => $carriers,
+                'delivery' => $delivery_content
+            ]);
         }
-        return $this->render('order/add.html.twig', [
-            'basket' => $basket->getAllBasket(),
-            'carrier' => $carriers
-        ]);
+
+        return $this->redirectToRoute('basket');
+        
     }
 }
