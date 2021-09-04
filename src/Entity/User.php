@@ -128,11 +128,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
+     */
+    private $addresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $orders;
+
     public function __construct()
     {
         $this->grade = new ArrayCollection();
         $this->game = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function __toString()
@@ -239,6 +251,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->pseudo = $pseudo;
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->getFirstName(). ' ' . $this->getLastName();
     }
 
     public function getFirstName(): ?string
@@ -436,5 +453,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (null !== $imageFile) {
             $this->updatedAt = new \DateTime();
         }
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

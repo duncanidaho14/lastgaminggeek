@@ -20,7 +20,7 @@ class JeuxvideoController extends AbstractController
 {
     /**
      * @Route("/mes-jeux/", name="jeuxvideo")
-     * 
+     * @IsGranted("ROLE_USER")
      */
     public function index(JeuxvideoRepository $jeuxvideoInstance): Response
     {
@@ -82,6 +82,7 @@ class JeuxvideoController extends AbstractController
 
     /**
      * @Route("/jeuxvideo/{slug}", name="article")
+     * @IsGranted("ROLE_USER")
      */
     public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, $slug): Response
     {

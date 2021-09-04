@@ -61,6 +61,12 @@
             Prix Total de la commande de jeux video est de : 
                 {{total|number_format(2, ',', '.')}} €
             </div>
+
+            <div>
+                <div>
+                    <a class="btn btn-success" href="{{path('order')}}">Passer la commande</a>
+                </div>
+            </div>
             {% else %}
                 <hr>
                 <p>Votre panier est vide</p>
