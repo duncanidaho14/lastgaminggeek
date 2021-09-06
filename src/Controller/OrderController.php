@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use DateTimeInterface;
 use App\Classes\Basket;
+use App\Entity\Carrier;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +27,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande", name="order")
      */
-    public function index(Basket $basket, Request $request): Response
+    public function index( Basket $basket, Request $request): Response
     {
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
@@ -37,6 +38,7 @@ class OrderController extends AbstractController
         ]);
 
         
+
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             'basket' => $basket->getAllBasket()
@@ -79,6 +81,15 @@ class OrderController extends AbstractController
             $reference = $date->format('d-m-Y'). '-'.\uniqid();
             $order->setReference($reference); 
             $order->setUser($this->getUser());
+
+            // if(!$order->getCarrierName()) {
+            //     $this->addFlash(
+            //         'danger',
+            //         "Vous n'avez pas choisie de transporteur ! X"
+            //     );
+            //     return $this->redirectToRoute('order');
+            // }
+            
             $order->setCarrierName($carriers[0]->getName());
             $order->setCarrierPrice($carriers[0]->getPrice());
             $order->setDelivery($delivery_content);

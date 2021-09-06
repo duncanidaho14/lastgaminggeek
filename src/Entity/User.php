@@ -138,6 +138,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $orders;
 
+    private $fullName;
+
     public function __construct()
     {
         $this->grade = new ArrayCollection();

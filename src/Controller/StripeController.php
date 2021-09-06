@@ -49,7 +49,7 @@ class StripeController extends AbstractController
                         'name' => $product->getProduct(),
                         'images' => []
                     ],
-                    'unit_amount' => $product->getPrice() * 100,
+                    'unit_amount' => $product->getPrice(),
                 ],
                 'quantity' => $product->getQuantity(),
             ];
@@ -86,7 +86,7 @@ class StripeController extends AbstractController
             ],
             'mode' => 'payment',
             'success_url' => $myDomaine . '/commande/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $myDomaine . '/commande/cancel/{CHECKOUT_SESSION_ID}'
+            'cancel_url' => $myDomaine . '/commande/erreur/{CHECKOUT_SESSION_ID}'
         ]);
 
         $order->setStripeSessionId($checkout_session->id);
@@ -100,18 +100,37 @@ class StripeController extends AbstractController
     /**
      * @Route("/commande/success/{stripeSessionId}", name="stripe_success")
      */
-    public function stripeSuccess($stripeSessionId): Response
+    public function stripeSuccess(Basket $basket, $stripeSessionId): Response
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeSessionId($stripeSessionId);
-        dd($order);
-        return $this->render('stripe/success.html.twig', []);
+
+        if (!$order || $order->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute('accueil');
+        }
+
+        $basket->remove();
+        if (!$order->getIsPaid()) {
+            $order->setIsPaid(1);
+            $this->entityManager->flush();
+        }
+        
+        return $this->render('stripe/success.html.twig', [
+            'order' => $order
+        ]);
     }
 
     /**
-     * @Route("/commande/cancel/{stripeSessionId}", name="stripe_cancel")
+     * @Route("/commande/erreur/{stripeSessionId}", name="stripe_cancel")
      */
     public function stripeCancel($stripeSessionId): Response
     {
-        return $this->render('stripe/cancel.html.twig', []);
+        $order = $this->entityManager->getRepository(Order::class)->findOneByStripeSessionId($stripeSessionId);
+
+        if (!$order || $order->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute('accueil');
+        }
+        return $this->render('stripe/erreur.html.twig', [
+            'order' => $order
+        ]);
     }
 }
