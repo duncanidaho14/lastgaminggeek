@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merci de votre achat {{order.carrierName}}!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="container">
+            <h1>Merci pour votre commande {{order.reference}}</h1>
+            <hr>
+            <div class="col-md-12 row">
+                {% for ajout in order.orderDetails %}
+                
+            <div class="w3-card-4 col-md-4">
+                <img src="{{vich_uploader_asset(app.user, 'imageFile')}}" alt="{{ajout.product}}">
+                <div class="w3-container w3-center">
+                    <p>{{order.user.firstName}} {{order.user.lastName}}</p>
+                    <p>{{ajout.product}} / {{ajout.quantity}}</p>
+                    <p>{{order.user.email}} {{order.reference}}</p>
+                    <p>{{ajout.price}}</p>
+                    <p>{{ajout.total}}</p>
+                    <p>{{order.carrierName}} <br>
+                        {{order.carrierPrice|number_format(2, ',', '.')}} €<br>
+                    {{order.delivery|raw}}
+            </p>
+                </div>
+            </div> 
+                {% endfor %}
+            
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{order.isPaid}}" id="flexCheckChecked" checked disabled>
+                <label class="form-check-label" for="flexCheckChecked">
+                    {{order.isPaid}} Payé
+                </label>
+            </div>
+            <div class="row">
+                <a href="{{path('accueil')}}">Retour à l'accueil des jeux video d'occaz</a>
+                <a href="{{path('account')}}">Retour dans votre compte</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
