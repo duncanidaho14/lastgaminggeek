@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use DateTimeInterface;
 use App\Classes\Basket;
+use App\Entity\Carrier;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +27,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande", name="order")
      */
-    public function index(Basket $basket, Request $request): Response
+    public function index( Basket $basket, Request $request): Response
     {
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
@@ -37,6 +38,7 @@ class OrderController extends AbstractController
         ]);
 
         
+
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             'basket' => $basket->getAllBasket()
@@ -48,6 +50,7 @@ class OrderController extends AbstractController
      */
     public function add(Basket $basket, Request $request): Response
     {
+        
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
         }
@@ -59,7 +62,7 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            
+            $date = new \DateTime();
             $carriers = $form->get('carriers')->getData();
             $delivery = $form->get('addresses')->getData();
             
@@ -75,33 +78,46 @@ class OrderController extends AbstractController
             $delivery_content .= '<br/>' . $delivery[0]->getCountry();
 
             $order = new Order();
-            
+            $reference = $date->format('d-m-Y'). '-'.\uniqid();
+            $order->setReference($reference); 
             $order->setUser($this->getUser());
+
+            // if(!$order->getCarrierName()) {
+            //     $this->addFlash(
+            //         'danger',
+            //         "Vous n'avez pas choisie de transporteur ! X"
+            //     );
+            //     return $this->redirectToRoute('order');
+            // }
+            
             $order->setCarrierName($carriers[0]->getName());
-            $order->setCarrierPrice($carriers[0]->getPrice());
+            $order->setCarrierPrice(($carriers[0]->getPrice() / 100));
             $order->setDelivery($delivery_content);
             $order->setIsPaid(0);
 
             $this->entityManager->persist($order);
 
-
+            
+            
             foreach ($basket->getAllBasket() as $product) {
                 $orderDetails = new OrderDetails();
                 $orderDetails->setMyOrder($order);
                 $orderDetails->setProduct($product['jeuxvideo']->getName());
                 $orderDetails->setQuantity($product['quantity']);
-                $orderDetails->setPrice($product['jeuxvideo']->getPrice());
-                $orderDetails->setTotal($product['jeuxvideo']->getPrice() * $product['quantity']);
+                $orderDetails->setPrice(($product['jeuxvideo']->getPrice()));
+                $orderDetails->setTotal(($product['jeuxvideo']->getPrice())* $product['quantity']);
 
                 $this->entityManager->persist($orderDetails);
             }
             
             $this->entityManager->flush();
+            
 
             return $this->render('order/add.html.twig', [
                 'basket' => $basket->getAllBasket(),
                 'carrier' => $carriers,
-                'delivery' => $delivery_content
+                'delivery' => $delivery_content,
+                'reference' => $order->getReference()
             ]);
         }
 

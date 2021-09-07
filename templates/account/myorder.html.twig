@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Mes Commandes!{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="container">
+        <h1>Mes commandes</h1>
+        <a href="{{path('account')}}">Retour</a>
+        <hr>
+        {% if orders|length == 0 %}
+            <p>Vous n'avez pas encore passé de commande, retour <a href="{{path('accueil')}}">au jeux video</a></p>
+        {% else %}
+        <div class="row col-md-12">
+                {% for order in orders %}
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{order.carrierName}}</h5>
+                                <p class="card-text">{{order.carrierPrice}} <br/>
+                                    {{order.delivery|raw}} - {{order.isPaid}} - {{order.reference}}
+                                </p>
+                                <p>Total de la commande : {{((order.carrierPrice + order.getTotal) / 100)|number_format(2, ',', '.')}} €</p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
