@@ -2,17 +2,30 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
+ * @ApiResource(
+ *      attributes={
+ *          "pagination_enabled"=true,
+ *          "items_per_page"=20,
+ *          "order"={"createdAt": "desc"}   
+ *      },
+ *      normalizationContext={
+ *          "groups"={"orders_read"}
+ *      }
+ * )
+ *  @ApiFilter(SearchFilter::class, properties={"carrierName":"partial", "reference", "delivery"})
  */
 class Order
 {
@@ -25,16 +38,19 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("order_read")
      */
     private $carrierName;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("order_read")
      */
     private $carrierPrice;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("order_read")
      */
     private $delivery;
 

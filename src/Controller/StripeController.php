@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 
 class StripeController extends AbstractController
@@ -27,9 +32,13 @@ class StripeController extends AbstractController
     /**
      * @Route("/commande/create-session/{reference}", name="stripe_create_session")
      */
-    public function index(Basket $basket, $reference)
+    public function index(Order $order, Basket $basket, SerializerInterface $serializer, $reference)
     {
-        
+        $serializer = new Serializer(
+            [new GetSetMethodNormalizer(), new ArrayDenormalizer()],
+            [new JsonEncoder()]
+        );
+
         $productsStripe = [];
         $myDomaine = "http://127.0.0.1:8000";
         $order = $this->entityManager->getRepository(Order::class)->findOneByReference($reference);
@@ -93,8 +102,21 @@ class StripeController extends AbstractController
         $this->entityManager->flush();
 
         $response = new JsonResponse(['location' => $checkout_session->url, 'id' => $checkout_session->id]);
-        \json_decode($response);
-        return $response;
+        return $this->redirect($checkout_session->url);
+        
+
+    //     $jsonResponse = $response->getContent();
+    //     $jsonResponse = utf8_encode($jsonResponse);
+    //     $results = json_decode($jsonResponse);
+    //     //$jsonResp = $serializer->deserialize($jsonResponse, Order::class, 'json');
+    //    // print_r($results);
+    //     //return $this->json($results, 201, [], []);
+    //     return $this->render('account/commande.html.twig', [
+    //         'results' => $results,
+    //         'basket' => $basket,
+    //         'order' => $order,
+    //         'location' => $response
+    //     ]);
     }
 
     /**

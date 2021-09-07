@@ -47,6 +47,19 @@ class AccountController extends AbstractController
     }
 
     /**
+     * @Route("/compte/mes-commandes/{reference}", name="account_order_show")
+     */
+    public function showMyOrder(EntityManagerInterface $manager, $reference): Response
+    {
+        $orders = $manager->getRepository(Order::class)->findOrdersSuccess($this->getUser());
+
+        return $this->render('account/order_show.html.twig', [
+            'orders' => $orders,
+            
+        ]);
+    }
+
+    /**
      * @Route("/compte/mes-commandes", name="account_order")
      */
     public function myOrder(EntityManagerInterface $manager): Response
