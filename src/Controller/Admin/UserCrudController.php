@@ -23,31 +23,31 @@ class UserCrudController extends AbstractCrudController
     }
 
     
-    // public function configureFields(string $pageName): iterable
-    // {
-    //     return [
-    //         EmailField::new('email'),
-    //         TextField::new('pseudo'),
-    //         TextField::new('firstName'),
-    //         TextField::new('lastName'),
-    //         BooleanField::new('isVerified'),
-    //         BooleanField::new('agreeTerms'),
-    //         ImageField::new('avatar')
-    //             ->setBasePath('uploads/user')
-    //             ->setUploadDir('public/uploads/user/')
-    //             ->setUploadedFileNamePattern('[randomhash].[extension]'),
-    //         TextField::new('imageFile')
-    //             ->setFormType(VichImageType::class),
-    //         DateField::new('createdAt'),
-    //         DateField::new('updatedAt'),
-    //         SlugField::new('slug')
-    //             ->setTargetFieldName('firstName', 'lastName')
-    //             ->hideOnIndex(),
-    //         // AssociationField::new('grade'),
-    //         // AssociationField::new('game'),
-    //         // AssociationField::new('comments')
-    //     ];
-    // }
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            EmailField::new('email'),
+            TextField::new('pseudo'),
+            TextField::new('firstName'),
+            TextField::new('lastName'),
+            BooleanField::new('isVerified'),
+            BooleanField::new('agreeTerms'),
+            ImageField::new('avatar')
+                ->setBasePath('uploads/user')
+                ->setUploadDir('public/uploads/user/')
+                ->setUploadedFileNamePattern('[randomhash].[extension]'),
+            TextField::new('imageFile')
+                ->setFormType(VichImageType::class),
+            DateField::new('createdAt'),
+            DateField::new('updatedAt'),
+            SlugField::new('slug')
+                ->setTargetFieldName('firstName', 'lastName')
+                ->hideOnIndex(),
+            // AssociationField::new('grade'),
+            // AssociationField::new('game'),
+            // AssociationField::new('comments')
+        ];
+    }
 
     // protected function persistUserEntity($user)
     // {

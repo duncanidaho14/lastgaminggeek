@@ -37,7 +37,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{path('account')}}">Mon Compte</a>
-                    <a class="dropdown-item" href="{{path('order')}}">Ma Commande</a>
+                    <a class="dropdown-item" href="{{path('basket')}}">Mon Panier</a>
+                    <a class="dropdown-item" href="{{path('account_order')}}">Mes Commandes de jeux video</a>
                     <a class="dropdown-item" href="{{path('account_address')}}">Mes Adresses</a>
                     <a class="dropdown-item" href="{{path('jeuxvideo', {'slug': app.user.slug})}}">Mes Jeux video</a>
                     <a class="dropdown-item" href="{{path('account_change_password')}}">Changer le mot de passe</a>

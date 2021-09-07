@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Form\ChangePasswordType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Repository\UserRepository;
+
 
 class AccountController extends AbstractController
 {
@@ -44,6 +46,17 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/compte/mes-commandes", name="account_order")
+     */
+    public function myOrder(EntityManagerInterface $manager): Response
+    {
+        $orders = $manager->getRepository(Order::class)->findOrdersSuccess($this->getUser());
+
+        return $this->render('account/myorder.html.twig', [
+            'orders' => $orders
+        ]);
+    }
 
     /**
      * Afficher le compte utilisateur
