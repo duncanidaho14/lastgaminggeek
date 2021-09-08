@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CarrierRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CarrierRepository::class)
@@ -34,18 +35,26 @@ class Carrier
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom du transporteur est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom du transporteur doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le nom du transporteur doit faire moins de 255 caracteres")
      * @Groups({"carrier_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="La description du transporteur est obligatoire")
+     * @Assert\Length(min=3, minMessage="La description du transporteur doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="La description du transporteur doit faire moins de 255 caracteres")
      * @Groups({"carrier_read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le prix du transporteur est obligatoire")
+     * @Assert\Type("float")
      * @Groups({"carrier_read"})
      */
     private $price;

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderDetailsRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OrderDetailsRepository::class)
@@ -34,24 +35,30 @@ class OrderDetails
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le produit est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le produit doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le produit doit faire moins de 255 caracteres")
      * @Groups({"order_details_read"})
      */
     private $product;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      * @Groups({"order_details_read"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Type("float")
      * @Groups({"order_details_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Type("float")
      * @Groups({"order_details_read"})
      */
     private $total;

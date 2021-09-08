@@ -6,11 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -49,6 +51,9 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom du transporteur est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom du transporteur doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le nom du transporteur doit faire moins de 255 caracteres")
      * @Groups({"order_read"})
      * 
      */
@@ -56,12 +61,15 @@ class Order
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
      * @Groups({"order_read"})
      */
     private $carrierPrice;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom du jeux video doit faire entre 3 et 255 caracteres")
      * @Groups({"order_read"})
      */
     private $delivery;
@@ -69,11 +77,15 @@ class Order
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"order_read"})
+     * @ApiSubresource()
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
+     * @Groups({"order_read", "order_details_read"})
+     * @ApiSubresource()
      */
     private $orderDetails;
 
