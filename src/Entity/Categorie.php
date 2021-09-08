@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -18,7 +19,18 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
  * @Vich\Uploadable
- * @ApiResource
+ * @ApiResource(
+ *      collectionOperations={
+ *          "GET"={"path"="/categories"}, "POST"={"path"="/categorie/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/categorie/{id}"}, "DELETE", "PATCH"={"path"="/categorie/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"categorie_read"}
+ *      }
+ * )
  */
 class Categorie
 {
@@ -26,16 +38,19 @@ class Categorie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"categorie_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"categorie_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"categorie_read"})
      */
     private $image;
 
@@ -62,6 +77,7 @@ class Categorie
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"categorie_read"})
      */
     private $createdAt;
 
@@ -70,6 +86,7 @@ class Categorie
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"categorie_read"})
     */
     private $updatedAt;
 

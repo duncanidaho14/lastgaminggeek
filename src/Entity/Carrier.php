@@ -2,11 +2,25 @@
 
 namespace App\Entity;
 
-use App\Repository\CarrierRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CarrierRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CarrierRepository::class)
+ * @ApiResource(
+ *       collectionOperations={
+ *          "GET"={"path"="/transporteurs"}, "POST"={"path"="/transporteur/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/transporteur/{id}"}, "DELETE", "PATCH"={"path"="/transporteur/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"carrier_read"}
+ *      }
+ * )
  */
 class Carrier
 {
@@ -14,21 +28,25 @@ class Carrier
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"carrier_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"carrier_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"carrier_read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"carrier_read"})
      */
     private $price;
 

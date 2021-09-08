@@ -13,6 +13,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -30,7 +31,16 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @Vich\Uploadable
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource(
- *      
+ *      collectionOperations={
+ *          "GET"={"path"="/utilisateurs"}, "POST"={"path"="/utilisateur/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/utilisateur/{id}"}, "DELETE", "PATCH"={"path"="/utilisateur/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"user_read"}
+ *      }
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -39,11 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_read", "jeux_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_read", "jeux_read"})
      */
     private $email;
 
@@ -60,21 +72,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"user_read", "jeux_read"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Groups({"user_read", "jeux_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Groups({"user_read", "jeux_read"})
      */
     private $lastName;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_read", "jeux_read"})
      */
     private $avatar;
 
@@ -93,6 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Jeuxvideo::class, mappedBy="user", orphanRemoval=true)
+     * @Groups({"user_read"})
      */
     private $game;
 
@@ -103,11 +120,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"user_read"})
      */
     private $isVerified = false;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"user_read"})
      */
     private $agreeTerms;
 
@@ -124,6 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"user_read"})
      */
     private $createdAt;
 
@@ -132,6 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
+     * @Groups({"user_read"})
     */
     private $updatedAt;
 
