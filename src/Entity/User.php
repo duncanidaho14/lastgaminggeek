@@ -49,13 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $email;
 
@@ -72,25 +72,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=60)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=60)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $lastName;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "jeux_read"})
      */
     private $avatar;
 
@@ -109,6 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Jeuxvideo::class, mappedBy="user", orphanRemoval=true)
+     * @Groups({"user_read"})
      */
     private $game;
 

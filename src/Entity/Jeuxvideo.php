@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\JeuxvideoRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -39,19 +40,19 @@ class Jeuxvideo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=120)
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $coverImage;
 
@@ -66,29 +67,33 @@ class Jeuxvideo
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="game")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jeux_read"})
+     * @ApiSubresource()
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="game")
+     * @Groups({"jeux_read"})
      */
     private $categories;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="game", orphanRemoval=true)
+     * @Groups({"jeux_read"})
      */
     private $comments;
 
@@ -103,7 +108,7 @@ class Jeuxvideo
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"jeux_read"})
+     * @Groups({"jeux_read", "user_read"})
      */
     private $createdAt;
 
