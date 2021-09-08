@@ -2,11 +2,25 @@
 
 namespace App\Entity;
 
-use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AddressRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
+ * @ApiResource(
+ *      collectionOperations={
+ *          "GET"={"path"="/adresses"}, "POST"={"path"="/adresse/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/adresse/{id}"}, "DELETE", "PATCH"={"path"="/adresse/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"address_read"}
+ *      }
+ * )
  */
 class Address
 {
@@ -14,51 +28,61 @@ class Address
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"address_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"address_read"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address_read"})
      */
     private $phone;
 

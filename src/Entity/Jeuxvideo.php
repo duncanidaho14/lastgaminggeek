@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\JeuxvideoRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -19,7 +20,18 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 /**
  * @ORM\Entity(repositoryClass=JeuxvideoRepository::class)
  * @Vich\Uploadable
- * @ApiResource
+ * @ApiResource(
+ *      collectionOperations={
+ *          "GET"={"path"="/jeuxvideos"}, "POST"={"path"="/jeuxvideo/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/jeuxvideo/{id}"}, "DELETE", "PATCH"={"path"="/jeuxvideo/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"jeux_read"}
+ *      }
+ * )
  */
 class Jeuxvideo
 {
@@ -27,16 +39,19 @@ class Jeuxvideo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"jeux_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=120)
+     * @Groups({"jeux_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"jeux_read"})
      */
     private $coverImage;
 
@@ -51,11 +66,13 @@ class Jeuxvideo
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"jeux_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"jeux_read"})
      */
     private $description;
 
@@ -86,6 +103,7 @@ class Jeuxvideo
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"jeux_read"})
      */
     private $createdAt;
 
@@ -94,6 +112,7 @@ class Jeuxvideo
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"jeux_read"})
     */
     private $updatedAt;
 

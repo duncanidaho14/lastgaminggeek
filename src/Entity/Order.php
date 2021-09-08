@@ -7,6 +7,7 @@ use App\Repository\OrderRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
@@ -16,41 +17,52 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
  * @ApiResource(
+ *      collectionOperations={
+ *          "GET"={"path"="/commandes"}, "POST"={"path"="/commande/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/commande/{id}"}, "DELETE", "PATCH"={"path"="/commande/{id}"} 
+ *      },
  *      attributes={
  *          "pagination_enabled"=true,
  *          "items_per_page"=20,
  *          "order"={"createdAt": "desc"}   
  *      },
  *      normalizationContext={
- *          "groups"={"orders_read"}
- *      }
+ *          "groups"={"order_read"}
+ *      },
+ *      
  * )
  *  @ApiFilter(SearchFilter::class, properties={"carrierName":"partial", "reference", "delivery"})
  */
+
 class Order
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"order_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("order_read")
+     * @Groups({"order_read"})
+     * 
      */
     private $carrierName;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups("order_read")
+     * @Groups({"order_read"})
      */
     private $carrierPrice;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("order_read")
+     * @Groups({"order_read"})
      */
     private $delivery;
 
@@ -67,17 +79,20 @@ class Order
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"order_read"})
      */
     private $isPaid;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"order_read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"order_read"})
      */
     private $reference;
 

@@ -5,12 +5,24 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      collectionOperations={
+ *          "GET"={"path"="/commentaires"}, "POST"={"path"="/commentaire/{id}"},
+ *          
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/commentaire/{id}"}, "DELETE", "PATCH"={"path"="/commentaire/{id}"} 
+ *      },
+ *      normalizationContext={
+ *          "groups"={"comment_read"}
+ *      }
+ * )
  */
 class Comment
 {
@@ -18,11 +30,13 @@ class Comment
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"comment_read"})
      */
     private $id;
     
     /**
      * @ORM\Column(type="text")
+     * @Groups({"comment_read"})
      */
     private $comment;
 
@@ -40,6 +54,7 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=170)
+     * @Groups({"comment_read"})
      */
     private $title;
 
@@ -54,6 +69,7 @@ class Comment
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"comment_read"})
      */
     private $createdAt;
 
@@ -62,6 +78,7 @@ class Comment
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
+     * @Groups({"comment_read"})
     */
     private $updatedAt;
 

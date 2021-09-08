@@ -30,7 +30,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @Vich\Uploadable
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource(
- *      
+ *      normalizationContext={
+ *          "groups"={"user_read"}
+ *      }
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
