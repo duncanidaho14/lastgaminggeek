@@ -7,6 +7,7 @@ use App\Repository\CommentRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
