@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $id;
 
@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="L'adresse email est obligatoire")
      * @Assert\Email(message="L'adresse email doit être valide")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $email;
 
@@ -81,7 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message="Le pseudo est obligatoire")
      * @Assert\Length(min=3, minMessage="Le pseudo doit faire entre 3 et 255 caracteres",
      *                max=255, maxMessage="Le pseudo doit faire moins de 255 caracteres")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $pseudo;
 
@@ -90,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message="Le prénom est obligatoire")
      * @Assert\Length(min=3, minMessage="Le prénom doit faire entre 3 et 255 caracteres",
      *                max=255, maxMessage="Le prénom doit faire moins de 255 caracteres")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $firstName;
 
@@ -99,14 +99,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres",
      *                max=255, maxMessage="Le nom doit faire moins de 255 caracteres")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $lastName;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Votre avatar est obligatoire")
-     * @Groups({"user_read", "jeux_read"})
+     * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $avatar;
 
@@ -126,7 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Jeuxvideo::class, mappedBy="user", orphanRemoval=true)
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
      */
     private $game;
 
@@ -137,14 +137,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
      */
     private $isVerified = false;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\IsFalse(message="Vous avez oublié de cocher cette case")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
      */
     private $agreeTerms;
 
@@ -161,7 +161,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
      */
     private $createdAt;
 
@@ -170,13 +170,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
     */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
-     * @Groups({"user_read"})
+     * @Groups({"user_read", "order_read"})
      */
     private $addresses;
 

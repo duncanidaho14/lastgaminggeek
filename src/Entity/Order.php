@@ -45,7 +45,7 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "user_read"})
      */
     private $id;
 
@@ -54,7 +54,7 @@ class Order
      * @Assert\NotBlank(message="Le nom du transporteur est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom du transporteur doit faire entre 3 et 255 caracteres",
      *                max=255, maxMessage="Le nom du transporteur doit faire moins de 255 caracteres")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "user_read"})
      * 
      */
     private $carrierName;
@@ -62,7 +62,7 @@ class Order
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "user_read"})
      */
     private $carrierPrice;
 
@@ -70,7 +70,7 @@ class Order
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom du jeux video doit faire entre 3 et 255 caracteres")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "user_read"})
      */
     private $delivery;
 
