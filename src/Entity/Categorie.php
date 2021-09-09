@@ -16,6 +16,8 @@ use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
  * @Vich\Uploadable
@@ -44,6 +46,9 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de la categorie est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom de la categorie doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le nom de la categorie doit faire moins de 255 caracteres")
      * @Groups({"categorie_read"})
      */
     private $name;
@@ -63,6 +68,7 @@ class Categorie
 
     /**
      * @ORM\ManyToMany(targetEntity=Jeuxvideo::class, inversedBy="categories")
+     * @Groups({"categorie_read"})
      */
     private $game;
 

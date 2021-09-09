@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=JeuxvideoRepository::class)
@@ -46,12 +47,16 @@ class Jeuxvideo
 
     /**
      * @ORM\Column(type="string", length=120)
+     * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom du jeux video doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le nom du jeux video doit faire moins de 255 caracteres")
      * @Groups({"jeux_read", "user_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
      * @Groups({"jeux_read", "user_read"})
      */
     private $coverImage;
@@ -67,12 +72,16 @@ class Jeuxvideo
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le prix du jeux video est obligatoire")
+     * 
      * @Groups({"jeux_read", "user_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="La description du jeux video est obligatoire")
+     * @Assert\Length(min=3, minMessage="La description du jeux video doit faire entre 3 et 255 caracteres")
      * @Groups({"jeux_read", "user_read"})
      */
     private $description;
@@ -80,6 +89,7 @@ class Jeuxvideo
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="game")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="L'utilisateur du jeux video est obligatoire")
      * @Groups({"jeux_read"})
      * @ApiSubresource()
      */

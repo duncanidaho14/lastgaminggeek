@@ -16,7 +16,7 @@
                 <div class="alert alert-success">
                     {{ message }}
                     retourner au près de l'article
-                    <a href="{{path('article', {'slug': jeuxvideo.slug})}}">{{jeuxvideo.name}}</a>
+                    <a href="{{path('article_show', {'slug': jeuxvideo.slug})}}">{{jeuxvideo.name}}</a>
                 </div>
             {% endfor %}
         </div>

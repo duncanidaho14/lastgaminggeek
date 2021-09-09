@@ -31,12 +31,17 @@
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Rechercher</button>
         </form>
         {% if app.user %}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="{{path('create_article')}}" class="nav-link">Mettre en vente mon jeux video</a>
+            </li>
+        </ul>
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Information Personnel
+                    Mon Compte de Gamer Geek
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{path('account')}}">Mon Compte</a>
+                    
                     <a class="dropdown-item" href="{{path('basket')}}">Mon Panier</a>
                     <a class="dropdown-item" href="{{path('account_order')}}">Mes Commandes de jeux video</a>
                     <a class="dropdown-item" href="{{path('account_address')}}">Mes Adresses</a>
