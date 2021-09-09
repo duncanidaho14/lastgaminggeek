@@ -66,7 +66,7 @@ class OrderDetails
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"order_details_read"})
+     * 
      */
     private $myOrder;
 
