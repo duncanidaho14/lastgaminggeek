@@ -18,7 +18,7 @@
                         <p class="jeux-description">{{jeux.description|raw}}</p>
                         <h6>Utilsateurs :</h6>
                         <h4 class="jeux-user">{{jeux.user.firstName}} {{jeux.user.lastName}} </h4>
-                        <img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px">
+                        <img src="{{vich_uploader_asset(jeux.user, 'imageFile')}}" alt="{{jeux.user.pseudo}}" height="50px">
                         <h6>Categorie :</h6>
                         {% for categorie in jeux.categories %}
                             <h4 class="jeux-categorie">{{categorie.name}}</h4>

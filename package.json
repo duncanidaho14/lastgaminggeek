@@ -19,8 +19,23 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.4",
+        "admin-lte": "3.1",
         "autoprefixer": "^10.3.2",
+        "bootstrap-slider": "^11.0.2",
+        "chart.js": "^3.5.1",
+        "font-awesome": "^4.7.0",
+        "icheck-bootstrap": "^3.0.1",
+        "inputmask": "^5.0.6",
+        "ion-rangeslider": "^2.3.1",
+        "jquery-knob": "^1.2.11",
+        "jquery-overlay": "^0.0.5",
+        "jquery-ui": "^1.12.1",
+        "jqvmap": "^1.5.1",
+        "overlayscrollbars": "^1.13.1",
         "postcss-loader": "^6.1.1",
-        "sass-migrator": "^1.5.2"
+        "sass-migrator": "^1.5.2",
+        "sparkline": "^0.2.0",
+        "tempusdominus": "^5.16.0"
     }
 }

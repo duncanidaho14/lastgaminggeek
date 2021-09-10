@@ -14,10 +14,16 @@
 // or you can include specific pieces
 
 import './styles/app.scss';
+import 'jquery';
 import './bootstrap';
-
-
-
+import '@popperjs/core';
+import 'bootstrap';
+import '@fortawesome/fontawesome-free';
+import 'daterangepicker';
+import 'tempusdominus';
+import 'icheck-bootstrap';
+import 'jqvmap';
+import 'admin-lte';
 
 
 // start the Stimulus application
