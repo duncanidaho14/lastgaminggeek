@@ -37,6 +37,9 @@ class Comment
     
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le commentaire est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le commentaire doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le commentaire doit faire moins de 255 caracteres")
      * @Groups({"comment_read"})
      */
     private $comment;
@@ -44,17 +47,22 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"comment_read"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jeuxvideo::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"comment_read"})
      */
     private $game;
 
     /**
      * @ORM\Column(type="string", length=170)
+     * @Assert\NotBlank(message="Le titre du commentaire est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le titre du commentaire doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le titre du commentaire doit faire moins de 255 caracteres")
      * @Groups({"comment_read"})
      */
     private $title;

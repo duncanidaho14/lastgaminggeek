@@ -6,13 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo; // Gere le slug
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -44,37 +45,47 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"order_read"})
+     * @Assert\NotBlank(message="Le nom du transporteur est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom du transporteur doit faire entre 3 et 255 caracteres",
+     *                max=255, maxMessage="Le nom du transporteur doit faire moins de 255 caracteres")
+     * @Groups({"order_read", "user_read"})
      * 
      */
     private $carrierName;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"order_read"})
+     * 
+     * @Groups({"order_read", "user_read"})
      */
     private $carrierPrice;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"order_read"})
+     * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
+     * 
+     * @Groups({"order_read", "user_read"})
      */
     private $delivery;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"order_read"})
+     * @ApiSubresource()
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
+     * @Groups({"order_read", "order_details_read"})
+     * @ApiSubresource()
      */
     private $orderDetails;
 

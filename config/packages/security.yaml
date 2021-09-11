@@ -42,4 +42,3 @@ security:
         - { path: ^/compte, roles: ROLE_USER }
         - { path: ^/commande, roles: ROLE_USER }
 
-    

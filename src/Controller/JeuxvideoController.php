@@ -81,8 +81,8 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/jeuxvideo/{slug}", name="article")
-     * @IsGranted("ROLE_USER")
+     * @Route("/jeuxvideo/{slug}", name="article_show")
+     * 
      */
     public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, $slug): Response
     {

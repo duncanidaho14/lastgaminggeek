@@ -35,18 +35,22 @@ class Carrier
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"carrier_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * 
      * @Groups({"carrier_read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * 
      * @Groups({"carrier_read"})
      */
     private $price;

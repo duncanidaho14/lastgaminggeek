@@ -35,54 +35,63 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
      * @Groups({"address_read"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"address_read"})
      */
     private $phone;
@@ -90,6 +99,7 @@ class Address
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"address_read"})
      */
     private $user;
 

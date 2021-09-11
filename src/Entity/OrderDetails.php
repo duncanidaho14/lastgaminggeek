@@ -29,37 +29,43 @@ class OrderDetails
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"order_details_read"})
+     * @Groups({"order_details_read", "order_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"order_details_read"})
+     * @Assert\NotBlank(message="Le produit est obligatoire")
+     * 
+     * @Groups({"order_details_read", "order_read"})
      */
     private $product;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"order_details_read"})
+     * 
+     * @Groups({"order_details_read", "order_read"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"order_details_read"})
+     * 
+     * @Groups({"order_details_read", "order_read"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"order_details_read"})
+     * 
+     * @Groups({"order_details_read", "order_read"})
      */
     private $total;
 
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
      * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $myOrder;
 
