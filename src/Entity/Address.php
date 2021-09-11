@@ -35,73 +35,63 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le nom de l'adresse est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le nom de l'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Le nom de l'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Votre prenom doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Votre prenom doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Votre nom doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Votre nom doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(min=3, minMessage="Le nom de votre entreprise doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Le nom de votre entreprise doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="L'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="L'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Le code postal de l'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Le code postal de l'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="La ville de l'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="La ville de l'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Le pays de l'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Le pays de l'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Votre numéro de téléphone doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Votre numéro de téléphone doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $phone;

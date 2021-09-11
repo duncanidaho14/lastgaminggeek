@@ -69,7 +69,7 @@ class Order
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le nom du jeux video doit faire entre 3 et 255 caracteres")
+     * 
      * @Groups({"order_read", "user_read"})
      */
     private $delivery;
