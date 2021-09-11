@@ -21,14 +21,14 @@ class OrderType extends AbstractType
                 'required' => true,
                 'class' => Address::class,
                 'choices' => $user->getAddresses(),
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => true
             ])
             ->add('carriers', EntityType::class, [
                 'label' => "Choisissez vôtre transpoteur",
                 'required' => true,
                 'class' => Carrier::class,
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => true
             ])
             ->add('submit', SubmitType::class, [

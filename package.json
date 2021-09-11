@@ -28,6 +28,7 @@
         "icheck-bootstrap": "^3.0.1",
         "inputmask": "^5.0.6",
         "ion-rangeslider": "^2.3.1",
+        "jquery": "^3.6.0",
         "jquery-knob": "^1.2.11",
         "jquery-overlay": "^0.0.5",
         "jquery-ui": "^1.12.1",

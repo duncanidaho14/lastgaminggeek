@@ -89,7 +89,7 @@ class Jeuxvideo
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="game")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="L'utilisateur du jeux video est obligatoire")
+     * 
      * @Groups({"jeux_read"})
      * @ApiSubresource()
      */

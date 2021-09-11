@@ -14,6 +14,7 @@ use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Address;
+use App\Entity\Order;
 
 class AppFixtures extends Fixture
 {
@@ -90,6 +91,7 @@ class AppFixtures extends Fixture
                     ->setCompany($faker->company())
                     ->setAddress($faker->address())
                     ->setCity($faker->city())
+                    ->setCountry($faker->country())
                     ->setZip($faker->secondaryAddress())
                     ->setPhone($faker->phoneNumber())
                     ->setUser($user)
@@ -98,54 +100,68 @@ class AppFixtures extends Fixture
             $manager->persist($address);
         }
 
-        for ($cat=0; $cat < 5; $cat++) { 
-            $categorie = new Categorie();
+        for ($ord=0; $ord < \mt_rand(1, 5); $ord++) { 
+            $order = new Order();
 
-            
-
-            $categorie->setName($faker->name())
-                        ->setImage('')
-                        
-                        
+            $order->setCarrierName($faker->name())
+                    ->setCarrierPrice($faker->numberBetween(0, 80))
+                    ->setIsPaid(mt_rand(0, 1))
+                    ->setUser($user)
+                    ->setDelivery($faker->name())
+                    ->setReference($faker->numberBetween(0, 1000))
             ;
 
-                $manager->persist($categorie);
-
-            
-
-            
+            $manager->persist($order);
         }
 
-        for ($jeu=0; $jeu < 20; $jeu++) { 
-                $jeuxvideo = new Jeuxvideo();
+        // for ($cat=0; $cat < 5; $cat++) { 
+        //     $categorie = new Categorie();
+
+            
+
+        //     $categorie->setName($faker->name())
+        //                 ->setImage('')
+                        
+                        
+        //     ;
+
+        //         $manager->persist($categorie);
+
+            
+
+            
+        // }
+
+        // for ($jeu=0; $jeu < 20; $jeu++) { 
+        //         $jeuxvideo = new Jeuxvideo();
 
                 
 
-                $jeuxvideo->setName($faker->name())
-                            ->setSlug($faker->slug())
-                            ->setCoverImage('c7ada067ad55eb09c41c110ccac118ba78df1c84.gif')
-                            ->setDescription($faker->text())
-                            ->setPrice($faker->numberBetween(0, 80))
-                            ->addCategory($categorie)
-                            ->addComment($comment)
-                            ->setUser($user)
-                ;
+        //         $jeuxvideo->setName($faker->name())
+        //                     ->setSlug($faker->slug())
+        //                     ->setCoverImage('c7ada067ad55eb09c41c110ccac118ba78df1c84.gif')
+        //                     ->setDescription($faker->text())
+        //                     ->setPrice($faker->numberBetween(0, 80))
+        //                     ->addCategory($categorie)
+        //                     ->addComment($comment)
+        //                     ->setUser($user)
+        //         ;
 
 
-                if (mt_rand(1, 12)) {
-                    $comment = new Comment();
+        //         if (mt_rand(1, 12)) {
+        //             $comment = new Comment();
 
-                    $comment->setTitle($faker->company())
-                            ->setComment($faker->text())
-                            ->setGame($jeuxvideo)
-                            ->setUser($user)
-                    ;
-                    $manager->persist($comment);
-                }
+        //             $comment->setTitle($faker->company())
+        //                     ->setComment($faker->text())
+        //                     ->setGame($jeuxvideo)
+        //                     ->setUser($user)
+        //             ;
+        //             $manager->persist($comment);
+        //         }
 
 
-                $manager->persist($jeuxvideo);
-            }    
+        //         $manager->persist($jeuxvideo);
+        //     }    
         
 
         

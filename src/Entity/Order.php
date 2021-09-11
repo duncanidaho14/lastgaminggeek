@@ -20,11 +20,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Table(name="`order`")
  * @ApiResource(
  *      collectionOperations={
- *          "GET"={"path"="/commandes"}, "POST"={"path"="/commande/{id}"},
+ *          "GET"={"path"="/commandes"}, "POST"={"path"="/commande/{id}"}
  *          
  *      },
  *      itemOperations={
- *          "GET"={"path"="/commande/{id}"}, "DELETE", "PATCH"={"path"="/commande/{id}"} 
+ *          "GET"={"path"="/commande/{id}"}, "DELETE", "PATCH"={"path"="/commande/{id}"}, "POST"={"path"="/commande/recapitulatif"}
  *      },
  *      attributes={
  *          "pagination_enabled"=true,
@@ -34,7 +34,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      normalizationContext={
  *          "groups"={"order_read"}
  *      },
- *      
+ *      denormalizationContext={
+ *          "groups"={"order_write"}
+ *      }
  * )
  *  @ApiFilter(SearchFilter::class, properties={"carrierName":"partial", "reference", "delivery"})
  */
@@ -54,7 +56,7 @@ class Order
      * @Assert\NotBlank(message="Le nom du transporteur est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom du transporteur doit faire entre 3 et 255 caracteres",
      *                max=255, maxMessage="Le nom du transporteur doit faire moins de 255 caracteres")
-     * @Groups({"order_read", "user_read"})
+     * @Groups({"order_read", "user_read", "order_write"})
      * 
      */
     private $carrierName;
@@ -62,7 +64,7 @@ class Order
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
-     * @Groups({"order_read", "user_read"})
+     * @Groups({"order_read", "user_read", "order_write"})
      */
     private $carrierPrice;
 
@@ -70,7 +72,7 @@ class Order
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom du jeux video doit faire entre 3 et 255 caracteres")
-     * @Groups({"order_read", "user_read"})
+     * @Groups({"order_read", "user_read", "order_write"})
      */
     private $delivery;
 
@@ -84,14 +86,14 @@ class Order
 
     /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
-     * @Groups({"order_read", "order_details_read"})
+     * @Groups({"order_read", "order_details_read", "order_write"})
      * @ApiSubresource()
      */
     private $orderDetails;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "order_write"})
      */
     private $isPaid;
 
@@ -104,12 +106,13 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"order_read"})
+     * @Groups({"order_read", "order_write"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"order_read", "order_write"})
      */
     private $stripeSessionId;
 

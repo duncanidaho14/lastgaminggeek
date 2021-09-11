@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=OrderDetailsRepository::class)
  * @ApiResource(
  *      collectionOperations={
- *          "GET"={"path"="/factures"}, "POST"={"path"="/facture/{id}"},
+ *          "GET"={"path"="/factures"}, "POST"={"path"="/facture/{id}"}
  *          
  *      },
  *      itemOperations={
- *          "GET"={"path"="/facture/{id}"}, "DELETE", "PATCH"={"path"="/facture/{id}"} 
+ *          "GET"={"path"="/facture/{id}"}, "DELETE", "PATCH"={"path"="/facture/{id}"}, "POST"={"path"="/commande/recapitulatif"} 
  *      },
  *      normalizationContext={
  *          "groups"={"order_details_read"}

@@ -20,6 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      },
  *      normalizationContext={
  *          "groups"={"address_read"}
+ *      },
+ *      denormalizationContext={
+ *          "groups"={"address_write"}
  *      }
  * )
  */
@@ -92,8 +95,7 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, minMessage="Le pays de l'adresse doit faire entre 3 et 255 caracteres",
-     *                max=255, maxMessage="Le pays de l'adresse doit faire moins de 255 caracteres")
+     * 
      * @Groups({"address_read"})
      */
     private $country;

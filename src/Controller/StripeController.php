@@ -32,12 +32,9 @@ class StripeController extends AbstractController
     /**
      * @Route("/commande/create-session/{reference}", name="stripe_create_session")
      */
-    public function index(Order $order, Basket $basket, SerializerInterface $serializer, $reference)
+    public function index(Order $order, Basket $basket, $reference)
     {
-        $serializer = new Serializer(
-            [new GetSetMethodNormalizer(), new ArrayDenormalizer()],
-            [new JsonEncoder()]
-        );
+        
 
         $productsStripe = [];
         $myDomaine = "http://127.0.0.1:8000";
