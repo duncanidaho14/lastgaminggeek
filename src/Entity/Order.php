@@ -61,7 +61,7 @@ class Order
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\NotBlank(message="Le nom du jeux video est obligatoire")
+     * 
      * @Groups({"order_read", "user_read"})
      */
     private $carrierPrice;
