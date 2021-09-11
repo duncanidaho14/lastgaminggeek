@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OrderController extends AbstractController
@@ -26,6 +27,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("/commande", name="order")
+     * @IsGranted("ROLE_USER")
      */
     public function index( Basket $basket, Request $request): Response
     {
@@ -47,6 +49,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("/commande/recapitulatif", name="order_recap", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function add(Basket $basket, Request $request): Response
     {
