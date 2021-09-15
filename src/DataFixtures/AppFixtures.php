@@ -92,6 +92,7 @@ class AppFixtures extends Fixture
                     ->setCity($faker->city())
                     ->setZip($faker->secondaryAddress())
                     ->setPhone($faker->phoneNumber())
+                    ->setCountry($faker->country())
                     ->setUser($user)
             ;
 
@@ -116,14 +117,23 @@ class AppFixtures extends Fixture
             
         }
 
+
         for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
 
-                
+                for($com = 0;$com < 10; $com++){
+                    $comment = new Comment();
+                    $comment->setTitle($faker->name())
+                            ->setComment($faker->text())
+                            ->setUser($user)
+                            ->setGame($jeuxvideo)
+                    ;           
+                    $manager->persist($comment);
+                }
 
                 $jeuxvideo->setName($faker->name())
-                            ->setSlug($faker->slug())
-                            ->setCoverImage('c7ada067ad55eb09c41c110ccac118ba78df1c84.gif')
+                            
+                            ->setCoverImage($faker->imageUrl())
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
                             ->addCategory($categorie)
@@ -147,6 +157,7 @@ class AppFixtures extends Fixture
                 $manager->persist($jeuxvideo);
             }    
         
+           
 
         
         
