@@ -1,3 +1,11 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+# "http://127.0.0.1:8000/":
+#         type: upstream
+#         upstream: "twig:http"
+
+
+# "http://127.0.0.1:8000/":
+#     type: upstream
+#     upstream: "redis:http"
