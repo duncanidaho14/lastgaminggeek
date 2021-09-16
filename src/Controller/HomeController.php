@@ -16,7 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 //use League\Csv\Reader;
+
+use App\Classes\Cache;
 
 class HomeController extends AbstractController
 {
@@ -26,19 +29,24 @@ class HomeController extends AbstractController
      */
     public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo): Response
     {
-        $cache = new FilesystemAdapter();
         $user = $userRepo->findAll();
         $jeux = $jeuxvideoRepo->findAll();
+        
+        
+        
+        // $homeCacheJeux = $cache->addCache('jeux', function(){
+        //     return $jeux;
+        // });
 
-        for ($j=0; $j < count($jeux); $j++) { 
-            $jeu = $jeux[$j];
+        // for ($j=0; $j < count($jeux); $j++) { 
+        //     $jeu = $jeux[$j];
             
-        }
-        $someJeux = $cache->get($jeu->getId(), function(ItemInterface $item) use ($jeu)
-        {
-            $someJeux = $jeu->getId();
-            return $someJeux;
-        });
+        // }
+        // $someJeux = $cache->get($jeu->getId(), function(ItemInterface $item) use ($jeu)
+        // {
+        //     $someJeux = $jeu->getId();
+        //     return $someJeux;
+        // });
         
         return $this->render('home/index.html.twig', [
             'users' => $user,

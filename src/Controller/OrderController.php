@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use DateTimeInterface;
 use App\Classes\Basket;
+use App\Classes\Cache;
 use App\Entity\Carrier;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
@@ -32,9 +33,9 @@ class OrderController extends AbstractController
      * @Route("/commande", name="order")
      * 
      */
-    public function index(CacheInterface $cache, Basket $basket, Request $request): Response
+    public function index($cache, Basket $basket, Request $request): Response
     {
-        $cache = new FilesystemAdapter();
+        $cache->addCache($cache, $basket);
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
         }
@@ -46,9 +47,9 @@ class OrderController extends AbstractController
         foreach ($basket->getAllBasket() as $key => $value) {
             $value;
         }
-        $value = $cache->get($value['jeuxvideo'], function() use ($value) {
-            return $value;
-        });
+        // $value = $cache->get($value['jeuxvideo'], function() use ($value) {
+        //     return $value;
+        // });
 
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),

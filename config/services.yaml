@@ -33,10 +33,11 @@ services:
     #     class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
     #     tags: [serializer.normalizer]
 
+
     app.controller.redis:
         class: App\Controller\RedisController
         arguments:
             - '%redis.host%'
             - '%redis.port%'
     
-    
+
