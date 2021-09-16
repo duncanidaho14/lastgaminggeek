@@ -5,15 +5,19 @@ namespace App\Controller;
 use App\Entity\Order;
 use DateTimeInterface;
 use App\Classes\Basket;
+use App\Classes\Cache;
 use App\Entity\Carrier;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use ApiPlatform\Core\Filter\Validator\Length;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class OrderController extends AbstractController
@@ -29,8 +33,9 @@ class OrderController extends AbstractController
      * @Route("/commande", name="order")
      * 
      */
-    public function index( Basket $basket, Request $request): Response
+    public function index(Basket $basket, Request $request): Response
     {
+        
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
         }
@@ -38,8 +43,13 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()
         ]);
-
         
+        foreach ($basket->getAllBasket() as $key => $value) {
+            $value;
+        }
+        // $value = $cache->get($value['jeuxvideo'], function() use ($value) {
+        //     return $value;
+        // });
 
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
@@ -51,9 +61,15 @@ class OrderController extends AbstractController
      * @Route("/commande/recapitulatif", name="order_recap", methods={"POST"})
      * 
      */
-    public function add(Basket $basket, Request $request): Response
+    public function add(CacheInterface $cache, Basket $basket, Request $request): Response
     {
-        
+        $cache = new FilesystemAdapter();
+        foreach ($basket->getAllBasket() as $key => $value) {
+            $value;
+        }
+        $value = $cache->get($value['jeuxvideo'], function() use ($value) {
+            return $value;
+        });
         
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()

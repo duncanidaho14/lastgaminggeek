@@ -7,9 +7,9 @@ parameters:
     app.path.jeuxvideo_images: /uploads/images
     app.path.categorie_images: /uploads/categories
     app.path.user_images: /uploads/user
-    app.cache.adapter: cache.adapter.redis
-    redis.host: 127.0.0.1
-    redis.port: 6379
+    # app.cache.adapter: cache.adapter.array
+    # redis.host: 127.0.0.1
+    # redis.port: 6379
 
 services:
     # default configuration for services in *this* file
@@ -33,15 +33,28 @@ services:
     #     class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
     #     tags: [serializer.normalizer]
 
+# varnish:
+#     type: varnish:6.0
+#     relationships:
+#         application: 'app:http'
+#     configuration:
+#         vcl: !include
+#             type: string
+#             path: config.vcl
+    # redis:
+    # # supported versions: 3.2, 4.0, 5.0, 6.0
+    # # 2.8 and 3.0 are also available but not maintained upstream
+    #     type: redis-persistent:3.2
+    #     disk: 1024
 
-    app.controller.redis:
-        class: App\Controller\RedisController
-        arguments:
-            - '%redis.host%'
-            - '%redis.port%'
-
-    app.attachment_uploader:
-      class: App\FileUploader
-      arguments: ['%document_directory%']
+    # app.controller.redis:
+    #     class: App\Classes\Cache
+    #     arguments:
+    #         - "@app.util.cache"
     
-
+    # app.util.cache:
+    #     class: App\Classes\Cache
+    #     arguments:
+    #         - '%redis.host%'
+    #         - '%redis.port%'
+    
