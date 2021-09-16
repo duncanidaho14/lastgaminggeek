@@ -43,13 +43,27 @@ class AppFixtures extends Fixture
                     ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
                     //->setImageFile('8c9b82bc035d2ec941c0eb426c31f34f79931076.gif')
                     ->addGrade($adminRole)
+                    ->setRoles(["ROLE_ADMIN"])
                     
                     
         ;
 
+        $adminUserM = new User();
+        $adminUserM->setPseudo('Silvermed')
+                    ->setFirstName('Meddy')
+                    ->setLastName('Seize')
+                    ->setEmail('meddy.seize@gmail.com')
+                    ->setPassword($this->encoder->encodePassword($adminUserM, 'password'))
+                    ->setAgreeTerms(1)
+                    ->setIsVerified(1)
+                    ->setAvatar('https://cdn.shopify.com/s/files/1/0262/4516/9245/products/image_ca191039-f492-4d10-8bdb-3c15495586af_1024x1024.jpg?v=1565831183')
+                    ->addGrade($adminRole)
+                    ->setRoles(["ROLE_ADMIN"])
+        ;
+
 
         $manager->persist($adminUser);
-
+        $manager->persist($adminUserM);
         // les utilisateurs
 
         $users = [];
@@ -73,7 +87,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
-                ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
+                ->setAvatar($picture)
                 //->setImageFile('8c9b82bc035d2ec941c0eb426c31f34f79931076.gif')
             ;
 
@@ -90,47 +104,39 @@ class AppFixtures extends Fixture
                     ->setCompany($faker->company())
                     ->setAddress($faker->address())
                     ->setCity($faker->city())
-                    ->setZip($faker->secondaryAddress())
+                    ->setZip($faker->postcode())
                     ->setPhone($faker->phoneNumber())
+                    ->setCountry($faker->country())
                     ->setUser($user)
             ;
 
             $manager->persist($address);
         }
 
-        for ($cat=0; $cat < 5; $cat++) { 
-            $categorie = new Categorie();
-
-            
-
-            $categorie->setName($faker->name())
-                        ->setImage('')
-                        
-                        
-            ;
-
-                $manager->persist($categorie);
-
-            
-
-            
-        }
+        
 
         for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
-
-                
-
-                $jeuxvideo->setName($faker->name())
-                            ->setSlug($faker->slug())
-                            ->setCoverImage('c7ada067ad55eb09c41c110ccac118ba78df1c84.gif')
+                $jeuxvideo->setName($faker->name()) 
+                            ->setCoverImage($faker->imageUrl())
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
-                            ->addCategory($categorie)
-                            ->addComment($comment)
                             ->setUser($user)
                 ;
 
+                for ($cat=0; $cat < 1; $cat++) { 
+                    $categorie = new Categorie();
+
+                    $categorie->setName($faker->name())
+                                ->setImage($faker->imageUrl())
+                                ->addGame($jeuxvideo)
+                                
+                    ;
+
+                        $manager->persist($categorie);
+                }
+
+                $jeuxvideo->addCategory($categorie);
 
                 if (mt_rand(1, 12)) {
                     $comment = new Comment();
@@ -142,6 +148,11 @@ class AppFixtures extends Fixture
                     ;
                     $manager->persist($comment);
                 }
+                $jeuxvideo->addComment($comment)
+                ;
+
+
+                
 
 
                 $manager->persist($jeuxvideo);

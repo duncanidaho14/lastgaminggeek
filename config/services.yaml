@@ -7,7 +7,9 @@ parameters:
     app.path.jeuxvideo_images: /uploads/images
     app.path.categorie_images: /uploads/categories
     app.path.user_images: /uploads/user
-    app.cache.adapter: cache.adapter.filesystem
+    app.cache.adapter: cache.adapter.redis
+    redis.host: 127.0.0.1
+    redis.port: 6379
 
 services:
     # default configuration for services in *this* file
@@ -31,3 +33,10 @@ services:
     #     class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
     #     tags: [serializer.normalizer]
 
+    app.controller.redis:
+        class: App\Controller\RedisController
+        arguments:
+            - '%redis.host%'
+            - '%redis.port%'
+    
+    
