@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Predis\Client;
 use RedisException;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
@@ -13,6 +14,7 @@ use Symfony\Component\Cache\Adapter\RedisTagAwareAdapter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  *  @Route("/redis", name="redis")
@@ -23,13 +25,13 @@ class RedisController extends AbstractController
     
     public function __construct()
     {
-       
+        
     }
     
     /**
      * @Route("/set", service="app.controller.redis")
      */
-    public function connect(): Response
+    public function connect(CacheInterface $cache): Response
     {
         // $redis = new Redis();
         // // $cache = new RedisAdapter(
@@ -64,11 +66,12 @@ class RedisController extends AbstractController
             'scheme' => 'tcp',
             'host'   => '127.0.0.1',
             'port'   => 6379,
-            'password'    => 'Zoldyk99'
+            // 'password'    => 'Zoldyk99'
         ]);
         $client->set('foo', 'bar');
         $value = $client->get('foo');
-
+        // $redis = 
+        // $redis = new RedisAdapter($redis, $namespace="", 0);
         return $this->render('redis/redis.html.twig', [
             'redis' => $value
         ]);

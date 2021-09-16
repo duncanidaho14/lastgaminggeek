@@ -64,6 +64,7 @@ class AppFixtures extends Fixture
 
         $manager->persist($adminUser);
         $manager->persist($adminUserM);
+        
         // les utilisateurs
 
         $users = [];
@@ -88,7 +89,7 @@ class AppFixtures extends Fixture
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
                 ->setAvatar($picture)
-                //->setImageFile('8c9b82bc035d2ec941c0eb426c31f34f79931076.gif')
+                
             ;
 
             $manager->persist($user);
