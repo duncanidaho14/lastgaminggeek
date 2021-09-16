@@ -33,9 +33,9 @@ class OrderController extends AbstractController
      * @Route("/commande", name="order")
      * 
      */
-    public function index($cache, Basket $basket, Request $request): Response
+    public function index(Basket $basket, Request $request): Response
     {
-        $cache->addCache($cache, $basket);
+        
         if(!$this->getUser()->getAddresses()->getValues()){
             return $this->redirectToRoute('account_address_add');
         }
