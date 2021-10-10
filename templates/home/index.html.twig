@@ -10,6 +10,10 @@
         <h2>Jeux d'occaz</h2>
         <div class="jeux-cont">
             {% for jeux in jeuxvideo %}
+            {% if jeux|length < 0 %}
+                <h3>Il n'y a aucun jeux</h3>
+            {% else %}
+                
                 <div class="col-md-4">
                     <div class="jeux-item">
                         <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
@@ -52,6 +56,7 @@
                         {% endfor %}
                     </div>
                 </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
