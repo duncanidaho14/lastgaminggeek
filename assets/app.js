@@ -13,8 +13,10 @@
 
 // or you can include specific pieces
 
-import './styles/app.scss';
+
 import './bootstrap';
+import './styles/app.scss';
+import './styles/header.scss';
 
 
 
