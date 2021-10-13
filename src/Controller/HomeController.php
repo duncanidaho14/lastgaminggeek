@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         $user = $userRepo->findAll();
         $jeux = $jeuxvideoRepo->findAll();
         
-        
+        $jeuxvideoCarousel = $jeuxvideoRepo->findBy(array(), null, $limit = 3, $offset = null);
         
         // $homeCacheJeux = $cache->addCache('jeux', function(){
         //     return $jeux;
@@ -50,7 +50,8 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'users' => $user,
-            'jeuxvideo' => $jeux
+            'jeuxvideo' => $jeux,
+            'jeuxCarousel' => $jeuxvideoCarousel
         ]);
     }
 
