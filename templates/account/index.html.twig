@@ -5,12 +5,11 @@
 {% block body %}
     <div class="row">
         <div class="container">
-            <h1>Mon compte </h1>
-
-            <h2>Bienvenue sur votre compte {{app.user.firstName}}</h2>
-
+        <h1>Mon compte</h1>
+            <br>
+            <h2>Que voulez vous faire <span style='color: #3299FF;'>{{app.user.firstName}} </span>?</h2>
+            <br>
             <div>
-                <a href="{{path('account_address')}}">Mes adresses</a>
                 <a href="{{path('account_address')}}">Mes adresses</a>
             </div>
         </div>

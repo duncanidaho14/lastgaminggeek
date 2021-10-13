@@ -5,6 +5,9 @@
 {% block body %}
     <div class="row">
         <div class="container">
+            <br>
+            <a href="{{path('account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
+            <br>
             <h1>Mon panier</h1>
             
             {% if basket|length > 0 %}

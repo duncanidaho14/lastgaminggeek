@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountAddressController!{% endblock %}
+{% block title %}Carnet d"adresse - Jeux d'occaz{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="container">
+    <br>
         <a href="{{path('account_address_add')}}" class="btn btn-info btn-sm float-right">Ajouter une adresse</a>
         <h1>Mes Adresses</h1>
         <a href="{{path('account')}}">Retour</a>
         <hr>
         {% if app.user.addresses|length == 0 %}
-            <p>Vous n'avez pas encore d'adresse lié à votre compte, Veuillez en ajouter une <a href=""></a></p>
+            <p>Vous n'avez pas encore d'adresse lié à votre compte, Veuillez en ajouter une. <a href=""></a></p>
         {% else %}
         <div class="row">
             <div class="col-md-4">
