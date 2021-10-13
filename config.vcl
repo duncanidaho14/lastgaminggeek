@@ -1,3 +1,4 @@
+# config vich_uploader
 sub vcl_recv {
     set req.backend_hint = application.backend();
     set req.http.Surrogate-Capability = "abc=ESI/1.0";

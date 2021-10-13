@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Tests\Controller;
-use PHPUnit\Framework\Exception;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use PHPUnit\Framework\Exception;
 use Doctrine\ORM\Tools\SchemaTool;
+
 
 class HomeControllerTest extends WebTestCase
 {
@@ -56,8 +58,6 @@ class HomeControllerTest extends WebTestCase
         
         $this->assertResponseIsSuccessful();
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        
-        
         
     }
 
