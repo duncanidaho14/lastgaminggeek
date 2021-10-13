@@ -68,6 +68,7 @@ class HomeControllerTest extends WebTestCase
      */
     protected function onNotSuccessfulTest(\Throwable $t): void
     {
+        // Test si le crawler et le nombre d'erreur dans h1 exception message
         if($this->crawler && $this->crawler->filter('h1.exception-message')->count() > 0) {
             $exceptionClass = \get_class($t);
             throw new $exceptionClass($t->getMessage() . ' | ' . $this->crawler->filter('h1.exception-message')->eq(0)->text());
