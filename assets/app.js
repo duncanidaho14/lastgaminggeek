@@ -12,8 +12,10 @@
 // the bootstrap module doesn't export/return anything
 
 // or you can include specific pieces
-
-
+import $ from 'jquery';
+import '@popperjs/core';
+import 'bootstrap';
+import './styles/app.scss';
 import './bootstrap';
 import './styles/header.scss';
 import './styles/app.scss';
@@ -21,6 +23,6 @@ import './styles/app.scss';
 
 
 
-
+$('.carousel').carousel()
 
 // start the Stimulus application

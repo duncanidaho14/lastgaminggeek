@@ -4,12 +4,41 @@
 
 {% block body %}
 
-<div class="row">
-    <div class="container">
+<div class="container">
+    <div class="row">
         <h1>Jeux video d'occasion</h1>
         <h2>Jeux d'occaz</h2>
         <div class="jeux-cont">
+        {% set active = 'active' %}
+        {% set first = 0 + 1 %}
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="{% if active == null ? '' : 'active' %}{% endif %}"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+            {% for carousel in jeuxCarousel %}
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{asset(carousel.coverImage)}}" alt="First slide">
+                </div>
+            {% endfor %}
+            </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+        <hr>  
             {% for jeux in jeuxvideo %}
+            {% if jeux|length < 0 %}
+                <h3>Il n'y a aucun jeux</h3>
+            {% else %}
+                
                 <div class="col-md-4">
                     <div class="jeux-item">
                         <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
@@ -52,6 +81,7 @@
                         {% endfor %}
                     </div>
                 </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
