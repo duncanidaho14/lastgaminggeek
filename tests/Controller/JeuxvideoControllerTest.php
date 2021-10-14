@@ -10,7 +10,7 @@ class JeuxvideoControllerTest extends WebTestCase
     private Jeuxvideo $jeuxvideo;
 
     /** @test */
-    protected function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -18,19 +18,19 @@ class JeuxvideoControllerTest extends WebTestCase
     }
 
     /** @test */
-    public function testGetName()
+    public function testGetName():void
     {
 
     }
 
     /** @test */
-    public function testGetContent()
+    public function testGetContent():void
     {
 
     }
 
     /** @test */
-    public function testGetGamer()
+    public function testGetGamer():void
     {
         $value = new User();
         
