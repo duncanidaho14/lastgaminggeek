@@ -41,7 +41,15 @@
                 
                 <div class="col-md-4">
                     <div class="jeux-item">
-                        <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
+                        {% if app.environment == 'prod' %}
+                            <a href="{{path('article_show', {'slug': jeux.slug})}}">
+                                <img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/>
+                            </a>
+                        {% elseif app.environment == 'dev' %}
+                            <a href="{{path('article_show', {'slug': jeux.slug})}}">
+                                <img src="{{ asset(jeux.coverImage) }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/>
+                            </a>    
+                        {% endif %}
                         {# la filtre number_format est une fonction qui permet de formater un nombre , 
                         le 2 représente le nombre de décimal après la virgule
                         le point décimal et le séparateur de milliers à l'aide d'argument supplémentaire #}
@@ -52,14 +60,17 @@
                         {% if app.environment == 'prod' %}
                             <a href=""><img src="{{ vich_uploader_asset(jeux, 'imageFile') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
                         {% elseif app.environment == 'dev' %}
-                            <a href=""><img src="/uploads/images{{asset(jeux.coverImage)}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
+                        <pre>
+                            {{ dump(jeux.coverImage) }}
+                        </pre>
+                            <a href=""><img src="{{asset(jeux.coverImage)}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
                         {% else %}
                             <h3>Il n'y a pas d'image</h3>   
                         {% endif %}
 
                         <h4 class="jeux-user">{{jeux.user.firstName}} {{jeux.user.lastName}}</h4>
                         {% if app.environment == 'prod' %}
-                            <a href=""><img src="{{vich_uploader_asset(user, 'imageFile')}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
+                            <a href=""><img src="{{vich_uploader_asset(jeux.user, 'imageFile')}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
                         {% elseif app.environment == 'dev' %}
                             <a href=""><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
                         {% else %}
@@ -68,17 +79,16 @@
                         <h6>Categorie :</h6>
                         {% for categorie in jeux.categories %}
                             <h4 class="jeux-categorie">{{categorie.name}}</h4>
-
-                            
                             {% if app.environment == 'prod' %}
                                 <a href=""><img src="{{ vich_uploader_asset(categorie, 'imageFile') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
                             {% elseif app.environment == 'dev' %}
-                                <a href=""><img src="/uploads/categories{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
+                                <a href=""><img src="{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque magnam laboriosam beatae aut repudiandae vitae inventore error repellat exercitationem? Possimus fuga nobis quasi earum nisi ipsam sunt, veritatis nam nesciunt?</p>
                             {% else %}
-                                <h3>Celà ne nous regarde pas (il n'y pas d'image categorie)</h3>
+                                <h3>Ceux là ne nous regarde pas (il n'y pas d'image categorie)</h3>
                             {% endif %}
                         {% endfor %}
+                        <hr>
                     </div>
                 </div>
             {% endif %}

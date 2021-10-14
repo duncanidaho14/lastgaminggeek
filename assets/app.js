@@ -13,6 +13,7 @@
 
 // or you can include specific pieces
 import $ from 'jquery';
+global.$ = global.jQuery = $;
 import '@popperjs/core';
 import 'bootstrap';
 import './styles/app.scss';
