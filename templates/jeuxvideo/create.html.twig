@@ -1,13 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}
-    Créer Votre Article De Jeux Vidéo !
-{% endblock %}
+{% block title %} Créez votre article de Jeux Vidéo ! {% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="container">
-            <h1>Créer l'article du siècle</h1>
+            <br>
+            <a href="{{path('account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
+            <br>
+            <h1>Créer l'article du siècle !</h1>
+            <br>
             <div>
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
