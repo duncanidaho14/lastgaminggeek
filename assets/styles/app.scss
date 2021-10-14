@@ -1,3 +1,6 @@
+@use './theme.scss';
+@use 'header.scss';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,11 +8,15 @@
 }
 
 body {
-    background-color: white;
+    background: var(--color-secondary);
 }
 
 .container {
     
+}
+
+.container h1 {
+    color: var(--font-color);
 }
 
 .jeux-cont {
@@ -49,3 +56,14 @@ body {
     font-weight: bold;
     float: right;
 }
+
+.navbar-brand{
+    color: white;
+}
+
+.nav-account{
+    position: relative;
+    margin-right: 5px;
+}
+
+

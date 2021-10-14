@@ -159,6 +159,9 @@
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
+    "league/csv": {
+        "version": "9.7.1"
+    },
     "monolog/monolog": {
         "version": "2.3.2"
     },
@@ -185,6 +188,9 @@
     },
     "phar-io/version": {
         "version": "3.1.0"
+    },
+    "php": {
+        "version": "7.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -226,6 +232,9 @@
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
         ]
+    },
+    "predis/predis": {
+        "version": "v1.1.7"
     },
     "psr/cache": {
         "version": "1.0.1"
