@@ -1,5 +1,5 @@
 .navbar-brand{
-    color: white;
+    background: var(--color-primary);
 }
 
 .nav-account{
@@ -11,7 +11,7 @@ input[type=search] {
     width: 130px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-  }
+}
 
 input[type=search]:focus {
     width: -100%;

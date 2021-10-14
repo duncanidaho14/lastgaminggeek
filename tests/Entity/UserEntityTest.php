@@ -10,9 +10,10 @@ use Symfony\Component\Validator\ConstraintViolationList;
 class UserEntityTest extends KernelTestCase
 {
     private const EMAIL_CONSTRAINT_MESSAGE = 'L\'email n\'est pas valide';
-    private const NOT_BLANK_CONSTRAINT_MESSAGE = "Veuillez saisir une valeur";
+    private const NOT_BLANK_CONSTRAINT_MESSAGE = "Le mot de passe est obligatoire";
     private const INVALID_EMAIL_VALUE = "elhadibeddarem@gmail";
     private const VALID_EMAIL_VALUE = "elhadibeddarem@gmail.com";
+    private const NO_EMAIL_MESSAGE = "L'adresse email est obligatoire";
     private const VALID_PASSWORD_VALUE = "password";
     private ValidatorInterface $validator;
 
@@ -40,7 +41,7 @@ class UserEntityTest extends KernelTestCase
         
         $errors = $this->getValidationErrors($user, 5);
 
-        $this->assertEquals(self::NOT_BLANK_CONSTRAINT_MESSAGE, $errors[0]->getMessage());
+        $this->assertEquals(self::NO_EMAIL_MESSAGE, $errors[0]->getMessage());
 
     }
 
