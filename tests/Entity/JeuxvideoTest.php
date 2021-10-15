@@ -44,5 +44,4 @@ class JeuxvideoTest extends WebTestCase
         $this->assertCount($numberOfExpectedErrors, $errors);
         return $errors;
     }
-
 }

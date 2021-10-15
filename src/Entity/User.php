@@ -146,7 +146,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\IsFalse(message="Vous avez oublié de cocher cette case")
      * @Groups({"user_read", "order_read"})
      */
-    private $agreeTerms;
+    private $agreeTerms = false;
 
     
 
