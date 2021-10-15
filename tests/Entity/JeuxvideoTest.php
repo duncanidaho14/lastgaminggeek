@@ -2,11 +2,18 @@
 
 namespace App\Tests\Entity;
 
+<<<<<<< HEAD
 use App\Entity\User;
 use App\Entity\Jeuxvideo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+=======
+use App\Entity\Jeuxvideo;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+>>>>>>> 93aa0605479a97cb71bd3150bd6ab919cb297064
 
 class JeuxvideoTest extends WebTestCase
 {
@@ -17,10 +24,11 @@ class JeuxvideoTest extends WebTestCase
     private const VALID_DESCRIPTION_MESSAGE = "La description du jeux video est obligatoire";
     private const VALID_PRICE_VALUE = 12;
     private const VALID_PRICE_MESSAGE = "Le prix du jeux video est obligatoire";
-    private const VALID_USER_VALUE = "kirua";
+    private const VALID_USER_VALUE = "elhadi";
     private const VALID_USER_MESSAGE = "L'utilisateur du jeux video est obligatoire";
+
     private ValidatorInterface $validator;
-    
+
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -35,7 +43,10 @@ class JeuxvideoTest extends WebTestCase
                 ->setDescription(self::VALID_DESCRIPTION_VALUE)
                 ->setPrice(self::VALID_PRICE_VALUE)
         ;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 93aa0605479a97cb71bd3150bd6ab919cb297064
         $this->getValidationErrors($jeuxvideo, 1);
     }
 
@@ -45,4 +56,8 @@ class JeuxvideoTest extends WebTestCase
         $this->assertCount($numberOfExpectedErrors, $errors);
         return $errors;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93aa0605479a97cb71bd3150bd6ab919cb297064
 }
