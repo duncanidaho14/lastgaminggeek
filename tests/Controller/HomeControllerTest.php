@@ -46,7 +46,7 @@ class HomeControllerTest extends WebTestCase
     
 
     /** @test */
-    public function homepage_should_display_all_game()
+    public function homepageShouldBeDisplayAllGames()
     {
         
         self::bootKernel();
