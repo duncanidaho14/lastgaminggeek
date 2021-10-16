@@ -24,8 +24,8 @@ import './bootstrap';
 
 
 
+$('.dropdown-toggle').dropdown();
 $('.carousel').carousel();
-
 
 /**
  * Permet d'afficher l'onglet d'une couleur différente
