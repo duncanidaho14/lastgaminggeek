@@ -176,7 +176,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
-     * @Groups({"user_read", "order_read"})
+     * @Groups({"user_read", "order_read", "address_read"})
      */
     private $addresses;
 
