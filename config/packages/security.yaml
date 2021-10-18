@@ -26,6 +26,18 @@ security:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        
+        registration:
+            pattern:   ^/api/utilisateurs
+            methods: [POST]
+            stateless: true
+            jwt: ~
+
+        jeux:
+            pattern:   ^/api/jeuxvideos
+            methods: [POST, PUT, PATCH, DELETE]
+            stateless: true
+            jwt: ~
 
         api:
             pattern:   ^/api
@@ -57,5 +69,10 @@ security:
         # - { path: ^/compte, roles: ROLE_USER }
         # - { path: ^/commande, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/registration, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY, methods: [GET, POST] }
+
+    role_hierarchy:
+        ROLE_EDITOR: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_EDITOR]
 
