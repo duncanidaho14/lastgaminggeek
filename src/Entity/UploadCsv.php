@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UploadCsvRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-// use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
-// use Symfony\Component\HttpFoundation\File\UploadedFile;
-// use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
  * @ORM\Entity(repositoryClass=UploadCsvRepository::class)

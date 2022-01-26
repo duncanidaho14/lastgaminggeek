@@ -115,14 +115,14 @@ class AppFixtures extends Fixture
         }
 
         
-
+        
         for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
                 $jeuxvideo->setName($faker->name()) 
                             ->setCoverImage($faker->imageUrl())
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
-                            ->setUser($user)
+                            ->setUser($users[mt_rand(0, count($users) - 1 )])
                 ;
 
                 for ($cat=0; $cat < 1; $cat++) { 
@@ -152,15 +152,10 @@ class AppFixtures extends Fixture
                 $jeuxvideo->addComment($comment)
                 ;
 
-
                 
-
-
                 $manager->persist($jeuxvideo);
             }    
-        
-
-        
+                
         
         $manager->flush();
     }
