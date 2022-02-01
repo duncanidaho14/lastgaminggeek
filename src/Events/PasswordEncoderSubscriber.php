@@ -2,10 +2,12 @@
 
 namespace App\Events;
 
+use App\Entity\User;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
+use ApiPlatform\Core\EventListener\EventPriorities;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
-use ApiPlatform\Core\EventListener\EventPriorities;
 
 class PasswordEncoderSubscriber implements EventSubscriberInterface
 {
