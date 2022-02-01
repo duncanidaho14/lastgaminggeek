@@ -47,7 +47,6 @@ security:
 
         api:
             pattern:   ^/api
-            enable_authenticator_manager: true
             stateless: true
             jwt: ~
         
