@@ -45,7 +45,7 @@
       {% for jeux in jeuxvideo %}
         <div class="col-md-6">
           <div class="card">
-            <img class="card-img-top" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="Card image cap">
+            <img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{jeux.name}}</h5>
               <p class="card-text">{{jeux.description|raw}}</p>

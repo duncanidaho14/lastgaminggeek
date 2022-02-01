@@ -34,59 +34,29 @@
         </div>
         <hr>  
             {% for jeux in jeuxvideo %}
-            {% if jeux|length < 0 %}
-                <h3>Il n'y a aucun jeux</h3>
-            {% else %}
-                
-                <div class="col-md-4">
-                    <div class="jeux-item">
-                        {% if app.environment == 'prod' %}
-                        <a href="{{path('article_show', {'slug': jeux.slug})}}">
-                            <img src="{{ vich_uploader_asset(jeux, 'imageFile', 'App\\Entity\\Jeuxvideo') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/>
-                        </a>
-                        {% else %}
-                            <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(jeux.coverImage)}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
-                        {% endif %}
-                        {# la filtre number_format est une fonction qui permet de formater un nombre, 
-                        le 2 représente le nombre de décimal après la virgule
-                        le point décimal et le séparateur de milliers à l'aide d'argument supplémentaire #}
-                        <h5>{{jeux.name}} {{(jeux.price / 100)|number_format(2, ',', '.') }} €</h5>
-                        <p class="jeux-description">{{jeux.description|raw}}</p>
-                        <h6>Utilsateurs :</h6>
-                        {# Affiche les images en fonction de l'environnement #}
-                        {% if app.environment == 'prod' %}
-                            <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{ vich_uploader_asset(jeux, 'imageFile') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
-                        {% elseif app.environment == 'dev' %}
-                            <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(jeux.coverImage)}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
-                        {% else %}
-                            <h3>Il n'y a pas d'image</h3>   
-                        {% endif %}
-
-                        <h4 class="jeux-user">{{jeux.user.firstName}} {{jeux.user.lastName}}</h4>
-                        {% if app.environment == 'prod' %}
-                            <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{vich_uploader_asset(user, 'imageFile')}}" alt="{{jeux.name}}"  class="accueil-img img-fluid"></a>
-                        {% elseif app.environment == 'dev' %}
-                            <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
-                        {% else %}
-                            <h3>Il n'y a pas d'image</h3>   
-                        {% endif %}
-                        <h6>Categorie :</h6>
-                        {% for categorie in jeux.categories %}
-                            <h4 class="jeux-categorie">{{categorie.name}}</h4>
-
-                            
-                            {% if app.environment == 'prod' %}
-                                <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{ vich_uploader_asset(categorie, 'imageFile') }}" alt="{{ jeux.name }}" class="accueil-img img-fluid"/></a>
-                            {% elseif app.environment == 'dev' %}
-                                <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque magnam laboriosam beatae aut repudiandae vitae inventore error repellat exercitationem? Possimus fuga nobis quasi earum nisi ipsam sunt, veritatis nam nesciunt?</p>
-                            {% else %}
-                                <h3>Celà ne nous regarde pas (il n'y pas d'image categorie)</h3>
-                            {% endif %}
+                {% if jeux|length < 0 %}
+                    <h3>Il n'y a aucun jeux</h3>
+                {% else %}
+                    <div class="row col-md-12 py-5">
+                        {% for jeux in jeuxvideo %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{jeux.name}}</h5>
+                                        <p class="card-text">{{jeux.description|raw}}</p>
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price / 100 )|number_format(2, ',', '.')}} €</a>
+                                        {% for categorie in jeux.categories %}
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
+                                        {% endfor %}
+                                        
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>
