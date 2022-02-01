@@ -176,7 +176,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
-     * @Groups({"user_read", "order_read"})
+     * @Groups({"user_read", "order_read", "address_read"})
      */
     private $addresses;
 
@@ -187,6 +187,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $orders;
 
     private $fullName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $refreshToken;
 
     public function __construct()
     {
@@ -568,6 +578,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getRefreshToken(): ?string
+    {
+        return $this->refreshToken;
+    }
+
+    public function setRefreshToken(?string $refreshToken): self
+    {
+        $this->refreshToken = $refreshToken;
 
         return $this;
     }

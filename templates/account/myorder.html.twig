@@ -3,8 +3,8 @@
 {% block title %}Mes Commandes! {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="container">
+    <div class="row">
+<div class="container">
     <br>
         <a href="{{path('account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
         <br>
@@ -14,7 +14,7 @@
         {% if orders|length == 0 %}
             <p>Vous n'avez pas encore passé de commande, retour <a href="{{path('accueil')}}">au jeux video</a></p>
         {% else %}
-        <div class="row col-md-12">
+        <div class="container col-md-12">
                 {% for order in orders %}
                     <div class="col-md-4">
                         <div class="card" style="width: 18rem;">
