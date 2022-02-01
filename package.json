@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@api-platform/admin": "^2.6.7",
         "autoprefixer": "^10.3.2",
         "bootstrap": "^5.1.3",
         "jquery": "^3.6.0",

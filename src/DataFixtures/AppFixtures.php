@@ -5,15 +5,18 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\Jeuxvideo;
+use App\Entity\Order;
+use App\Entity\Address;
+use App\Entity\Carrier;
 use App\Entity\Comment;
 use App\Entity\Categorie;
+use App\Entity\Jeuxvideo;
+use App\Entity\OrderDetails;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Entity\Address;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -70,7 +73,7 @@ class AppFixtures extends Fixture
         $users = [];
         $genres = ['male', 'female'];
 
-        for ($i=0; $i < 40; $i++) { 
+        for ($i=0; $i < 20; $i++) { 
             $user = new User();
             $genre = $faker->randomElement($genres);
 
@@ -83,8 +86,8 @@ class AppFixtures extends Fixture
             
             $user->setPseudo($faker->name())
                 ->setFirstName($faker->firstname($genre))
-                ->setLastName($faker->lastname)
-                ->setEmail($faker->email)
+                ->setLastName($faker->lastname())
+                ->setEmail($faker->email())
                 ->setPassword($hash)
                 ->setIsVerified(1)
                 ->setAgreeTerms(1)
@@ -95,8 +98,8 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $users[] = $user;
         }
-        
-        for ($addr=0; $addr < 2; $addr++) { 
+        $addresses = [];
+        for ($addr=0; $addr < 20; $addr++) { 
             $address = new Address();
 
             $address->setName($faker->name())
@@ -108,21 +111,22 @@ class AppFixtures extends Fixture
                     ->setZip($faker->postcode())
                     ->setPhone($faker->phoneNumber())
                     ->setCountry($faker->country())
-                    ->setUser($user)
+                    ->setUser($users[mt_rand(0, count($users) -1)])
             ;
 
             $manager->persist($address);
+            $addresses[] = $address;
         }
 
         
-        
+        $jeuxvideos = [];
         for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
                 $jeuxvideo->setName($faker->name()) 
                             ->setCoverImage($faker->imageUrl())
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
-                            ->setUser($users[mt_rand(0, count($users) - 1 )])
+                            ->setUser($users[mt_rand(0, count($users) -1)])
                 ;
 
                 for ($cat=0; $cat < 1; $cat++) { 
@@ -145,17 +149,62 @@ class AppFixtures extends Fixture
                     $comment->setTitle($faker->company())
                             ->setComment($faker->text())
                             ->setGame($jeuxvideo)
-                            ->setUser($user)
+                            ->setUser($users[mt_rand(0, count($users) -1)])
                     ;
                     $manager->persist($comment);
                 }
+
                 $jeuxvideo->addComment($comment)
                 ;
+            
+            $manager->persist($jeuxvideo);
+            $jeuxvideos[] = $jeuxvideo;
+        } 
 
-                
-                $manager->persist($jeuxvideo);
-            }    
-                
+        $carriers = [];
+        for ($carr=0; $carr < 5; $carr++) { 
+            $carrier = new Carrier();
+            $carrier->setName($faker->company())
+                    ->setDescription($faker->text())
+                    ->setPrice($faker->numberBetween(0, 80))
+            ;
+
+            $manager->persist($carrier);
+            $carriers[] = $carrier;
+        }
+
+        $orderss = [];
+        for ($orde=0; $orde < 15; $orde++) { 
+            $orders = new Order();
+
+            $orders->setCarrierName($carriers[\mt_rand(0, count($carriers) - 1)])
+                    ->setDelivery($addresses[\mt_rand(0, count($addresses) - 1)])
+                    ->setCarrierPrice($faker->numberBetween(0, 20))
+                    ->setIsPaid(\mt_rand(0, 1))
+                    ->setReference($faker->sentence())
+                    ->setUser($users[mt_rand(0, count($users) -1)])
+                    ->setCreatedAt($faker->dateTime())
+            ;
+
+            $manager->persist($orders);
+            $orderss[] = $orders;
+
+            $price = $faker->numberBetween(0, 80);
+            $quantity = $faker->numberBetween(1, 10);
+
+            for ($deta=0; $deta < count($orderss); $deta++) { 
+                $details = new OrderDetails();
+
+                $details->setMyOrder($orderss[mt_rand(0, count($orderss) -1)])
+                        ->setPrice($price)
+                        ->setProduct($jeuxvideos[mt_rand(0, count($jeuxvideos) -1)])
+                        ->setQuantity($quantity)
+                        ->setTotal($price + $quantity)
+                ;
+
+                $manager->persist($details);
+            }
+        }
         
         $manager->flush();
     }

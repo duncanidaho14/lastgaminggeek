@@ -20,6 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      },
  *      normalizationContext={
  *          "groups"={"address_read"}
+ *      },
+ *      denormalizationContext={
+ *          "groups"={"address_write"}
  *      }
  * )
  */
@@ -29,70 +32,70 @@ class Address
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "address_write", "user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "address_write", "user_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $phone;
 

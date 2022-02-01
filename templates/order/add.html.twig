@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
     <div class="row">
-        <div class="container">
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
             <h1>Recapitulatif de la commande</h1>
             <div class="col-md-6">
                 <h4>Mon adresse de livraison</h4>
