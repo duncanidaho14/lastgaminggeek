@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserAuthorizationChecker
 {
-    private array $methodAllowed = [
+    private $methodAllowed = [
         Request::METHOD_PUT,
         Request::METHOD_PATCH,
         Request::METHOD_DELETE
