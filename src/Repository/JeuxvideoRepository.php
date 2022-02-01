@@ -29,9 +29,6 @@ class JeuxvideoRepository extends ServiceEntityRepository
                     ->join('j.user', 'u')
                     ->groupBy('j')
                     ->orderBy('DESC')
-    //         ->setParameter('val', $value)
-    //         ->orderBy('j.id', 'ASC')
-    //         ->setMaxResults(10)
                     ->getQuery()
                     ->getResult()
         ;
