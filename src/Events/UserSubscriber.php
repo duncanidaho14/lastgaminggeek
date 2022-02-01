@@ -26,7 +26,7 @@ class UserSubscriber implements EventSubscriberInterface
         $this->userAuthorizationChecker = $userAuthorizationChecker;
         $this->jwtManager = $jwtManager;
         $this->tokenStorageInterface = $tokenStorageInterface;
-        $decodedJwtToken = $this->jwtManager->decode($this->tokenStorageInterface->getToken());
+        //$decodedJwtToken = $this->jwtManager->decode($this->tokenStorageInterface->getToken());
     }
 
     public static function getSubscribedEvents()
