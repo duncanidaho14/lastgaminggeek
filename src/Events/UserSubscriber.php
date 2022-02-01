@@ -19,7 +19,7 @@ class UserSubscriber implements EventSubscriberInterface
         Request::METHOD_GET
     ];
 
-    private UserAuthorizationChecker $userAuthorizationChecker;
+    private $userAuthorizationChecker;
 
     public function __construct(UserAuthorizationChecker $userAuthorizationChecker, TokenStorageInterface $tokenStorageInterface, JWTTokenManagerInterface $jwtManager)
     {
