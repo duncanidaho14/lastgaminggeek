@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class UserSubscriber implements EventSubscriberInterface
 {
-    private array $methodNotAllowed = [
+    private $methodNotAllowed = [
         Request::METHOD_POST,
         Request::METHOD_GET
     ];
