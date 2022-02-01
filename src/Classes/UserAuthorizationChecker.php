@@ -15,7 +15,7 @@ class UserAuthorizationChecker
         Request::METHOD_DELETE
     ];
 
-    private ?UserInterface $user;
+    private $user;
 
     public function __construct(Security $security)
     {
