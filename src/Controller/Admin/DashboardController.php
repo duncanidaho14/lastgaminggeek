@@ -3,26 +3,27 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Order;
+use App\Entity\Address;
+use App\Entity\Carrier;
 use App\Entity\Comment;
 use App\Entity\Categorie;
 use App\Entity\Jeuxvideo;
-use App\Entity\Address;
 use App\Repository\UserRepository;
+use App\Repository\AddressRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\JeuxvideoRepository;
-use App\Repository\AddressRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\JeuxvideoCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
-use App\Entity\Carrier;
-use App\Entity\Order;
 
 
 
@@ -42,6 +43,7 @@ class DashboardController extends AbstractDashboardController
     }
     /**
      * @Route("/admin", name="admin")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(): Response
     {
