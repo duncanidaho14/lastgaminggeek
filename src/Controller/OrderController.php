@@ -127,7 +127,7 @@ class OrderController extends AbstractController
                 // }
                 
                 $order->setCarrierName($carriers[0]->getName());
-                $order->setCarrierPrice(($carriers[0]->getPrice() / 100));
+                $order->setCarrierPrice(($carriers[0]->getPrice())); // /100
                 $order->setDelivery($delivery_content);
                 $order->setIsPaid(0);
 

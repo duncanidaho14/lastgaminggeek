@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Comment;
 use App\Entity\Jeuxvideo;
 use App\Form\JeuxvideoType;
 use App\Repository\UserRepository;
@@ -15,6 +16,8 @@ use Symfony\Component\Security\Core\Security as SecurityCore;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\CommentType;
+
 
 
 class JeuxvideoController extends AbstractController
@@ -95,11 +98,28 @@ class JeuxvideoController extends AbstractController
      * @Route("/jeuxvideo/{slug}", name="article_show")
      * 
      */
-    public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, $slug): Response
+    public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, Request $request, EntityManagerInterface $manager, $slug): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->getUser())
+                    ->setGame($jeuxvideoRepository->findOneBySlug($slug))
+            ;
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash(
+               'success',
+               'Votre commentaire est enregistré !'
+            );
+        }
         return $this->render('jeuxvideo/show.html.twig', [
-            'jeuxvideo' => $jeuxvideoRepository->findOneBySlug($slug)
+            'jeuxvideo' => $jeuxvideoRepository->findOneBySlug($slug),
+            'form' => $form->createView()
         ]);
     }
 
