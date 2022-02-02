@@ -5,11 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Oups !! La page que vous cherchez n'existe pas !</h1>
-        <p>Vous pouvez retourner à ...</p>
+    <div class="row">
+        <div class="container">
+            <h1>Oups !! La page que vous cherchez n'existe pas !</h1>
+            <p>Vous pouvez retourner à ...</p>
 
-        <a class="btn btn-primary" href="{{path('home')}}">Accueil</a> |
-        <a class="btn btn-primary" href="{{path('jeuxvideo')}}">Nos jeux vidéo</a>
+            <a class="btn btn-primary" href="{{path('home')}}">Accueil</a> |
+            <a class="btn btn-primary" href="{{path('jeuxvideo')}}">Nos jeux vidéo</a>
+        </div>
     </div>
 {% endblock %}
