@@ -52,10 +52,10 @@ class JeuxvideoController extends AbstractController
     {
         $jeuxvideo = new Jeuxvideo();
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
-        $jeuxvideo->setUser($this->getUser());
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $jeuxvideo->setUser($this->getUser());
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
             $this->addFlash(
