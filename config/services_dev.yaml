@@ -33,6 +33,9 @@ services:
     #     class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
     #     tags: [serializer.normalizer]
 
+    App\Service\Paginator:
+        arguments:
+            $templatePath: 'layout/paginator.html.twig'
 # varnish:
 #     type: varnish:6.0
 #     relationships:

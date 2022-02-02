@@ -48,3 +48,7 @@ services:
     App\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments: ['@.inner'] 
+
+    App\Service\Paginator:
+        arguments:
+            $templatePath: 'layout/paginator.html.twig'

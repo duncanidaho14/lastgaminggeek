@@ -31,7 +31,7 @@ class JeuxvideoController extends AbstractController
 
     /**
      * @Route("/mes-jeux/", name="jeuxvideo")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER')", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas les voir")
      */
     public function index(JeuxvideoRepository $jeuxvideoInstance): Response
     {

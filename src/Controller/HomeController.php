@@ -20,23 +20,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use League\Csv\Reader;
 
 use App\Classes\Cache;
+use App\Service\Paginator;
 
 class HomeController extends AbstractController
 {
     /**
-     * 
+     * @Route("/{page<\d+>?1}", name="home")
      * @Route("/accueil/{page<\d+>?1}", name="accueil")
      */
-    public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, $page): Response
+    public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, Paginator $paginator, $page): Response
     {
 
         $user = $userRepo->findAll();
 
-        $limit = 10;
-        $start = $page * $limit - $limit;
-        
-        $total = count($jeuxvideoRepo->findAll());
-        $pages = ceil($total / $limit);
+        $paginator->setEntityClass(Jeuxvideo::class)
+                    ->setPage($page)
+        ;
+
         
         $jeuxvideoCarousel = $jeuxvideoRepo->findBy(array(), [], $limit = 3, $offset = null);
         
@@ -56,9 +56,7 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'users' => $user,
-            'jeuxvideo' => $jeuxvideoRepo->findBy([], [], $limit, $start),
-            'pages' => $pages,
-            'page' => $page,
+            'paginator' => $paginator,
             'jeuxCarousel' => $jeuxvideoCarousel
         ]);
     }
