@@ -25,6 +25,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Service\Paginator;
 
 
 
@@ -35,15 +36,19 @@ class DashboardController extends AbstractDashboardController
     protected $categorieRepository;
     protected $commentRepository;
 
-    public function __construct(JeuxvideoRepository $jeuxvideoRepository, UserRepository $userRepository, CategorieRepository $categorieRepository, CommentRepository $commentRepository)
+    protected $paginator;
+
+    public function __construct(JeuxvideoRepository $jeuxvideoRepository, UserRepository $userRepository, CategorieRepository $categorieRepository, CommentRepository $commentRepository, Paginator $paginator, int $page = 1)
     {
         $this->jeuxvideoRepository = $jeuxvideoRepository;
         $this->userRepository= $userRepository;
         $this->categorieRepository = $categorieRepository;
         $this->commentRepository = $commentRepository;
+        $this->paginator = $paginator;
+        $this->page = $page;
     }
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin/e_48dqzeh/{page<\d+>?1}", name="admin")
      * @Security("is_granted('ROLE_ADMIN')", message="Vous n'avez pas accès à l'administration")
      */
     public function index(): Response
@@ -56,7 +61,8 @@ class DashboardController extends AbstractDashboardController
         // if ('jane' === $this->getUser()->getUsername()) {
         //     return $this->redirect('...');
         // }
-
+        $paginator = $this->paginator->setEntityClass(Jeuxvideo::class)
+                            ->setPage($this->page);
         // you can also render some template to display a proper Dashboard
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
@@ -64,7 +70,8 @@ class DashboardController extends AbstractDashboardController
             'countAllJeuxvideo' => $this->jeuxvideoRepository->countAllJeuxvideo(),
             'countAllCategorie' => $this->categorieRepository->countAllCategorie(),
             'countAllComment' => $this->commentRepository->countAllComment(),
-            'jeuxvideo' => $this->jeuxvideoRepository->findAll()
+            'jeuxvideo' => $this->jeuxvideoRepository->findAll(),
+            'paginator' => $paginator
         ]);
     }
 
