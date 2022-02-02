@@ -48,7 +48,7 @@ class BasketController extends AbstractController
     {
         $basket->remove();
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('accueil');
     }
 
     /**

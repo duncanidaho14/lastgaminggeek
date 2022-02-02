@@ -24,7 +24,7 @@ use App\Classes\Cache;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * 
      * @Route("/accueil/{page<\d+>?1}", name="accueil")
      */
     public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, $page): Response
