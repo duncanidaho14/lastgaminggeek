@@ -19,15 +19,24 @@
         <hr>
         
             <h3>{{jeuxvideo.user.pseudo}}</h3>
+            
             {% if jeuxvideo.user.avatar != null %}
-            <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
-                
+                <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
             {% endif %}
 
         <hr>
 
         <button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier {{jeuxvideo.name}}</a></button>
         <hr>
+        <div>
+            <a href="#">Ajouter un commentaire</a>
+            <h3>Commentaire</h3>
+            <ul>
+            {% for comment in jeuxvideo.comments %}
+                <li>{{comment.comment}}</li>
+            {% endfor %}
+            </ul>
+        </div>
         <div>
         {% if app.user.email == jeuxvideo.user.email %}
             <div>
@@ -37,11 +46,8 @@
             <div>
                 <p>Vous ne pouvez modifier cette article</p>
             </div>
-            
         {% endif %}
         </div>
-        
-        salut tt le monde
     </div>
 </div>
 {% endblock %}

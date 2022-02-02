@@ -14,11 +14,20 @@
         <ul>
         {% for jeux in jeuxvideo %}
             <li>{{jeux.name}}</li>
-            <img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
-            <div>
-                <button class="btn btn-outline-primary"><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></button>
-                <button class="btn btn-danger"><a href="{{path('article_delete', {'slug': jeux.slug})}}">Supprimer le jeux {{jeux.name}}</a></button>
-            </div>
+            <li><img src="{{jeux.coverImage}}" alt="{{jeux.name}}"></li>
+            <li><img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}"></li>
+            <li>Prix : {{jeux.price}} €</li>
+            <li>{{jeux.description|raw}}</li>
+            {% for comment in jeux.comments %}
+                
+            <li>{{comment.comment}}</li>
+            {% endfor %}
+            <li>
+                <div class="mesjeux-modif">
+                    <button class="btn btn-outline-primary"><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></button>
+                    <button class="btn btn-danger"><a href="{{path('article_delete', {'slug': jeux.slug})}}">Supprimer le jeux {{jeux.name}}</a></button>
+                </div>
+            </li>
         {% endfor %}
         
         </ul>

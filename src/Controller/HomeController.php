@@ -25,14 +25,20 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
-     * @Route("/accueil", name="accueil")
+     * @Route("/accueil/{page<\d+>?1}", name="accueil")
      */
-    public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo): Response
+    public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, $page): Response
     {
+
         $user = $userRepo->findAll();
-        $jeux = $jeuxvideoRepo->findAll();
+
+        $limit = 10;
+        $start = $page * $limit - $limit;
         
-        $jeuxvideoCarousel = $jeuxvideoRepo->findBy(array(), null, $limit = 3, $offset = null);
+        $total = count($jeuxvideoRepo->findAll());
+        $pages = ceil($total / $limit);
+        
+        $jeuxvideoCarousel = $jeuxvideoRepo->findBy(array(), [], $limit = 3, $offset = null);
         
         // $homeCacheJeux = $cache->addCache('jeux', function(){
         //     return $jeux;
@@ -50,7 +56,9 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'users' => $user,
-            'jeuxvideo' => $jeux,
+            'jeuxvideo' => $jeuxvideoRepo->findBy([], [], $limit, $start),
+            'pages' => $pages,
+            'page' => $page,
             'jeuxCarousel' => $jeuxvideoCarousel
         ]);
     }
