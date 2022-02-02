@@ -46,6 +46,14 @@ class JeuxvideoRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByJeuxvideoCarousel($limit)
+    {
+        return $this->createQueryBuilder('j')
+                    ->select('j.coverImage')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
     // public function findByCarousel(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     // {
     //     return $this->createQueryBuilder('j')
