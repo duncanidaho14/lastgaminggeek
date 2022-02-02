@@ -23,7 +23,7 @@
                                 <p class="card-text">{{order.carrierPrice}} <br/>
                                     {{order.delivery|raw}} - {{order.isPaid}} - {{order.reference}}
                                 </p>
-                                <p>Total de la commande : {{((order.carrierPrice + order.getTotal) / 100)|number_format(2, ',', '.')}} €</p>
+                                <p>Total de la commande : {{((order.carrierPrice + order.getTotal))|number_format(2, ',', '.')}} €</p>
                             </div>
                         </div>
                     </div>

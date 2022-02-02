@@ -16,8 +16,8 @@
                     <p>{{order.user.firstName}} {{order.user.lastName}}</p>
                     <p>{{ajout.product}} / {{ajout.quantity}}</p>
                     <p>{{order.user.email}} {{order.reference}}</p>
-                    <p>{{ajout.price}}</p>
-                    <p>{{ajout.total}}</p>
+                    <p>Prix du produit : {{ajout.price}} €</p>
+                    <p>Prix total : {{ajout.price + order.carrierPrice}} €</p>
                     <p>{{order.carrierName}} <br>
                         {{order.carrierPrice|number_format(2, ',', '.')}} €<br>
                     {{order.delivery|raw}}

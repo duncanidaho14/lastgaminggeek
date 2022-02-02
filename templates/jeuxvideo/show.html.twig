@@ -8,17 +8,18 @@
     <div class="container">
         <h1> {{ jeuxvideo.name }} ! ✅</h1>
         <img src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}">
-        
-        <p>{{jeuxvideo.description|raw}}</p>
-        <h6>Date de création {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h6>
+        <p>{{jeuxvideo.price|number_format(2, '.', ',')}} €</p>
+        <p>Description : {{jeuxvideo.description|raw}}</p>
+        <h2>Date de création {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
         {% for jeux in jeuxvideo.categories %}
-            <h2>{{jeux.name}}</h2>
+            <h2>Nom de la catégorie : {{jeux.name}}</h2>
             <img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
+            <img src="{{asset(jeux.image)}}" alt="{{jeux.name}}">
         {% endfor %}
 
         <hr>
         
-            <h3>{{jeuxvideo.user.pseudo}}</h3>
+            <h3>Pseudo : {{jeuxvideo.user.pseudo}}</h3>
             
             {% if jeuxvideo.user.avatar != null %}
                 <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
@@ -29,11 +30,22 @@
         <button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier {{jeuxvideo.name}}</a></button>
         <hr>
         <div>
-            <a href="#">Ajouter un commentaire</a>
-            <h3>Commentaire</h3>
+            
+            <h3>Commentaires</h3>
+
+            <div>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
             <ul>
             {% for comment in jeuxvideo.comments %}
-                <li>{{comment.comment}}</li>
+                <li>Titre: {{comment.title}} </li>
+                <li>Commentaires :{{comment.comment}}</li>
+                <li>Pseudo :{{comment.user.pseudo}}</li>
+                <li>Utilisateur : {{comment.user.firstName}} - {{comment.user.lastName}}</li>
+                <li>Date : {{comment.updatedAt|date("m/d/Y H:i")}}</li>
+                <hr>
             {% endfor %}
             </ul>
         </div>
