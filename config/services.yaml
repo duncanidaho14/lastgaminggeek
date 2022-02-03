@@ -44,7 +44,7 @@ services:
     app.attachment_uploader:
         class: App\FileUploader
         arguments: ['%document_directory%']
-    
+
     App\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments: ['@.inner'] 

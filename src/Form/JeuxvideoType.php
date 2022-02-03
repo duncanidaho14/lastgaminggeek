@@ -25,10 +25,6 @@ class JeuxvideoType extends AbstractType
             ->add('price', MoneyType::class)
             ->add('description', TextareaType::class)
             ->add('categories')
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'username',
-            // ])
             ->add('comments')
             ->add('submit', SubmitType::class)
         ;

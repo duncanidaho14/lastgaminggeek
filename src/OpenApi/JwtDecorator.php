@@ -6,18 +6,21 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\OpenApi\OpenApi;
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 
-class JwtDecorator
+class JwtDecorator implements OpenApiFactoryInterface
 {
-    private $decorated;
+    private OpenApiFactoryInterface $decorated;
+    private string $appVersion;
 
-    public function __construct(OpenApiFactoryInterface $decorated)
+    public function __construct(OpenApiFactoryInterface $decorated, string $appVersion)
     {
         $this->decorated = $decorated;
+        $this->appVersion = $appVersion;
     }
 
     public function __invoke(array $context = []): OpenApi
     {
         $openApi = $this->decorated->__invoke($context);
+        
         return $openApi;
     }
 }
