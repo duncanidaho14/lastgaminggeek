@@ -20,9 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      },
  *      normalizationContext={
  *          "groups"={"address_read"}
- *      },
- *      denormalizationContext={
- *          "groups"={"address_write"}
  *      }
  * )
  */
@@ -32,14 +29,14 @@ class Address
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"address_read", "address_write", "user_read"})
+     * @Groups({"address_read","user_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"address_read", "address_write", "user_read"})
+     * @Groups({"address_read", "user_read"})
      */
     private $name;
 
@@ -102,7 +99,7 @@ class Address
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"address_read"})
+     * 
      */
     private $user;
 
