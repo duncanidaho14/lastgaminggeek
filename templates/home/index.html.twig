@@ -1,38 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jeux video d occaz{% endblock %}
+{% block title %}GG-GEEK, Jeux d'occasion{% endblock %}
 
 {% block body %}
 
+    <div class="container">
+      <h1>Bienvenue <span style='color: #3299FF;'>{{app.user.firstName}}</span>!</h1>
+      <h2>Jeux d'occaz</h2>
     <div class="row">
-<div class="container">
-        <h1>Jeux video d'occasion</h1>
-        <h2>Jeux d'occaz</h2>
-        <div class="jeux-cont">
-        {% set active = 'active' %}
-        {% set first = 0 + 1 %}
+      {# <div class="jeux-cont"> #}
+          <div class="col-6">
+           {% set active = 'active' %}
+           {% set first = 0 + 1 %}
+           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+           {% for carousel in jeuxCarousel %}
+              <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="{% if loop.index == 1 %} active {% endif %}"></li>
+              </ol>
+              <div class="carousel-inner">
+                  <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                      <img class="d-block w-100" src="{{asset(carousel.coverImage)}}" alt="First slide">
+                  </div>
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            {% for carousel in jeuxCarousel %}
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="{% if loop.index == 1 %} active {% endif %}"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
-                        <img class="d-block w-100" src="{{asset(carousel.coverImage)}}" alt="First slide">
-                    </div>
+                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                   <span class="sr-only">Previous</span>
+                 </a>
+
+                 <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                 </a>
+              </div>
             {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-        <hr>  
+          </div>
+          </div>
+          <hr>  
             {% for jeux in jeuxvideo %}
             {% if jeux|length < 0 %}
                 <h3>Il n'y a aucun jeux</h3>
@@ -88,9 +91,9 @@
                 </div>
             {% endif %}
             {% endfor %}
-        </div>
+        {# </div> #}
     </div>
-</div>
+
 {% endblock %}
 
 {% block javascripts %}

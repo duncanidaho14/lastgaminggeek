@@ -5,23 +5,23 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    max-width: 100%;
 }
 
 body {
-    background: var(--color-secondary);
+    background: var(--color-primary);
 }
 
 .container {
-    
+    max-width: 1400px;
 }
 
-.container h1 {
+.container h1, h2, h3, p{
     color: var(--font-color);
 }
 
 .jeux-cont {
-    display: flex;
-    flex-wrap: wrap;
+
 }
 
 .jeux-item {
