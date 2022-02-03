@@ -46,16 +46,16 @@ class JeuxvideoController extends AbstractController
 
     /**
      * @Route("/creation/jeuxvideo", name="create_article")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function createGame(Request $request, EntityManagerInterface $entityManager): Response
     {
         $jeuxvideo = new Jeuxvideo();
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
+        $jeuxvideo->setUser($this->getUser());
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $jeuxvideo->setUser($this->getUser());
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
             $this->addFlash(

@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\User;
 
 class JeuxvideoType extends AbstractType
 {
@@ -23,6 +25,11 @@ class JeuxvideoType extends AbstractType
             ->add('price', MoneyType::class)
             ->add('description', TextareaType::class)
             ->add('categories')
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'username',
+            // ])
+            ->add('comments')
             ->add('submit', SubmitType::class)
         ;
     }
