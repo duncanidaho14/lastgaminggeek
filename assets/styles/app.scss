@@ -16,6 +16,19 @@ body {
     max-width: 1400px;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.carousel.slide{
+  
+}
+
+.carousel-inner > .item > img {
+
+}
+
 .container h1, h2, h3, p{
     color: var(--font-color);
 }
