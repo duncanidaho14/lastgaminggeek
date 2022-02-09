@@ -1,9 +1,4 @@
 
-
-
-// $('.dropdown-toggle').dropdown();
-// $('.carousel').carousel();
-
 /**
  * Permet d'afficher l'onglet d'une couleur différente
  * Ne marche que sur chrome Android
@@ -56,4 +51,3 @@ function toggleTheme() {
     }
 })();
 
-// start the Stimulus application

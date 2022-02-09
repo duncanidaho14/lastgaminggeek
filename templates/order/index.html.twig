@@ -5,7 +5,7 @@
 {% block body %}
     <div class="row">
 <div class="container">
-         {% for flashError in app.flashes('error') %}
+        {% for flashError in app.flashes('error') %}
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}
         <h1>Je passe ma commande</h1>
@@ -33,8 +33,6 @@
                 <a href="">Payer</a>
             </div>
         </div>
-
-        
     </div>
 </div>
 {% endblock %}

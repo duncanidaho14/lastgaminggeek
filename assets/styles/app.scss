@@ -1,5 +1,23 @@
-@use './theme.scss';
-@use './header.scss';
+@import "~bootstrap/scss/bootstrap.scss";
+
+.theme-light {
+    --color-primary: #0060df;
+    --color-secondary: #fbfbfe;
+    --color-accent: #fd6f53;
+    --color-info: #ff9f41;
+    --color-prud: #ffcb99;
+    --font-color: #000000;
+}
+
+.theme-dark {
+    --color-primary: #17ed90;
+    --color-secondary: #2e6770;
+    --color-third: #ff9f41;
+    --color-accent: #12cdea;
+    --color-info: #00ffff;
+    --color-prud: #730100;
+    --font-color: #ffffff;
+}
 
 * {
     box-sizing: border-box;
