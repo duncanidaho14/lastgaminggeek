@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,6 +19,10 @@ class CommentType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('comment', TextareaType::class)
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username'
+            ])
             //->add('submit', SubmitType::class) le mettre dans le fichier twig
         ;
     }

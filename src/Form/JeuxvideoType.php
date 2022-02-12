@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class JeuxvideoType extends AbstractType
 {
@@ -34,13 +35,18 @@ class JeuxvideoType extends AbstractType
                 'entry_type' => CategorieType::class,
                 'by_reference' => false,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'label' => 'Catégories de jeux vidéos',
+                'entry_options' => ['label' => false]
             ])
             ->add('comments', CollectionType::class, [
                 'entry_type' => CommentType::class,
                 'by_reference' => false,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'label' => 'Commentaire du jeux vidéos',
+                'entry_options' => ['label' => false]
+
             ])
             ->add('submit', SubmitType::class)
         ;

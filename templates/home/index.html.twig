@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jeux video d occaz{% endblock %}
+{% block title %}gaming geek jeux video{% endblock %}
 
 {% block body %}
 
@@ -56,14 +56,19 @@
                                     <p class="card-text">{{jeux.description|raw}}</p>
                                     <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, ',', '.')}} €</a>
                                     {% for categorie in jeux.categories %}
-                                    <pre>
-                                        {{ dump(categorie) }}
-                                    </pre>
                                     <h3>Catégories : </h3>
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
+                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
                                     {% endfor %}
                                     <h3>Utilisateur : </h3>
                                     <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
+                                    {% for comment in jeux.comments %}
+                                        <h3>Commentaires : </h3>
+                                        <h4>{{comment.title}}</h4>
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}">
+                                                
+                                            <p>{{comment.comment|raw}}</p>
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

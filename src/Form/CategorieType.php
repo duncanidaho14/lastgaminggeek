@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class CategorieType extends AbstractType
 {
@@ -16,18 +17,11 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('image', FileType::class,[
-                'label' => false,
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false
+            ->add('imageFile', VichFileType::class,[
+                'label' => true,
+                'allow_delete' => true
             ])
-            // ->add('game', CollectionType::class, [
-            //     'entry_type' => JeuxvideoType::class,
-            //     'by_reference' => false,
-            //     'allow_add' => true,
-            //     'allow_delete' => true
-            // ])
+           
         ;
     }
 

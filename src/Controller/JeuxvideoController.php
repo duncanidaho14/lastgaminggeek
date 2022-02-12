@@ -46,46 +46,40 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/jeuxvideo/creation", name="create_article")
+     * @Route("/jeuxvideo/creation", name="create_article", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function createGame(Request $request, EntityManagerInterface $entityManager): Response
     {
         $jeuxvideo = new Jeuxvideo();
-        $categorie = new Categorie();
-        $comment = new Comment();
-
-        $categorie->setName('Titre 1')
-                    ->setImage('http://placehold.it/400x200')
-        ;
-        $jeuxvideo->addCategory($categorie);
-        $comment->setTitle('comments title 1')
-                ->setComment('Salut depuis le controller')
-        ;
-        $jeuxvideo->addComment($comment);
 
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
         $jeuxvideo->setUser($this->getUser());
-            
+        foreach($jeuxvideo->getCategories() as $categories){
+            $jeuxvideo->setUser($this->getUser());
+            $categories->addGame($jeuxvideo);
+            $entityManager->persist($categories);
+        }
+        
+        foreach ($jeuxvideo->getComments() as $comments) {
+            $jeuxvideo->setUser($this->getUser());
+            $comments->setUser($this->getUser());
+            $comments->setComment($jeuxvideo);
+            $entityManager->persist($comments);
+        }
         $form->handleRequest($request);
+
         
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach($jeuxvideo->getCategories() as $categories){
-                $jeuxvideo->addCategory($categories);
-                $entityManager->persist($categories);
-            }
-
-            foreach ($jeuxvideo->getComments() as $comments) {
-                $jeuxvideo->addComment($comments);
-                $entityManager->persist($comments);
-            }
-
+            $jeuxvideo->setUser($this->getUser());
+            
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                'Le jeux video a bien été crée ! '
+                "Le jeux video a bien été crée {$jeuxvideo->getName()}! "
             );
+            return $this->redirectToRoute('accueil');
         }
         return $this->render('jeuxvideo/create.html.twig', [
             'form' => $form->createView()

@@ -28,7 +28,7 @@
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
-                    retourner au près de nos jeux vidéo
+                    retourner au près de nos jeux vidéo 
                     <a href="{{path('accueil')}}">Jeux vidéo</a>
                 </div>
             {% endfor %}
@@ -37,10 +37,11 @@
 {% endblock %}
 
 {% block _jeuxvideo_categories_widget %}
-    <p>Ici, Vous ajoutez vos catégorie</p>
+    <h2>Ici, Vous ajoutez vos catégorie</h2>
     {{ form_widget(form) }}
+    <input type="hidden" id="widgets-counter" value="0">
     <div class="form-group">
-        <button type="button" class="btn btn-primary" id="new-categories">Nouvelle catégorie</button>
+        <button type="button" class="btn btn-primary" id="add-categories">Ajouter une catégorie de jeux vidéo</button>
     </div>
 {% endblock %}
 
@@ -57,7 +58,7 @@
                         {{ form_widget(form.name) }}
                     </div>
                     <div class="col">
-                        {{ form_widget(form.image) }}
+                        {{ form_widget(form.imageFile) }}
                     </div>
                 </div>
             </div>
@@ -73,7 +74,7 @@
     <p>Ici, Vous ajoutez vos commentaires</p>
     {{ form_widget(form) }}
     <div class="form-group">
-        <button type="button" class="btn btn-primary" id="new-comments">Nouveau commentaire</button>
+        <button type="button" class="btn btn-primary" id="add-comments">Nouveau commentaire</button>
     </div>
 {% endblock %}
 
@@ -82,50 +83,65 @@
 {% endblock %}
 
 {% block _jeuxvideo_comments_entry_widget %}
-    <div class="form-group">
+    <div class="form-group" id="block_{{id}}">
         <div class="row">
-            <div class="col">
-                {{ form_widget(form.title) }}
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.title) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.comment) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.user) }}
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                {{ form_widget(form.comment) }}
+            <div class="col-2">
+                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        const addCategorie = () => {
-    const index = document.querySelector("#jeuxvideo_categories div.form-group").length;
-    const tmpl = document.querySelector('#jeuxvideo_categories').data('prototype').replace(/__name__/g, index);
-    document.querySelector('#jeuxvideo_categories').append(tmpl);
-    console.log(tmpl);
-}
-// Je récupère les prototypes des entrées
-// J'injecte le code au sein de la div
-document.querySelector("#new-categories").addEventListener('click', addCategorie);
 
-////////////////////////////////////////////////////////////////////////
+<script type="text/javascript">
 
-const addComment = () => {
-    const index = document.querySelector("#jeuxvideo_comments div.form-group").length;
-    const tmpl2 = document.querySelector('#jeuxvideo_comments').data('prototype').replace(/__name__/g, index);
-    console.log(tmpl2);
-    // J'injecte le code au sein de la div
-    document.querySelector('#jeuxvideo_comments').append(tmpl2);
-}
-// Je récupère les prototypes des entrées
-document.querySelector("#new-comments").addEventListener('click', addComment);
+    $(document).ready(function(){
+        $('#add-categories').click(function() {
+            const index = $('#widgets-counter').val();
+            const pIndex = parseInt(index);
+            const tmpl = $('#jeuxvideo_categories').data('prototype').replace(/__name__/g, pIndex);
+            $('#jeuxvideo_categories').append(tmpl);
 
-function handleDeleteButtons() {
-    document.querySelector('button[data-action="delete"]').addEventListener('click', function () {
-        const target = this.dataset.target;
-        document.querySelector(target).remove();
+            $('#widgets-counter').val(pIndex + 1);
+            handleDeleteButtons();
+        });
+
+        $('#add-comments').click(function() {
+
+            const index2 = $('#widgets-counter').val();
+            const pIndex2 = parseInt(index2);
+            const tmpl2 = $('#jeuxvideo_comments').data('prototype').replace(/__name__/g, pIndex2);
+            $('#jeuxvideo_comments').append(tmpl2);
+
+            handleDeleteButtons();
+        });
+
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function() {
+                const target = this.dataset.target;
+                $(target).remove();
+
+            })
+        }
     })
-}
-handleDeleteButtons();
+        
+
 
             
     </script>
-{% endblock %}
+{% endblock %} 
