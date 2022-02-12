@@ -1,6 +1,15 @@
 
-
-
+import './img/android-chrome-192x192.png';
+import './img/android-chrome-512x512.png';
+import apple from './img/apple-touch-icon.png';
+//import './img/browserconfig.xml';
+import fav16 from './img/favicon-16x16.png';
+import './img/favicon-32x32.png';
+import './img/favicon.ico';
+import './img/mstile-150x150.png';
+import './img/safari-pinned-tab.svg';
+//import './img/site.webmanifest';
+import './styles/app.scss';
 // $('.dropdown-toggle').dropdown();
 // $('.carousel').carousel();
 
