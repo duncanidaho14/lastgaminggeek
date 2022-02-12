@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Entity;
 
 use DateTime;
@@ -105,7 +105,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Votre avatar est obligatoire")
      * @Groups({"user_read", "jeux_read", "order_read"})
      */
     private $avatar;
@@ -143,7 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\IsFalse(message="Vous avez oublié de cocher cette case")
      * @Groups({"user_read", "order_read"})
      */
     private $agreeTerms = false;

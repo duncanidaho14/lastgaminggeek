@@ -2,9 +2,11 @@
 
 {% block title %} Créez votre article de Jeux Vidéo ! {% endblock %}
 
+{% form_theme form _self %}
+
 {% block body %}
-    <div class="row">
-        <div class="container">
+    <div class="container">
+        <div class="row">
             <br>
             <a href="{{path('account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
             <br>
@@ -12,16 +14,134 @@
             <br>
             <div>
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.imageFile) }}
+                {{ form_row(form.price) }}
+                {{ form_row(form.description) }}
+
+                {{ form_row(form.categories) }}
+                
+                {{ form_row(form.comments) }}
                 {{ form_end(form) }}
+                
             </div>
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
-                    retourner au près de nos jeux vidéo
+                    retourner au près de nos jeux vidéo 
                     <a href="{{path('accueil')}}">Jeux vidéo</a>
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endblock %}
+
+{% block _jeuxvideo_categories_widget %}
+    <h2>Ici, Vous ajoutez vos catégorie</h2>
+    {{ form_widget(form) }}
+    <input type="hidden" id="widgets-counter" value="0">
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" id="add-categories">Ajouter une catégorie de jeux vidéo</button>
+    </div>
+{% endblock %}
+
+{% block _jeuxvideo_categories_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _jeuxvideo_categories_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.name) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.imageFile) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block _jeuxvideo_comments_widget %}
+    <p>Ici, Vous ajoutez vos commentaires</p>
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" id="add-comments">Nouveau commentaire</button>
+    </div>
+{% endblock %}
+
+{% block _jeuxvideo_comments_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _jeuxvideo_comments_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.title) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.comment) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.user) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#add-categories').click(function() {
+            const index = $('#widgets-counter').val();
+            const pIndex = parseInt(index);
+            const tmpl = $('#jeuxvideo_categories').data('prototype').replace(/__name__/g, pIndex);
+            $('#jeuxvideo_categories').append(tmpl);
+
+            $('#widgets-counter').val(pIndex + 1);
+            handleDeleteButtons();
+        });
+
+        $('#add-comments').click(function() {
+
+            const index2 = $('#widgets-counter').val();
+            const pIndex2 = parseInt(index2);
+            const tmpl2 = $('#jeuxvideo_comments').data('prototype').replace(/__name__/g, pIndex2);
+            $('#jeuxvideo_comments').append(tmpl2);
+
+            handleDeleteButtons();
+        });
+
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function() {
+                const target = this.dataset.target;
+                $(target).remove();
+
+            })
+        }
+    })
+        
+
+
+            
+    </script>
+{% endblock %} 

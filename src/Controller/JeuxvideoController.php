@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\CommentType;
+use App\Entity\Categorie;
 
 
 
@@ -33,8 +34,8 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/mes-jeux/", name="jeuxvideo")
-     * @Security("is_granted('ROLE_USER')", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas les voir")
+     * @Route("/mes-jeux", name="jeuxvideo")
+     * @Security("is_granted('ROLE_USER')", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas le voir")
      */
     public function index(JeuxvideoRepository $jeuxvideoInstance): Response
     {
@@ -45,23 +46,40 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/creation/jeuxvideo", name="create_article")
-     * @IsGranted("ROLE_USER")
+     * @Route("/jeuxvideo/creation", name="create_article", methods={"GET", "POST"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function createGame(Request $request, EntityManagerInterface $entityManager): Response
     {
         $jeuxvideo = new Jeuxvideo();
+
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
         $jeuxvideo->setUser($this->getUser());
+        foreach($jeuxvideo->getCategories() as $categories){
+            $jeuxvideo->setUser($this->getUser());
+            $categories->addGame($jeuxvideo);
+            $entityManager->persist($categories);
+        }
+        
+        foreach ($jeuxvideo->getComments() as $comments) {
+            $jeuxvideo->setUser($this->getUser());
+            $comments->setUser($this->getUser());
+            $comments->setComment($jeuxvideo);
+            $entityManager->persist($comments);
+        }
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $jeuxvideo->setUser($this->getUser());
+            
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                'Le jeux video a bien été crée ! '
+                "Le jeux video a bien été crée {$jeuxvideo->getName()}! "
             );
+            return $this->redirectToRoute('accueil');
         }
         return $this->render('jeuxvideo/create.html.twig', [
             'form' => $form->createView()
@@ -69,7 +87,7 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/jeuxvideo/{slug}/edition", name="edit_article")
+     * @Route("/jeuxvideo/edition/{slug}", name="edit_article")
      * @Security("is_granted('ROLE_USER') and user === jeuxvideo.getUser()", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas le modifier")
      */
     public function editGame(Request $request, Jeuxvideo $jeuxvideo, EntityManagerInterface $entityManager): Response
@@ -113,8 +131,8 @@ class JeuxvideoController extends AbstractController
             $manager->flush();
 
             $this->addFlash(
-               'success',
-               'Votre commentaire est enregistré !'
+                'success',
+                'Votre commentaire est enregistré !'
             );
         }
         return $this->render('jeuxvideo/show.html.twig', [
@@ -124,7 +142,7 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/jeuxvideo/{slug}/delete", name="article_delete")
+     * @Route("/jeuxvideo/delete/{slug}", name="article_delete")
      * @Security("is_granted('ROLE_USER') and user == jeuxvideo.getUser()", message="Vous n'avez pas le droit d'accéder à ce jeux")
      */
     public function delete(Jeuxvideo $jeuxvideo, EntityManagerInterface $entityManager): Response

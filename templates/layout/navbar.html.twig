@@ -24,10 +24,10 @@
         {% if app.user %}
         <div class="nav-account">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Mon Compte de Geek
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <a class="dropdown-item" href="{{path('create_article')}}">Mettre en vente mon jeux video</a>
                     <a class="dropdown-item" href="{{path('jeuxvideo', {'slug': app.user.slug})}}">Mes Jeux video</a>
                     <a class="dropdown-item" href="{{path('account_order')}}">Mes Commandes de jeux video</a>
@@ -40,6 +40,7 @@
             <a href="{{path('basket')}}"  class="btn btn-primary cart" type="button">Panier<i class="fas fa-cart-arrow-down"></i></a>
             {# <a href="{{path('basket')}}">Panier<i class="fas fa-cart-arrow-down"></i></a> #}
         {% endif %}
+        
         {% if not app.user %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -54,11 +55,7 @@
 </header>
 
 {% block javascripts %}
-    <script>
-        $('.dropdown-toggle').dropdown();
-        $('.carousel').carousel();
     
-    </script>
     <script>
         // function to set a given theme/color-scheme
         function setTheme(themeName) {

@@ -43,7 +43,6 @@
                 <li>Titre: {{comment.title}} </li>
                 <li>Commentaires :{{comment.comment}}</li>
                 <li>Pseudo :{{comment.user.pseudo}}</li>
-                <li>Utilisateur : {{comment.user.firstName}} - {{comment.user.lastName}}</li>
                 <li>Date : {{comment.updatedAt|date("m/d/Y H:i")}}</li>
                 <hr>
             {% endfor %}

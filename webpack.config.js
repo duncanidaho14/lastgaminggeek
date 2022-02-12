@@ -5,7 +5,13 @@ const Encore = require('@symfony/webpack-encore');
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
-
+// if (Encore.isProduction()) {
+//     Encore.setPublicPath('https://gaminggeek.fr.global.prod.fastly.net');
+//     // guarantee that the keys in manifest.json are *still*
+//     // prefixed with build/
+//     // (e.g. "build/dashboard.js": "https://my-cool-app.com.global.prod.fastly.net/dashboard.js")
+//     Encore.setManifestKeyPrefix('build/');
+// }
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -21,6 +27,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -57,7 +64,7 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
-
+    .enablePostCssLoader()
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
@@ -69,12 +76,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
-    .autoProvideVariables({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-    })
+    //.autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

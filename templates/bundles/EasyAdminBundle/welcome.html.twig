@@ -4,59 +4,55 @@
 {% block content_title 'Gaming Geek Dashboard' %}
 
 {% block main %}
-<div class="row">
-  <div class="container">
+<div class="container">
+  <div class="row">
     <h1>Dashboard des jeux d'occaz</h1>
-    <div class="row col-md-12">
-      <div class="col-md-5">
-        
-        <div class="card-columns">
-          <div class="card">
-            <div class="card-header">Nombres d'Utilisateurs : {{countAllUser[0]['userCount']}}</div>
-              <div class="card-body">
-                  <h3 class="card-title">Nombre de Categories : {{countAllCategorie[0]['categorieCount']}}</h5>
-                  <p class="card-text">Nombre de Jeux Video : {{countAllJeuxvideo[0]['jeuxvideoCount']}}</p>
-                  <p class="card-text"><small class="text-muted"></small></p>
-              </div>
-              <div class="card-footer">Commentaires : {{countAllComment[0]['commentCount']}}</div>
-          </div>
+    <section class="row">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{countAllUser[0]['userCount']}}</p>
         </div>
+      </div>
 
-      </div>
-    
-      <div class="col-md-5">
-        <div class="card-columns">
-          <div class="card">
-            <div class="card-header">Nombres d'Utilisateurs : {{countAllUser[0]['userCount']}}</div>
-              <div class="card-body">
-                  <h3 class="card-title">Nombre de Categories : {{countAllCategorie[0]['categorieCount']}}</h5>
-                  <p class="card-text">Nombre de Jeux Video : {{countAllJeuxvideo[0]['jeuxvideoCount']}}</p>
-                  <p class="card-text"><small class="text-muted"></small></p>
-              </div>
-              <div class="card-footer">Commentaires : {{countAllComment[0]['commentCount']}}</div>
-            </div>
-          </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{countAllJeuxvideo[0]['jeuxvideoCount']}}</p>
         </div>
       </div>
-    </div>
-    </div>
-          
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{countAllCategorie[0]['categorieCount']}}</p>
+        </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{countAllComment[0]['commentCount']}}</p>
+        </div>
+      </div>
+
+    </section>
+
     <div class="row col-md-12 py-5">
       {% for jeux in jeuxvideo %}
         <div class="col-md-6">
           <div class="card">
             <img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap">
+            <img class="card-img-top" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
             <div class="card-body">
               <h5 class="card-title">{{jeux.name}}</h5>
               <p class="card-text">{{jeux.description|raw}}</p>
-              <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price / 100 )|number_format(2, ',', '.')}} €</a>
+              <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{jeux.price|number_format(2, ',', '.')}} €</a>
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
-      
-    
   </div>
 </div>
 {% endblock %}

@@ -33,11 +33,6 @@ class JeuxvideoCrudController extends AbstractCrudController
             TextField::new('imageFile')
                     ->setFormType(VichImageType::class)
                     ->onlyWhenCreating(),
-            // ->setLabel('Image'),
-
-            // ImageField::new('coverImage')
-            // ->setBasePath("/uploads/images")
-            // ->setLabel('Image'),
             MoneyField::new('price')->setCurrency('EUR'),
             TextEditorField::new('description'),
             AssociationField::new('user'),

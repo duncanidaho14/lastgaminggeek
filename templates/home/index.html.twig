@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jeux video d occaz{% endblock %}
+{% block title %}gaming geek jeux video{% endblock %}
 
 {% block body %}
 
-    <div class="row">
 <div class="container">
+    <div class="row">
         <h1>Jeux video d'occasion</h1>
         <h2>Jeux d'occaz</h2>
         
         {% set active = 'active' %}
         {% set first = 0 + 1 %}
 
-           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -36,7 +36,11 @@
                 </a>
             </div>
             
-            <hr>  
+            <hr>
+            <div>
+                {{paginator.displayPaginator()}}
+            </div>
+            <hr>
             <div>
                 <div class="row col-md-12 py-5">
                 {% for jeux in paginator.data %}
@@ -45,17 +49,26 @@
                     {% else %}    
                         <div class="col-md-6 py-4">
                             <div class="card">
-                                <img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap">
+                                <a href=""><img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap"></a>
                                 <img class="card-img-top" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">{{jeux.name}}</h5>
                                     <p class="card-text">{{jeux.description|raw}}</p>
                                     <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, ',', '.')}} €</a>
                                     {% for categorie in jeux.categories %}
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{asset(categorie.image)}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
+                                    <h3>Catégories : </h3>
+                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
                                     {% endfor %}
-                                    
+                                    <h3>Utilisateur : </h3>
                                     <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
+                                    {% for comment in jeux.comments %}
+                                        <h3>Commentaires : </h3>
+                                        <h4>{{comment.title}}</h4>
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}">
+                                                
+                                            <p>{{comment.comment|raw}}</p>
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -73,9 +86,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        $('.carousel').carousel({
-            interval: 2000
-        });
+    <script src="{{asset('build/app.js')}}">
+        
     </script>
 {% endblock %}

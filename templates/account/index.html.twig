@@ -3,14 +3,15 @@
 {% block title %}Mon compte - Gaminggeek!{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="container">
-        <h1>Mon compte</h1>
+    <div class="container">
+        <div class="row">
+            <h1>Mon compte</h1>
             <br>
             <h2>Que voulez vous faire <span style='color: #3299FF;'>{{app.user.firstName}} </span>?</h2>
             <br>
             <div>
                 <a href="{{path('account_address')}}">Mes adresses</a>
+                <a href="{{path('jeuxvideo')}}">mes Jeux vidéos</a>
             </div>
         </div>
     </div>

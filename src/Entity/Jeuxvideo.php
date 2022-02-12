@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use DateTime;
@@ -97,13 +99,14 @@ class Jeuxvideo
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="game")
+     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="game", orphanRemoval=true, cascade={"persist"})
      * @Groups({"jeux_read"})
      */
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="game", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="game", orphanRemoval=true, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"jeux_read"})
      */
     private $comments;
