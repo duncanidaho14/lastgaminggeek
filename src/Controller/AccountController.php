@@ -74,13 +74,13 @@ class AccountController extends AbstractController
     /**
      * Afficher le compte utilisateur
      * 
-     * @Route("/compte", name="account")
+     * @Route("/compte", name="app_account")
      * @return Response
      */
     public function index(UserRepository $userRepo): Response
     {
         return $this->render('account/index.html.twig',[
-            'user' => $userRepo
+            'user' => $userRepo->findOneBy(array('id' => $this->getUser() ))
         ]);
     }
 

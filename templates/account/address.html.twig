@@ -3,12 +3,12 @@
 {% block title %}Carnet d"adresse - Jeux d'occaz{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="container">
+<div class="container">
+    <div class="row">
     <br>
         <a href="{{path('account_address_add')}}" class="btn btn-info btn-sm float-right">Ajouter une adresse</a>
         <h1>Mes Adresses</h1>
-        <a href="{{path('account')}}">Retour</a>
+        <a href="{{path('app_account')}}" class="btn btn-block btn-close-white">Retour à mon compte</a>
         <hr>
         {% if app.user.addresses|length == 0 %}
             <p>Vous n'avez pas encore d'adresse lié à votre compte, Veuillez en ajouter une. <a href=""></a></p>

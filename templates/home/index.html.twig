@@ -6,69 +6,65 @@
 
 <div class="container">
     <div class="row">
-        <h1>Jeux video d'occasion</h1>
-        <h2>Jeux d'occaz</h2>
+        <h1>Gaming Geek Jeux Videos d'Occasions</h1>
         
-        {% set active = 'active' %}
-        {% set first = 0 + 1 %}
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
                 {% for carousel in jeuxCarousel %}
-                    
-                    <div class="carousel-item {% if loop.first == 1 %} active {% endif %}">
-                        <img class="d-block w-100" src="{{carousel.coverImage}}" alt="First slide">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" 
+                        {% if loop.first %}
+                            class="active"
+                        {% endif %} 
+                            aria-current="true" aria-label="{{loop.index0}}">
+                    </button>
+                {% endfor %}
+            </div>
+
+            <div class="carousel-inner">
+                {% for carousel in jeuxCarousel %}
+                    <div class="carousel-item {% if loop.first  %} active {% endif %}">
+                        <img src="{{asset(carousel.coverImage)}}" class="carousel-container" alt="image caroussel de jeux video">
                     </div>
                 {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
-            
-            <hr>
-            <div>
-                {{paginator.displayPaginator()}}
-            </div>
-            <hr>
-            <div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+    <hr>
+<div class="paginator">
+    {{paginator.displayPaginator()}}
+</div>
+<hr>
+        <div>
+        <h2>Les jeux du moment</h2>
                 <div class="row col-md-12 py-5">
                 {% for jeux in paginator.data %}
                     {% if jeux|length < 0 %}
-                        <h3>Il n'y a aucun jeux</h3>
-                    {% else %}    
-                        <div class="col-md-6 py-4">
+                        <h2>Il n'y a aucun jeux</h2>
+                    {% else %}
+                        <div class="col-md-4 py-4 card-image">
                             <div class="card">
-                                <a href=""><img class="card-img-top" src="{{jeux.coverImage}}" alt="Card image cap"></a>
-                                <img class="card-img-top" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="Card image cap">
+                                <a href="{{path('article_show', {'slug': jeux.slug})}}"><img class="card-img-top handle-link" src="{{jeux.coverImage}}" alt="{{jeux.name}}"></a>
+                                <a href="{{path('article_show', {'slug': jeux.slug})}}"><img class="card-img-top handle-link" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="Card image cap"></a>
                                 <div class="card-body">
-                                    <h5 class="card-title">{{jeux.name}}</h5>
-                                    <p class="card-text">{{jeux.description|raw}}</p>
+                                    <h3 class="card-title"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.name}}</a></h3>
+                                    <p class="card-text"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.description|raw|slice(0, 40)}}...</a></p>
                                     <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, ',', '.')}} €</a>
-                                    {% for categorie in jeux.categories %}
-                                    <h3>Catégories : </h3>
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="{{categorie.name}}"  class="accueil-img img-fluid"></a>
-                                    {% endfor %}
-                                    <h3>Utilisateur : </h3>
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}"><img src="{{jeux.user.avatar}}" alt="{{jeux.user.pseudo}}" height="50px"></a>
-                                    {% for comment in jeux.comments %}
-                                        <h3>Commentaires : </h3>
-                                        <h4>{{comment.title}}</h4>
-                                        <a href="{{path('article_show', {'slug': jeux.slug})}}">
-                                                
-                                            <p>{{comment.comment|raw}}</p>
-                                        </a>
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -76,17 +72,34 @@
                 {% endfor %}
                 </div>
             </div>
-            
-            <div>
+            <div class="pagination">
                 {{paginator.displayPaginator()}}
             </div>
         
     </div>
-</div>
+</div>        
+            
+            
+
+            
+            
+
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{asset('build/app.js')}}">
         
+    </script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function(e) {
+        var myCarousel = document.querySelector('#myCarousel')
+        var carousel = new bootstrap.Carousel(myCarousel, {
+        interval: 2000,
+        wrap: false
+        })
+
+    });
+
     </script>
 {% endblock %}

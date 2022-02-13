@@ -5,32 +5,100 @@
 {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="container">
-        <br>
-        <a href="{{path('account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
-        <br>
-        <h1>Mes Jeux video</h1>
-        <ul>
-        {% for jeux in jeuxvideo %}
-            <li>{{jeux.name}}</li>
-            <li><img src="{{jeux.coverImage}}" alt="{{jeux.name}}"></li>
-            <li><img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}"></li>
-            <li>Prix : {{jeux.price}} €</li>
-            <li>{{jeux.description|raw}}</li>
-            {% for comment in jeux.comments %}
-                
-            <li>{{comment.comment}}</li>
+<div class="container">
+    <div class="row">
+        <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
+
+        <section class="dark">
+	        <div class="container py-4">
+
+		    <h1 class="h1 text-center" id="pageHeaderTitle">Mes jeux vidéos</h1>
+            {% for jeux in jeuxvideo %}
+            
+                <article class="postcard dark blue">
+                    <a class="postcard__img_link" href="#">
+                        {# <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" /> #}
+                        <img class="postcard__img" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}" />
+                    </a>
+                    <div class="postcard__text">
+                        <h2 class="postcard__title blue"><a href="#">Titre du jeux : {{jeux.name}}</a></h2>
+                        <div class="postcard__subtitle small">
+                            <time datetime="{{jeux.updatedAt|date("d:m:Y H:i")}}">
+                                <i class="fas fa-calendar-alt mr-2"></i>{{jeux.updatedAt|date("d:m:Y H:i")}}
+                            </time>
+                        </div>
+                        <div class="postcard__bar"></div>
+                        <div class="postcard__preview-txt">{{jeux.description|raw}}</div>
+                        <ul class="postcard__tagbox">
+                            <li class="tag__item"><i class="fas fa-tag mr-2"></i><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></li>
+                            <li class="tag__item"><i class="fas fa-clock mr-2"></i> {{jeux.price|number_format(2, ',', '.')}} €</li>
+                            <li class="tag__item play blue">
+                                <a href="{{path('article_delete', {'slug': jeux.slug})}}"><i class="fas fa-play mr-2"></i>Supprimer le jeux {{jeux.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <h2 class="h1 text-center" id="pageHeaderTitle">Catégories de jeux vidéo</h2>
+                {% for categories in jeux.categories %}
+                    <article class="postcard dark red">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="{{vich_uploader_asset(categories, 'imageFile')}}" alt="{{categories.name}}" />	
+                        </a>
+                        <div class="postcard__text">
+                            <h1 class="postcard__title red"><a href="#">Catégorie : {{categories.name}} - Nom du jeux : {{jeux.name}}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>{{categories.updatedAt|date("m/d/Y H:i")}}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{jeux.description}}</div>
+                            <ul class="postcard__tagbox">
+                                <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                                <li class="tag__item play red">
+                                    <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                {% endfor %}
+
+                <div class="h1 text-center text-dark" id="pageHeaderTitle">Commentaires</div>
+                {% for comments in jeux.comments %}
+                    
+                    <article class="postcard light blue">
+                        <a class="postcard__img_link" href="#">
+                            {# <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" /> #}
+                            <img class="postcard__img" src="{{vich_uploader_asset(comments.game, 'imageFile')}}" alt="{{comments.game.name}}" />
+                        </a>
+                        <div class="postcard__text t-dark">
+                            <h1 class="postcard__title blue"><a href="#">Titre : {{comments.game.name}}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>{{comments.game.createdAt|date("m/d/Y H:i")}}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{comments.comment}}</div>
+                            <ul class="postcard__tagbox">
+                                <li class="tag__item"><i class="fas fa-tag mr-2"></i><a href="{{path('edit_article', {'slug': comments.slug})}}">Modifier le jeux {{comments.game.name}}</a></li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{comments.game.price|number_format(2, ',', '.')}} €</li>
+                                <li class="tag__item play blue">
+                                    <a href="{{path('article_delete', {'slug': comments.slug})}}"><i class="fas fa-play mr-2"></i>Supprimer le jeux {{comments.game.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                {% endfor %}
             {% endfor %}
-            <li>
-                <div class="mesjeux-modif">
-                    <button class="btn btn-outline-primary"><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></button>
-                    <button class="btn btn-danger"><a href="{{path('article_delete', {'slug': jeux.slug})}}">Supprimer le jeux {{jeux.name}}</a></button>
                 </div>
-            </li>
-        {% endfor %}
-        
-        </ul>
+            
+        </section>
+    </div>
+</div>
+        {# </ul> #}
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
             {{ message }}
