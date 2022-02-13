@@ -21,7 +21,13 @@ class CommentType extends AbstractType
             ->add('comment', TextareaType::class)
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'username'
+                'choice_label' => 'username',
+                'attr' => [
+                    'class' => 'hiddentype'
+                ],
+                'label_attr' => [
+                    'class' => 'hiddentype'
+                ]
             ])
             //->add('submit', SubmitType::class) le mettre dans le fichier twig
         ;

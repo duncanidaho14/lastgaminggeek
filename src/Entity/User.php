@@ -149,7 +149,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
 
     /**
-     * @Gedmo\Slug(fields={"firstName", "lastName"})
+     * @Gedmo\Slug(fields={"pseudo"})
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
