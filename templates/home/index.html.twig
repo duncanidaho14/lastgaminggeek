@@ -12,7 +12,7 @@
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     {% for carousel in jeuxCarousel %}
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index}}" 
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" 
                             {% if loop.first %}
                                 class="active"
                             {% endif %} 
@@ -23,14 +23,10 @@
 
                 <div class="carousel-inner">
                     {% for carousel in jeuxCarousel %}
-                        <div class="carousel-item 
-                            {% if loop.first  %} 
-                                active
-                            {% endif %}"
-                        >
+                        <div class="carousel-item {% if loop.first  %} active {% endif %}">
                             <img src="{{asset(carousel.coverImage)}}" class="d-block w-100" alt="...">
                         </div>
-                        {% endfor %}
+                    {% endfor %}
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
