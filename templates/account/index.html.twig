@@ -10,8 +10,37 @@
             <h2>Que voulez vous faire <span style='color: #3299FF;'>{{app.user.firstName}} </span>?</h2>
             <br>
             <div>
-                <a href="{{path('account_address')}}">Mes adresses</a>
-                <a href="{{path('jeuxvideo')}}">mes Jeux vidéos</a>
+                <div class="card">
+                    <div class="card-header">
+                        Mes commandes
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.pseudo}}</h5>
+                        <p class="card-text">{{user.firstName}} {{user.lastName}}</p>
+                        <a href="{{path('order')}}" class="btn btn-primary">Mes commandes de jeux vidéo</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Mes Jeux
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.pseudo}}</h5>
+                        <p class="card-text">{{user.firstName}} {{user.lastName}}</p>
+                        <a href="{{path('jeuxvideo')}}" class="btn btn-primary">Mes jeux vidéo en vente</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Mes Adresses
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.pseudo}}</h5>
+                        <p class="card-text">{{user.firstName}} {{user.lastName}}</p>
+                        <a href="{{path('account_address')}}" class="btn btn-primary">Mes adresses</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
