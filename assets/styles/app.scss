@@ -79,6 +79,11 @@ a:after{
     color: var(--font-color);
 }
 
+img.card-img-top.handle-link {
+    width: 100%;
+    height: 230px;
+}
+
 .handle-link {
     color: var(--font-color);
     text-decoration: none;
