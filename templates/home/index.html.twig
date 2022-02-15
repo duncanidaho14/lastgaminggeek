@@ -58,9 +58,9 @@
             </div>
 
             <div class="carousel-inner">
-                {% for carousel in jeuxCarousel %}
+                {% for carousel in jeuxvideo %}
                     <div class="carousel-item {% if loop.first  %} active {% endif %}">
-                        <img src="{{asset('/uploads/images/' ~ carousel.coverImage ~ '')}}" class="carousel-container" alt="image caroussel de jeux video">
+                        <img src="{{vich_uploader_asset(carousel, 'imageFile')}}" class="carousel-container" alt="image caroussel de jeux video">
                     </div>
                 {% endfor %}
             </div>
