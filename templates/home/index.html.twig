@@ -60,7 +60,7 @@
             <div class="carousel-inner">
                 {% for carousel in jeuxCarousel %}
                     <div class="carousel-item {% if loop.first  %} active {% endif %}">
-                        <img src="/uploads/images{{asset('carousel.coverImage')}}" class="carousel-container" alt="image caroussel de jeux video">
+                        <img src="{{asset("/uploads/images/",carousel.coverImage)}}" class="carousel-container" alt="image caroussel de jeux video">
                     </div>
                 {% endfor %}
             </div>
