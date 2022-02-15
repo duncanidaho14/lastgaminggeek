@@ -40,6 +40,7 @@ class HomeController extends AbstractController
         
         $jeuxvideoCarousel = $jeuxvideoRepo->findByJeuxvideoCarousel(3);
         
+
         // $homeCacheJeux = $cache->addCache('jeux', function(){
         //     return $jeux;
         // });
