@@ -57,7 +57,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'users' => $user,
             'paginator' => $paginator,
-            'jeuxCarousel' => $jeuxvideoCarousel
+            'jeuxCarousel' => $jeuxvideoCarousel,
+            'jeuxvideo' => $jeuxvideoRepo->findAll()
         ]);
     }
 
