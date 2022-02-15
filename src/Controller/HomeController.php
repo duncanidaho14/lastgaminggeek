@@ -25,8 +25,8 @@ use App\Service\Paginator;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/{page<\d+>?1}", name="home")
-     * @Route("/accueil/{page<\d+>?1}", name="accueil")
+     * @Route("/{page<\d+>?1}", name="accueil")
+     * 
      */
     public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, Paginator $paginator, $page): Response
     {
