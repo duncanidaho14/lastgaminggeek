@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "antishov/doctrine-extensions-bundle": "^1.4",
         "api-platform/core": "^2.6",
+        "blackfire/php-sdk": "^1.29",
         "composer/package-versions-deprecated": "1.11.99.2",
         "doctrine/annotations": "^1.0",
         "doctrine/cache": "^2.1",
@@ -41,6 +42,7 @@
         "symfony/mime": "5.3.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.3.*",
+        "symfony/panther": "^1.1",
         "symfony/process": "5.3.*",
         "symfony/property-access": "5.3.*",
         "symfony/property-info": "5.3.*",
@@ -62,6 +64,7 @@
         "webonyx/graphql-php": "^14.9"
     },
     "require-dev": {
+        "dbrekelmans/bdi": "^1.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^5.3",
