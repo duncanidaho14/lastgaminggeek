@@ -59,7 +59,7 @@ class HomeController extends AbstractController
             'users' => $user,
             'paginator' => $paginator,
             'jeuxCarousel' => $jeuxvideoCarousel,
-            'jeuxvideo' => $jeuxvideoRepo->findAll()
+            'jeuxvideos' => $jeuxvideoRepo->findAll()
         ]);
     }
 
