@@ -80,8 +80,11 @@ security:
         - { path: ^/registration, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/inscription, roles: PUBLIC_ACCESS }
-        - { path: ^/accueil, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/commande, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/mon-panier, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/compte, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/jeuxvideo, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_EDITOR: [ROLE_USER]
