@@ -8,28 +8,30 @@
     <div class="row">
         <div class="col-12">
             <div class="row">
-            <div class="col-3"><img src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}"></div>
-            <div class="col-9">
-                <h1>Acheter {{ jeuxvideo.name }} ! ✅</h1>
-            
-                <p>{{jeuxvideo.price|number_format(2, ',', '.')}} €</p>
-                <p>Description : {{jeuxvideo.description|raw}}</p>
-                <h2>Date de création {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
-                {% for jeux in jeuxvideo.categories %}
-                    <h2>Nom de la catégorie : {{jeux.name}}</h2>
-                    <img src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
-                    <img src="{{asset(jeux.image)}}" alt="{{jeux.name}}">
-                {% endfor %}
-            </div>
+            	<div class="col-3">
+					<img class="article_show_img" src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}">
+				</div>
+            	<div class="col-9">
+					<h1>Acheter {{ jeuxvideo.name }} ! ✅</h1>
+				
+					<p>{{jeuxvideo.price|number_format(2, ',', '.')}} €</p>
+					<p>Description : {{jeuxvideo.description|raw}}</p>
+					<h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
+					<button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier : {{jeuxvideo.name}}</a></button>
+					{% for jeux in jeuxvideo.categories %}
+						<h2>Nom de la catégorie : {{jeux.name}}</h2>
+						<img class="article_show_img" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}" >
+					{% endfor %}
+            	</div>
             </div>
         </div>
         
         <hr>
         
-            <h3>Pseudo : {{jeuxvideo.user.pseudo}}</h3>
+            <h2>Pseudo : {{jeuxvideo.user.pseudo}}</h2>
             
             {% if jeuxvideo.user.avatar != null %}
-                <img src="{{asset(jeuxvideo.user.avatar)}}" alt="{{jeuxvideo.user.pseudo}}">
+                <img class="article_show_img_user" src="{{vich_uploader_asset(jeuxvideo.user, 'imageFile')}}" alt="{{jeuxvideo.user.pseudo}}">
             {% endif %}
 
         <hr>
@@ -38,7 +40,7 @@
         <hr>
         <div>
             
-            <h3>Commentaires</h3>
+            <h2>Commentaires</h2>
 
             <div>
                 {{ form_start(form) }}
@@ -74,199 +76,64 @@
 <div class="container">
     <div class="row">
         <section class="dark">
-	    <div class="container py-4">
-		<h1 class="h1 text-center" id="pageHeaderTitle">Catégories</h1>
+            <div class="container py-4">
+                <h2 class="h1 text-center" id="pageHeaderTitle">Catégories {{jeuxvideo.name}}</h2>
+                {% for categories in jeuxvideo.categories %}
+                    <article class="postcard dark blue">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="{{vich_uploader_asset(categories, 'imageFile')}}" alt="{{categories.name}}" />
+                        </a>
+                        <div class="postcard__text">
+                            <h1 class="postcard__title blue"><a href="#">{{categories.name}}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>{{categories.updatedAt|date("d:m:Y H:i")}}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{jeuxvideo.name}}</div>
+                            <ul class="postcard__tagbox">
+                                <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                                <li class="tag__item play blue">
+                                    <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
 
-        {% for categories in jeuxvideo.categories %}
-            <article class="postcard dark blue">
-                <a class="postcard__img_link" href="#">
-                    <img class="postcard__img" src="{{vich_uploader_asset(categories, 'imageFile')}}" alt="{{categories.name}}" />
-                </a>
-                <div class="postcard__text">
-                    <h1 class="postcard__title blue"><a href="#">{{categories.name}}</a></h1>
-                    <div class="postcard__subtitle small">
-                        <time datetime="2020-05-25 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>{{categories.updatedAt|date("d:m:Y H:i")}}
-                        </time>
-                    </div>
-                    <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt"></div>
-                    <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                        <li class="tag__item play blue">
-                            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-                        </li>
-                    </ul>
-                </div>
-            </article>
-        {% endfor %}
-		{# <article class="postcard dark red">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/501/500" alt="Image Title" />	
-			</a>
-			<div class="postcard__text">
-				<h1 class="postcard__title red"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play red">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article>
-		<article class="postcard dark green">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/500/501" alt="Image Title" />
-			</a>
-			<div class="postcard__text">
-				<h1 class="postcard__title green"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play green">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article>
-		<article class="postcard dark yellow">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/501/501" alt="Image Title" />
-			</a>
-			<div class="postcard__text">
-				<h1 class="postcard__title yellow"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play yellow">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article> #}
-	</div>
-</section>
-
-<section class="light">
-	<div class="container py-2">
-		<div class="h1 text-center text-dark" id="pageHeaderTitle">My Cards Light</div>
-        {% for comments in jeuxvideo.comments %}
-            
-		<article class="postcard light blue">
-			<a class="postcard__img_link" href="#">
-				{# <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" /> #}
-				<img class="postcard__img" src="{{vich_uploader_asset(comments.game, 'imageFile')}}" alt="{{comments.game.name}}" />
-			</a>
-			<div class="postcard__text t-dark">
-				<h1 class="postcard__title blue"><a href="#">{{comments.game.name}}</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>{{comments.game.createdAt|date("m/d/Y H:i")}}
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play blue">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article>
-        {% endfor %}
-		{# <article class="postcard light red">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/501/500" alt="Image Title" />	
-			</a>
-			<div class="postcard__text t-dark">
-				<h1 class="postcard__title red"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play red">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article>
-		<article class="postcard light green">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/500/501" alt="Image Title" />
-			</a>
-			<div class="postcard__text t-dark">
-				<h1 class="postcard__title green"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play green">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article>
-		<article class="postcard light yellow">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/501/501" alt="Image Title" />
-			</a>
-			<div class="postcard__text t-dark">
-				<h1 class="postcard__title yellow"><a href="#">Podcast Title</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
-				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-					<li class="tag__item play yellow">
-						<a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-					</li>
-				</ul>
-			</div>
-		</article> #}
-	</div>
-</section>
+        <section class="light">
+            <div class="container py-2">
+                <div class="h1 text-center text-dark" id="pageHeaderTitle">Commentaires {{jeuxvideo.name}}</div>
+                {% for comments in jeuxvideo.comments %}
+                    <article class="postcard light blue">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="{{vich_uploader_asset(comments.game, 'imageFile')}}" alt="{{comments.game.name}}" />
+                        </a>
+                        <div class="postcard__text t-dark">
+                            <h1 class="postcard__title blue"><a href="#">{{comments.game.name}}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>{{comments.game.createdAt|date("m/d/Y H:i")}}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{comments.comment|raw}}</div>
+                            <ul class="postcard__tagbox">
+                                <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                                <li class="tag__item play blue">
+                                    <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
     </div>
 </div>
 {% endblock %}
