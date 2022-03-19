@@ -8,10 +8,13 @@ import './img/favicon-32x32.png';
 import './img/favicon.ico';
 import './img/mstile-150x150.png';
 import './img/safari-pinned-tab.svg';
+// import './img/CV_2022-03-03_Elhadi_Beddarem.pdf';
 //import './img/site.webmanifest';
 import './styles/app.scss';
-// $('.dropdown-toggle').dropdown();
-// $('.carousel').carousel();
+import userImage from './img/user-3331256.svg';
+import jeuxvideo from './img/signal-3655575.svg';
+import categories from './img/app-6702045.svg';
+import comments from './img/comments-97860.svg';
 
 /**
  * Permet d'afficher l'onglet d'une couleur différente

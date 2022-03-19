@@ -3,8 +3,8 @@
 {% block title %}Merci de votre achat {{order.carrierName}}!{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="container">
+    <div class="container">
+        <div class="row">
             <h1>Merci pour votre commande {{order.reference}}</h1>
             <hr>
             <div class="col-md-12 row">
@@ -15,13 +15,14 @@
                 <div class="w3-container w3-center">
                     <p>{{order.user.firstName}} {{order.user.lastName}}</p>
                     <p>{{ajout.product}} / {{ajout.quantity}}</p>
-                    <p>{{order.user.email}} {{order.reference}}</p>
+                    <p>Email : {{order.user.email}}</p>
+                    <p>Référence: {{order.reference}}</p>
                     <p>Prix du produit : {{ajout.price}} €</p>
                     <p>Prix total : {{ajout.price + order.carrierPrice}} €</p>
                     <p>{{order.carrierName}} <br>
                         {{order.carrierPrice|number_format(2, ',', '.')}} €<br>
-                    {{order.delivery|raw}}
-            </p>
+                        {{order.delivery|raw}}
+                    </p>
                 </div>
             </div> 
                 {% endfor %}

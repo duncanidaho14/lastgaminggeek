@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Développeur web et mobile</h1>
+        <div class="block-pdf">
+            <embed src="{{ path('app_cv_elhadi')}}" width="1200" height="1100" type='application/pdf'>
+        </div>
+        <div class="block-pdf">
+            <embed src="{{ path('app_cv_meddy')}}" width="1200" height="1100" type='application/pdf'>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+{% endblock %}
