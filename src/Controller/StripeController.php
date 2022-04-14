@@ -40,7 +40,7 @@ class StripeController extends AbstractController
         );
 
         $productsStripe = [];
-        $myDomaine = "http://127.0.0.1:8000";
+        $myDomaine = "https://www.gaminggeek.fr";
         $order = $this->entityManager->getRepository(Order::class)->findOneByReference($reference);
         
         if (!$order) {

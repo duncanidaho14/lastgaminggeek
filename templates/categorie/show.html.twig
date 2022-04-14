@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ma catégorie
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% if categorie|length == null %}
+                <h2>Il n'y a rien</h2>
+            {% else %}
+                {% for cat in categorie %}
+                    <h2>{{cat.name}}</h2>
+                    <a href="{{path('categorie')}}" class="btn btn-block btn-primary">Retour aux categories</a>
+                    
+                    <img src="{{vich_uploader_asset(cat, 'imageFile')}}" alt="{{cat.name}}">
+                    <section>
+                        {% for catgame in cat.game %}
+                            <h3>{{catgame.name}}</h3>
+                            <figure>
+                                <img src="{{vich_uploader_asset(catgame, 'imageFile')}}" alt="{{catgame.name}}">
+                                <figcaption>{{catgame.name}} crée le : {{catgame.updatedAt|date("m/d/Y H:i")}}</figcaption>
+                            </figure>
+                        {% endfor %}
+                    </section>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

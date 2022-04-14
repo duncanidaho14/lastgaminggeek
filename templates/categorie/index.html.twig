@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategorieController!{% endblock %}
+{% block title %}Categorie de jeux video{% endblock %}
 
 {% block body %}
 <div class="container">
     <div class="row">
         <h1>Catégorie</h1>
         <a href="{{path('create_categorie')}}" class="btn btn-primary">Ajouter une catégorie</a>
-        <ul>
+        <ul style="list-style-type: none;">
         {% for categorie in categories %}
-            <li>{{categorie.name}} </li>
+            <li><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></li>
+            <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="{{categorie.name}}"></li>
+            <li>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</li>
+            <hr>
         {% endfor %}
         </ul>
     </div>
