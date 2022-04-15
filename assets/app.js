@@ -16,6 +16,8 @@ import jeuxvideo from './img/signal-3655575.svg';
 import categories from './img/app-6702045.svg';
 import comments from './img/comments-97860.svg';
 
+import 'bootstrap';
+
 /**
  * Permet d'afficher l'onglet d'une couleur différente
  * Ne marche que sur chrome Android

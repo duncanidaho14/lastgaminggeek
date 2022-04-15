@@ -12,22 +12,28 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
+    {% set active = "active" %}
+    {% set first = 0 + 1 %}
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">            
+    <div class="carousel-indicators">
                 {% for jeux in jeuxvideos %}
-                    <button class="carousel-indicator" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" 
-                        {% if loop.first %}
-                            class="active"
-                        {% endif %} 
+                {% if jeux|length < 0 %}
+                        <h2>Il n'y a aucun jeux</h2>
+                    {% else %}
+                    <button class="carousel-indicator{% if loop.first %}
+                            active
+                        {% endif %} " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index}}" 
+                        
                             aria-current="true" aria-label="{{loop.index0}}">
                     </button>
+                {% endif %}
                 {% endfor %}
             </div>
 
             <div class="carousel-inner">
                 {% for jeuxvideo in jeuxvideos %}
-                    <div class="carousel-item {% if loop.first  %} active {% endif %}">
-                        <img src="uploads/images/{{jeuxvideo.coverImage}}" class="carousel-container" alt="{{jeuxvideo.name}}">
+                    <div class="carousel-item {% if loop.first == 1 %} active {% endif %}">
+                        <img src="/uploads/images/{{jeuxvideo.coverImage}}" class="carousel-container" alt="{{jeuxvideo.name}}">
                     </div>
                 {% endfor %}
             </div>
@@ -65,7 +71,7 @@
                                 <div class="card-body">
                                     <h3 class="card-title"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.name}}</a></h3>
                                     <p class="card-text"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.description|raw|slice(0, 40)}}...</a></p>
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, ',', '.')}} €</a>
+                                    <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, '.', ',')}} €</a>
                                 </div>
                             </div>
                         </div>
@@ -88,10 +94,10 @@
     </script>
 
     <script>
-    window.addEventListener('DOMContentLoaded', function(e) {
-        var myCarousel = document.querySelector('#myCarousel')
+    window.addEventListener('DOMContentLoaded', function() {
+        var myCarousel = document.querySelector('#carouselExampleIndicators')
         var carousel = new bootstrap.Carousel(myCarousel, {
-        interval: 2000,
+        interval: 5000,
         wrap: false
         })
 

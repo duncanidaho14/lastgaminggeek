@@ -31,7 +31,7 @@
                         <div class="postcard__preview-txt">{{jeux.description|raw}}</div>
                         <ul class="postcard__tagbox">
                             <li class="tag__item"><i class="fas fa-tag mr-2"></i><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></li>
-                            <li class="tag__item"><i class="fas fa-clock mr-2"></i> {{jeux.price|number_format(2, ',', '.')}} €</li>
+                            <li class="tag__item"><i class="fas fa-clock mr-2"></i> {{jeux.price|number_format(2, '.', ',')}} €</li>
                             <li class="tag__item play blue">
                                 <a href="{{path('article_delete', {'slug': jeux.slug})}}"><i class="fas fa-play mr-2"></i>Supprimer le jeux {{jeux.name}}</a>
                             </li>

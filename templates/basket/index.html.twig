@@ -41,8 +41,8 @@
                                 <i class="fas fa-cart-plus"></i>
                             </a>
                         </td>
-                        <td>{{(product.jeuxvideo.price)|number_format(2, ',', '.')}} €</td>
-                        <td>{{(((product.jeuxvideo.price) * product.quantity))|number_format(2, ',', '.')}} €</td>
+                        <td>{{(product.jeuxvideo.price)|number_format(2, '.', ',')}} €</td>
+                        <td>{{(((product.jeuxvideo.price) * product.quantity))|number_format(2, '.', ',')}} €</td>
                         <td> <a href="{{path('delete_to_basket', {'id': product.jeuxvideo.id})}}"> <i class="fas fa-trash"></i> </a> </td>
                     </tr>
                     <tr class="total">
@@ -61,7 +61,7 @@
             </table>
             <div class="commande-title">
             Prix Total de la commande de jeux video est de : 
-                {{total|number_format(2, ',', '.')}} €
+                {{total|number_format(2, '.', ',')}} €
             </div>
 
             <div>
