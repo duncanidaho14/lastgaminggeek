@@ -70,11 +70,6 @@ a:after{
     color: var(--font-color);
 }
 
-.card {
-    background-color: var(--color-third);
-    color: var(--font-color);
-}
-
 img.card-img-top.handle-link {
     width: 100%;
     height: 230px;
@@ -200,7 +195,7 @@ img.article_show_img_user {
 
 .card {
     order: 4;
-    padding-left: 40px;
-    background-color: var(--color-info);
+    background-color: var(--color-info);    
+    color: var(--font-color);
 }
 
