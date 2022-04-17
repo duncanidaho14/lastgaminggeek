@@ -44,9 +44,7 @@
             </div>
             <div class="col-md-8">
                 <form action="{{path('stripe_create_session', {'reference': reference})}}" method="POST">
-                    
                     <button type="submit" id="checkout-button" class="btn btn-block btn-outline-success">Payer | {{((total) + (carrier[0].price))|number_format(2, '.', ',')}} €</button>
-
                 </form>
                 
             </div>

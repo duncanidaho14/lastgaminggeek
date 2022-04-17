@@ -6,9 +6,11 @@
     <div class="container">
         <div class="row">
             <br>
-            <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
+            <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour vers mon compte</a>
             <br>
-            <h1>Mon panier</h1>
+            <h1 data-aos="fade-right"
+                data-aos-offset="200"
+                data-aos-easing="ease-in-sine">Mon panier</h1>
             
             {% if basket|length > 0 %}
                 
@@ -30,7 +32,10 @@
                     {% for product in basket %}
                     <tr>
                         <th scope="row">{{basket|length}}</th>
-                        <td><img src="/uploads/images/{{product.jeuxvideo.coverImage}}" alt="{{product.jeuxvideo.name}}" height="55px"></td>
+                        <td>
+                            <a href="{{path('article_show', {'slug': product.jeuxvideo.slug})}}">
+                                <img src="/uploads/images/{{product.jeuxvideo.coverImage}}" alt="{{product.jeuxvideo.name}}" height="55px"></td>
+                            </a>
                         <td>{{product.jeuxvideo.name}}</td>
                         <td>
                             <a href="{{path('decrease_to_basket', {'id': product.jeuxvideo.id})}}">
@@ -41,8 +46,8 @@
                                 <i class="fas fa-cart-plus"></i>
                             </a>
                         </td>
-                        <td>{{(product.jeuxvideo.price)|number_format(2, '.', ',')}} €</td>
-                        <td>{{(((product.jeuxvideo.price) * product.quantity))|number_format(2, '.', ',')}} €</td>
+                        <td>{{(product.jeuxvideo.price)|number_format(2, ',', '.')}} €</td>
+                        <td>{{(((product.jeuxvideo.price) * product.quantity))|number_format(2, ',', '.')}} €</td>
                         <td> <a href="{{path('delete_to_basket', {'id': product.jeuxvideo.id})}}"> <i class="fas fa-trash"></i> </a> </td>
                     </tr>
                     <tr class="total">
@@ -59,20 +64,28 @@
                 
                 </tbody>
             </table>
-            <div class="commande-title">
+            <section class="commande-title">
             Prix Total de la commande de jeux video est de : 
-                {{total|number_format(2, '.', ',')}} €
-            </div>
+                {{total|number_format(2, ',', '.')}} €
+            </section>
 
-            <div>
-                <div>
-                    <a class="btn btn-success" href="{{path('order')}}">Passer la commande</a>
-                </div>
-            </div>
+            <section class="order_basket_buy">
+               
+                    <a class="btn btn-success add_to_recap" href="{{path('order')}}">Passer la commande ✅</a>
+                
+            </section>
             {% else %}
                 <hr>
                 <p>Votre panier est vide</p>
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            AOS.init();
+        });
+    </script>
 {% endblock %}

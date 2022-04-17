@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{user.pseudo}}</h5>
                         <p class="card-text">{{user.firstName}} {{user.lastName}}</p>
-                        <a href="{{path('order')}}" class="btn btn-primary">Mes commandes de jeux vidéo</a>
+                        <a href="{{path('account_order')}}" class="btn btn-primary">Mes commandes de jeux vidéo</a>
                     </div>
                 </div>
                 <div class="card">
@@ -44,4 +44,16 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

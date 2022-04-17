@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes Commandes! {% endblock %}
+{% block title %}Mes Commandes ! 🍹{% endblock %}
 
 {% block body %}
-    <div class="row">
 <div class="container">
+    <div class="row">
     <br>
         <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
         <br>
@@ -19,11 +19,17 @@
                     <div class="col-md-4">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">{{order.carrierName}}</h5>
-                                <p class="card-text">{{order.carrierPrice}} <br/>
-                                    {{order.delivery|raw}} - {{order.isPaid}} - {{order.reference}}
+                                <h5 class="card-title">Nom de la commande : {{order.carrierName}}</h5>
+                                <p class="card-text">Prix de la commande : {{order.carrierPrice}} € <br/>
+                                    - Info de livraison : {{order.delivery|raw}} 
+                                    - Payé ? : {% if order.isPaid == 1 %}
+                                                <p>Payement confirmer</p>
+                                            {% else %}
+                                                <p>non payé</p>
+                                            {% endif %} 
+                                    - Référence : {{order.reference}}
                                 </p>
-                                <p>Total de la commande : {{((order.carrierPrice + order.getTotal))|number_format(2, '.', ',')}} €</p>
+                                <p>Total de la commande : {{((order.carrierPrice + order.getTotal))|number_format(2, ',', '.')}} €</p>
                             </div>
                         </div>
                     </div>
@@ -32,4 +38,16 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}
