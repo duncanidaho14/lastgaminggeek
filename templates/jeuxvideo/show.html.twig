@@ -6,24 +6,19 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <div class="row">
-            	<div class="col-4 img_show">
-                    
-					    <img class="article_show_img_principal" src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}">
-                    
-					{# <img class="article_show_img_principal" src="{{asset(jeuxvideo.coverImage)}}" alt="{{jeuxvideo.name}}"> #}
-				</div>
-            	<div class="col-8">
-					<h1 data-aos="fade-left">Acheter {{ jeuxvideo.name }} ! ✅</h1>
-				
-					<p>Prix : {{jeuxvideo.price|number_format(2, ',', '.')}} €</p>
-					<p>Description : {{jeuxvideo.description|raw}}</p>
-					<h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
-					<button class="btn btn-success btn-block">
-                        <a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier : {{jeuxvideo.name}}</a>
-                    </button>	
-            	</div>
+        <div class="col-12 img_show">
+            <div class="col-4 ">
+                <img class="article_show_img_principal" src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="nom du jeux vidéo : {{jeuxvideo.name}}">
+			</div>
+            <div class="col-8">
+                <h1 data-aos="fade-left">Acheter {{ jeuxvideo.name }} ! ✅</h1>
+            
+                <h2>Prix : {{jeuxvideo.price|number_format(2, ',', '.')}} €</h2>
+                <p>Description : {{jeuxvideo.description|raw}}</p>
+                <h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
+                <button class="btn btn-success btn-block">
+                    <a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier : {{jeuxvideo.name}}</a>
+                </button>	
             </div>
         </div>
         <hr>
