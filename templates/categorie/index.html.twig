@@ -5,16 +5,27 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <h1>Catégorie</h1>
+        <h1 data-aos="fade-right">Catégorie</h1>
         <a href="{{path('create_categorie')}}" class="btn btn-primary">Ajouter une catégorie</a>
         <ul style="list-style-type: none;">
         {% for categorie in categories %}
             <li><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></li>
-            <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="{{categorie.name}}"></li>
+            <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="nom de l'image de la categorie : {{categorie.name}}"></li>
             <li>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</li>
             <hr>
         {% endfor %}
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

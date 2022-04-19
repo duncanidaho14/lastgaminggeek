@@ -15,7 +15,7 @@
 					{# <img class="article_show_img_principal" src="{{asset(jeuxvideo.coverImage)}}" alt="{{jeuxvideo.name}}"> #}
 				</div>
             	<div class="col-8">
-					<h1>Acheter {{ jeuxvideo.name }} ! ✅</h1>
+					<h1 data-aos="fade-left">Acheter {{ jeuxvideo.name }} ! ✅</h1>
 				
 					<p>Prix : {{jeuxvideo.price|number_format(2, ',', '.')}} €</p>
 					<p>Description : {{jeuxvideo.description|raw}}</p>
@@ -58,7 +58,7 @@
     <div class="row">
         <section class="dark">
             <div class="container py-4">
-                <h2 class="h1 text-center" id="pageHeaderTitle">Catégories {{jeuxvideo.name}}</h2>
+                <h2 class="h1 text-center" id="pageHeaderTitle" data-aos="zoom-in">Catégories {{jeuxvideo.name}}</h2>
                 {% for categories in jeuxvideo.categories %}
                     <article class="postcard dark blue">
                         <a class="postcard__img_link" href="#">
@@ -112,7 +112,7 @@
 
         <section class="light">
             <div class="container py-2">
-                <div class="h1 text-center text-dark" id="pageHeaderTitle">Commentaires {{jeuxvideo.name}}</div>
+                <div class="h1 text-center text-dark" id="pageHeaderTitle" data-aos="fade-down">Commentaires {{jeuxvideo.name}}</div>
                 {% for comments in jeuxvideo.comments %}
                     <article class="postcard light blue">
                         <a class="postcard__img_link" href="#">
@@ -144,9 +144,12 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            AOS.init();
-        });
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
     </script>
 {% endblock %}

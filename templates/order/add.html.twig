@@ -10,7 +10,7 @@
         {% for flashError in app.flashes('verify_email_error') %}
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}
-            <h1>Recapitulatif de la commande</h1>
+            <h1 data-aos="fade-right">Recapitulatif de la commande</h1>
             <div class="col-md-6">
                 <h4>Mon adresse de livraison</h4>
                 {{delivery|raw}}
@@ -18,7 +18,7 @@
                 <p>
                     {{carrier[0].name}}
                     {{carrier[0].description|raw}}
-                    {{(carrier[0].price)|number_format(2, '.', ',')}}
+                    {{(carrier[0].price)|number_format(2, ',', '.')}}
                 </p>
             </div>
             <hr>
@@ -30,21 +30,21 @@
                         <h3>{{product.jeuxvideo.name}}</h3>
                     </div>
                     <div class="col-md-6">
-                        <p>Prix de {{product.jeuxvideo.name}} est de {{(product.jeuxvideo.price)|number_format(2, '.', ',')}} € à l'unité</p>
-                        <p>Prix total : {{(((product.jeuxvideo.price) * product.quantity))|number_format(2, '.', ',')}} €</p>
+                        <p>Prix de {{product.jeuxvideo.name}} est de {{(product.jeuxvideo.price)|number_format(2, ',', '.')}} € à l'unité</p>
+                        <p>Prix total : {{(((product.jeuxvideo.price) * product.quantity))|number_format(2, ',', '.')}} €</p>
                         {% set total = total + (product.jeuxvideo.price  * product.quantity) %}
                     </div>
                 {% endfor %}
                 <hr>
             </div>
             <div class="col-md-4 float-right">
-                <p>sous total : {{(total)|number_format(2, '.', ',')}} €</p>
-                <p>Livraison : {{(carrier[0].price)|number_format(2, '.', ',')}} €</p>
-                <p>total : {{((total) + (carrier[0].price))|number_format(2, '.', ',')}} €</p>
+                <p>sous total : {{(total)|number_format(2, ',', '.')}} €</p>
+                <p>Livraison : {{(carrier[0].price)|number_format(2, ',', '.')}} €</p>
+                <p>total : {{((total) + (carrier[0].price))|number_format(2, ',', '.')}} €</p>
             </div>
             <div class="col-md-8">
                 <form action="{{path('stripe_create_session', {'reference': reference})}}" method="POST">
-                    <button type="submit" id="checkout-button" class="btn btn-block btn-outline-success">Payer | {{((total) + (carrier[0].price))|number_format(2, '.', ',')}} €</button>
+                    <button type="submit" id="checkout-button" class="btn btn-block btn-outline-success">Payer | {{((total) + (carrier[0].price))|number_format(2, ',', '.')}} €</button>
                 </form>
                 
             </div>
@@ -63,4 +63,13 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 
     <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

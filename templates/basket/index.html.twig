@@ -5,6 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
+            
             <br>
             <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour vers mon compte</a>
             <br>
@@ -71,7 +72,7 @@
 
             <section class="order_basket_buy">
                
-                    <a class="btn btn-success add_to_recap" href="{{path('order')}}">Passer la commande ✅</a>
+                    <a class="btn btn-outline-primary" href="{{path('order')}}">Passer la commande ✅</a>
                 
             </section>
             {% else %}
@@ -83,6 +84,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             AOS.init();
