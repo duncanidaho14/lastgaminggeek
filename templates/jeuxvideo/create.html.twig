@@ -10,7 +10,7 @@
             <br>
             <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
             <br>
-            <h1>Créer l'article du siècle !</h1>
+            <h1 data-aos="fade-right">Créer l'article du siècle !</h1>
             <br>
             <div>
                 {{ form_start(form) }}
@@ -54,6 +54,7 @@
         <div class="row">
             <div class="col-10">
                 <div class="row">
+                    <h3>Titre de la catégorie</h3>
                     <div class="col">
                         {{ form_widget(form.name) }}
                     </div>
@@ -71,7 +72,7 @@
 
 
 {% block _jeuxvideo_comments_widget %}
-    <p>Ici, Vous ajoutez vos commentaires</p>
+    <p>Ici, Vous ajoutez un titre et un commentaire</p>
     {{ form_widget(form) }}
     <div class="form-group">
         <button type="button" class="btn btn-primary" id="add-comments">Nouveau commentaire</button>
@@ -87,10 +88,11 @@
         <div class="row">
             <div class="col-10">
                 <div class="row">
+                <h3>Titre du commentaire</h3>
                     <div class="col">
                         {{ form_widget(form.title) }}
                     </div>
-                    <div class="col">
+                    <div class="col-8">
                         {{ form_widget(form.comment) }}
                     </div>
                     <div class="col">
@@ -106,7 +108,7 @@
 {% endblock %}
 
 {% block javascripts %}
-
+<script src="{{asset('build/app.js')}}"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -138,10 +140,7 @@
 
             })
         }
-    })
-        
-
-
-            
-    </script>
+        AOS.init();
+    })          
+</script>
 {% endblock %} 

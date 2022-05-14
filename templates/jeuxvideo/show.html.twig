@@ -6,41 +6,42 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <div class="row">
-            	<div class="col-4 img_show">
-					<img class="article_show_img_principal" src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="{{jeuxvideo.name}}">
-					{# <img class="article_show_img_principal" src="{{asset(jeuxvideo.coverImage)}}" alt="{{jeuxvideo.name}}"> #}
-				</div>
-            	<div class="col-8">
-					<h1>Acheter {{ jeuxvideo.name }} ! ✅</h1>
-				
-					<p>{{jeuxvideo.price|number_format(2, ',', '.')}} €</p>
-					<p>Description : {{jeuxvideo.description|raw}}</p>
-					<h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
-					<button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier : {{jeuxvideo.name}}</a></button>
-					
-            	</div>
+        <div class="col-12 img_show">
+            <div class="col-4 ">
+                <img class="article_show_img_principal" src="{{vich_uploader_asset(jeuxvideo, 'imageFile')}}" alt="nom du jeux vidéo : {{jeuxvideo.name}}">
+			</div>
+            <div class="col-8">
+                <h1 data-aos="fade-left">Acheter {{ jeuxvideo.name }} ! ✅</h1>
+            
+                <h2>Prix : {{jeuxvideo.price|number_format(2, ',', '.')}} €</h2>
+                <p>Description : {{jeuxvideo.description|raw}}</p>
+                <h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
+                <button class="btn btn-success btn-block">
+                    <a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier : {{jeuxvideo.name}}</a>
+                </button>	
             </div>
         </div>
         <hr>
-        
+        <section>
             <h2>Pseudo : {{jeuxvideo.user.pseudo}}</h2>
-            
+        
             {% if jeuxvideo.user.avatar != null %}
                 <img class="article_show_img_user" src="{{vich_uploader_asset(jeuxvideo.user, 'imageFile')}}" alt="{{jeuxvideo.user.pseudo}}">
             {% endif %}
-        <div>
-        {% if app.user.email == jeuxvideo.user.email %}
+            <hr>
             <div>
-                <button class="btn btn-danger"><a href="{{path('edit_article', {'slug': jeuxvideo.slug})}}">Modifier {{jeuxvideo.name}}</a></button>
+                {% if app.user.email == jeuxvideo.user.email %}
+                    <div>
+                        <p>Ce jeux vous appartient, vous pouvez le modifier ! ✅</p>
+                        <button class="btn btn-danger"><a href="{{path('edit_article', {'slug': jeuxvideo.slug})}}">Modifier {{jeuxvideo.name}}</a></button>
+                    </div>
+                {% else %}
+                    <div>
+                        <p>Vous ne pouvez modifier cette article ! 🔐</p>
+                    </div>
+                {% endif %}
             </div>
-        {% else %}
-            <div>
-                <p>Vous ne pouvez modifier cette article</p>
-            </div>
-        {% endif %}
-        </div>
+        </section>
         <hr>
 
         <button class="btn btn-success"><a href="{{path('add_to_basket', {'id': jeuxvideo.id})}}" class="add_to_basket">Ajouter au panier {{jeuxvideo.name}}</a></button>
@@ -52,7 +53,7 @@
     <div class="row">
         <section class="dark">
             <div class="container py-4">
-                <h2 class="h1 text-center" id="pageHeaderTitle">Catégories {{jeuxvideo.name}}</h2>
+                <h2 class="h1 text-center" id="pageHeaderTitle" data-aos="zoom-in">Catégories {{jeuxvideo.name}}</h2>
                 {% for categories in jeuxvideo.categories %}
                     <article class="postcard dark blue">
                         <a class="postcard__img_link" href="#">
@@ -106,7 +107,7 @@
 
         <section class="light">
             <div class="container py-2">
-                <div class="h1 text-center text-dark" id="pageHeaderTitle">Commentaires {{jeuxvideo.name}}</div>
+                <div class="h1 text-center text-dark" id="pageHeaderTitle" data-aos="fade-down">Commentaires {{jeuxvideo.name}}</div>
                 {% for comments in jeuxvideo.comments %}
                     <article class="postcard light blue">
                         <a class="postcard__img_link" href="#">
@@ -135,4 +136,15 @@
         </section>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

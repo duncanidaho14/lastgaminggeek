@@ -8,10 +8,10 @@
     <div class="container">
         <div class="row">
             {% if categorie|length == null %}
-                <h2>Il n'y a rien</h2>
+                <h1>Il n'y a rien</h1>
             {% else %}
                 {% for cat in categorie %}
-                    <h2>{{cat.name}}</h2>
+                    <h1 data-aos="fade-right">{{cat.name}}</h1>
                     <a href="{{path('categorie')}}" class="btn btn-block btn-primary">Retour aux categories</a>
                     
                     <img src="{{vich_uploader_asset(cat, 'imageFile')}}" alt="{{cat.name}}">
@@ -29,4 +29,15 @@
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

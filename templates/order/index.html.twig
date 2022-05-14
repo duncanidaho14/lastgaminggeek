@@ -8,7 +8,7 @@
         {% for flashError in app.flashes('error') %}
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}
-        <h1>Je passe ma commande</h1>
+        <h1 data-aos="fade-right">Je passe ma commande</h1>
         <hr>
 
         <div class="container">
@@ -35,4 +35,15 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

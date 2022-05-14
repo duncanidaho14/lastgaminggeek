@@ -48,7 +48,12 @@ class JeuxvideoType extends AbstractType
                 'entry_options' => ['label' => false]
 
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Poster mon super jeux ',
+                'attr' => [
+                    'class' => 'btn btn-block btn-outline-primary submit-button'
+                ]
+            ])
         ;
 
         // $formModifier = function (FormInterface $form, Categorie $categories = null) {
