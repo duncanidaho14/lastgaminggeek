@@ -26,7 +26,13 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/{page<\d+>?1}", name="accueil")
-     * 
+     *
+     * @param CacheInterface $cache
+     * @param UserRepository $userRepo
+     * @param JeuxvideoRepository $jeuxvideoRepo
+     * @param Paginator $paginator
+     * @param [int] $page
+     * @return Response
      */
     public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, Paginator $paginator, $page): Response
     {
