@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Categorie;
 use App\Entity\Jeuxvideo;
+use App\Entity\Platform;
 use App\Form\CategorieType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -29,6 +30,7 @@ class JeuxvideoType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('imageFile', VichFileType::class)
+            ->add('platform')
             ->add('price', MoneyType::class)
             ->add('description', TextareaType::class)
             ->add('categories', CollectionType::class, [
@@ -55,28 +57,6 @@ class JeuxvideoType extends AbstractType
                 ]
             ])
         ;
-
-        // $formModifier = function (FormInterface $form, Categorie $categories = null) {
-        //     $choices = null === $categories ? [] : $categories->getName();
-
-        //     $form->add('categories', EntityType::class, [
-        //         'class' => Categorie::class,
-        //         'choices' => $choices,
-        //         'required' => false,
-        //         'choice_label' => 'name',
-        //         'placeholder' => 'Département (Choisir une région)',
-        //         'attr' => ['class' => 'custom-select'],
-        //         'label' => 'Département'
-        //     ]);
-        // };
-
-        // $builder->get('categories')->addEventListener(
-        //     FormEvents::POST_SUBMIT,
-        //     function (FormEvent $event) use ($formModifier) {
-        //         $categorie = $event->getForm()->getData();
-        //         $formModifier($event->getForm()->getParent(), $categorie);
-        //     }
-        // );
     }
 
     public function configureOptions(OptionsResolver $resolver)

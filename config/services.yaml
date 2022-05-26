@@ -7,6 +7,7 @@ parameters:
     app.path.jeuxvideo_images: /uploads/images
     app.path.categorie_images: /uploads/categories
     app.path.user_images: /uploads/user
+    app.path.platform_images: /uploads/platform
     app.cache.adapter: cache.adapter.redis
     redis.host: 127.0.0.1
     redis.port: 6379

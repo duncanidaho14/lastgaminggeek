@@ -26,6 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use App\Service\Paginator;
+use App\Entity\Platform;
 
 
 
@@ -85,10 +86,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Jeux Video', 'fas fa-tablet-alt', Jeuxvideo::class);
+        yield MenuItem::linkToCrud('Plateforme', 'fas fa-tablet-alt', Platform::class);
+        yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Adresses', 'fas fa-map-marked', Address::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
-        yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
-        yield MenuItem::linkToCrud('Jeux Video', 'fas fa-tablet-alt', Jeuxvideo::class);
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-tag', Comment::class);
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
     }

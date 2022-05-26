@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Platform{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Platform</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ platform.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ platform.name }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td>{{ platform.imageFile }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('platform_index') }}">back to list</a>
+
+        <a href="{{ path('platform_edit', {'id': platform.id}) }}">edit</a>
+
+        {{ include('platform/_delete_form.html.twig') }}
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
+{% endblock %}

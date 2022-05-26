@@ -16,6 +16,22 @@ easy_admin:
                 fields:
                     - { property: 'imageFile', type: 'vich_image' }
         
+        Platform:
+            # ...
+            list:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.platform_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'image', type: 'vich_file', base_path: '%app.path.platform_images%', template: 'platform/index.html.twig' }
+                    
+            # ...
+            show:
+                fields:
+                    #- { property: 'image', type: 'vich_file', base_path: '%app.path.platform_images%', template: 'vich_uploader_image.html.twig' }
+                    - { property: 'image', type: 'vich_file', base_path: '%app.path.platform_images%', template: 'platform/index.html.twig' }
+            form:
+                fields:
+                    - { property: 'imageFile', type: 'vich_image' }
+        
         Categorie:
             # ...
             list:

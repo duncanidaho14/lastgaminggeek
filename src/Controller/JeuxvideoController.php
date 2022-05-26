@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security as SecurityCore;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\CommentType;
 use App\Entity\Categorie;
@@ -114,7 +113,7 @@ class JeuxvideoController extends AbstractController
 
     /**
      * @Route("/jeuxvideo/{slug}", name="article_show")
-     * 
+     * @Security("is_granted('ROLE_USER')")
      */
     public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, Request $request, EntityManagerInterface $manager, $slug): Response
     {
