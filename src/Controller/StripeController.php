@@ -104,19 +104,6 @@ class StripeController extends AbstractController
         $response = new JsonResponse(['location' => $checkout_session->url, 'id' => $checkout_session->id]);
         return $this->redirect($checkout_session->url);
         
-
-    //     $jsonResponse = $response->getContent();
-    //     $jsonResponse = utf8_encode($jsonResponse);
-    //     $results = json_decode($jsonResponse);
-    //     //$jsonResp = $serializer->deserialize($jsonResponse, Order::class, 'json');
-    //    // print_r($results);
-    //     //return $this->json($results, 201, [], []);
-    //     return $this->render('account/commande.html.twig', [
-    //         'results' => $results,
-    //         'basket' => $basket,
-    //         'order' => $order,
-    //         'location' => $response
-    //     ]);
     }
 
     /**
