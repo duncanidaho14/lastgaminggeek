@@ -25,15 +25,15 @@ class PlatformCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             ImageField::new('image')
-                    ->setBasePath('uploads/images/')
-                    ->setUploadDir('public/uploads/images')
+                    ->setBasePath('uploads/platform/')
+                    ->setUploadDir('public/uploads/platform')
                     ->setUploadedFileNamePattern('[randomhash].[extension]')
                     ->onlyOnIndex(),
             TextField::new('imageFile')
                     ->setFormType(VichImageType::class)
                     ->onlyWhenCreating(),
             
-            AssociationField::new('game')
+            //AssociationField::new('game')
         ];
     }
     

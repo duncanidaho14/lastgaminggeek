@@ -14,19 +14,19 @@
                     <td>{{ platform.id }}</td>
                 </tr>
                 <tr>
-                    <th>Name</th>
+                    <th>Console</th>
                     <td>{{ platform.name }}</td>
                 </tr>
                 <tr>
                     <th>Image</th>
-                    <td>{{ platform.imageFile }}</td>
+                    <td><img src="/public{{vich_uploader_asset(platform, 'imageFile')}}" alt="{{ platform.name }}" /></td>
                 </tr>
             </tbody>
         </table>
 
-        <a href="{{ path('platform_index') }}">back to list</a>
+        <a href="{{ path('platform_index') }}">Retour à la liste de plateforme</a>
 
-        <a href="{{ path('platform_edit', {'id': platform.id}) }}">edit</a>
+        <a href="{{ path('platform_edit', {'id': platform.id}) }}">editer</a>
 
         {{ include('platform/_delete_form.html.twig') }}
     </div>

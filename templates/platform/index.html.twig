@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Platform index{% endblock %}
+{% block title %}Console{% endblock %}
 
 {% block body %}
 <div class="container">
     <div class="row">
-        <h1>Platform index</h1>
+        <h1>Console</h1>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
+                    <th>Nom</th>
                     <th>Image</th>
                     <th>actions</th>
                 </tr>
@@ -21,10 +21,10 @@
                 <tr>
                     <td>{{ platform.id }}</td>
                     <td>{{ platform.name }}</td>
-                    <td><img src="{{ platform.imageFile }}" alt="{{ platform.name }}"></td>
+                    <td><img src="{{ vich_uploader_asset(platform, 'imageFile') }}" alt="{{ platform.name }}"></td>
                     <td>
-                        <a href="{{ path('platform_show', {'id': platform.id}) }}">show</a>
-                        <a href="{{ path('platform_edit', {'id': platform.id}) }}">edit</a>
+                        <a href="{{ path('platform_show', {'id': platform.id}) }}">voir</a>
+                        <a href="{{ path('platform_edit', {'id': platform.id}) }}">editer</a>
                     </td>
                 </tr>
             {% else %}
@@ -35,8 +35,19 @@
             </tbody>
         </table>
 
-        <a href="{{ path('platform_new') }}">Create new</a>
+        <a href="{{ path('platform_new') }}">Crée une nouvelle console</a>
     </div>
 </div>
     
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

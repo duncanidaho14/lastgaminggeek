@@ -21,7 +21,6 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class JeuxvideoType extends AbstractType
 {
@@ -30,7 +29,12 @@ class JeuxvideoType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('imageFile', VichFileType::class)
-            ->add('platform')
+            ->add('platform', EntityType::class, [
+                'class' => Platform::class,
+
+                // uses the Platform.name property as the visible option string
+                'choice_label' => 'name',
+            ])
             ->add('price', MoneyType::class)
             ->add('description', TextareaType::class)
             ->add('categories', CollectionType::class, [
