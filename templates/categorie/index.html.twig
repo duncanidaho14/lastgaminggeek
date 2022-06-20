@@ -6,15 +6,18 @@
 <div class="container">
     <div class="row">
         <h1 data-aos="fade-right">Catégorie</h1>
-        <a href="{{path('create_categorie')}}" class="btn btn-primary">Ajouter une catégorie</a>
-        <ul style="list-style-type: none;">
-        {% for categorie in categories %}
-            <li><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></li>
-            <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="nom de l'image de la categorie : {{categorie.name}}"></li>
-            <li>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</li>
-            <hr>
-        {% endfor %}
-        </ul>
+        {% if categories|length == 0 %}
+            <h2>Il n'y a pas de catégorie</h2>
+        {% else %}
+            <ul style="list-style-type: none;">
+                {% for categorie in categories %}
+                    <li><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></li>
+                    <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="nom de l'image de la categorie : {{categorie.name}}"></li>
+                    <li>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</li>
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

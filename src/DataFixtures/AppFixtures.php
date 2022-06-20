@@ -134,7 +134,7 @@ class AppFixtures extends Fixture
                             
                 ;
 
-                for ($plat=0; $plat < 7; $plat++) { 
+                for ($plat=0; $plat < 1; $plat++) { 
                     $platform = new Platform();
                     $platform->setName($faker->firstName)
                             ->setImage($faker->imageUrl())
@@ -185,7 +185,7 @@ class AppFixtures extends Fixture
             $carrier = new Carrier();
             $carrier->setName($faker->company())
                     ->setDescription($faker->text())
-                    ->setPrice($faker->numberBetween(0, 80))
+                    ->setPrice($faker->numberBetween(5, 100) + 2)
             ;
 
             $manager->persist($carrier);
@@ -196,9 +196,9 @@ class AppFixtures extends Fixture
         for ($orde=0; $orde < 15; $orde++) { 
             $orders = new Order();
 
-            $orders->setCarrierName($carriers[\mt_rand(0, count($carriers) - 1)])
+            $orders->setCarrierName($carriers[\mt_rand(3, count($carriers) - 1)])
                     ->setDelivery($addresses[\mt_rand(0, count($addresses) - 1)])
-                    ->setCarrierPrice($faker->numberBetween(0, 20))
+                    ->setCarrierPrice($faker->numberBetween(3, 20))
                     ->setIsPaid(\mt_rand(0, 1))
                     ->setReference($faker->sentence())
                     ->setUser($users[mt_rand(0, count($users) -1)])
@@ -208,7 +208,7 @@ class AppFixtures extends Fixture
             $manager->persist($orders);
             $orderss[] = $orders;
 
-            $price = $faker->numberBetween(0, 80);
+            $price = ($faker->numberBetween(0, 100) + 2);
             $quantity = $faker->numberBetween(1, 10);
 
             for ($deta=0; $deta < count($orderss); $deta++) { 
