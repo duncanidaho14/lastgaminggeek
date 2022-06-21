@@ -71,7 +71,7 @@ class OrderDetails
 
     public function __toString()
     {
-        return $this->getProduct() . ' ' . \number_format(($this->getPrice() / 100), 2, ',', '.') . ' € ';
+        return $this->getProduct() . ' ' . \number_format(($this->getPrice() / 100), 2, ',', ' ') . ' € ';
     }
 
     public function getId(): ?int

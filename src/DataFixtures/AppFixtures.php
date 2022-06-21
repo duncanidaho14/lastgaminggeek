@@ -17,6 +17,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Entity\Platform;
 
 class AppFixtures extends Fixture
 {
@@ -40,7 +41,7 @@ class AppFixtures extends Fixture
                     ->setFirstName('elhadi')
                     ->setLastName('beddarem')
                     ->setEmail('elhadibeddarem@gmail.com')
-                    ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
+                    ->setPassword($this->encoder->hashPassword($adminUser, 'password'))
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
                     ->setAvatar('https://pbs.twimg.com/profile_images/1184794615951560704/MuK0y8MA.png')
@@ -56,7 +57,7 @@ class AppFixtures extends Fixture
                     ->setFirstName('Meddy')
                     ->setLastName('Seize')
                     ->setEmail('meddy.seize@gmail.com')
-                    ->setPassword($this->encoder->encodePassword($adminUserM, 'password'))
+                    ->setPassword($this->encoder->hashPassword($adminUserM, 'password'))
                     ->setAgreeTerms(1)
                     ->setIsVerified(1)
                     ->setAvatar('https://cdn.shopify.com/s/files/1/0262/4516/9245/products/image_ca191039-f492-4d10-8bdb-3c15495586af_1024x1024.jpg?v=1565831183')
@@ -82,7 +83,7 @@ class AppFixtures extends Fixture
 
             $picture .= ($genre == 'male' ? 'men/' : 'women/'). $pictureId;
 
-            $hash = $this->encoder->encodePassword($user, 'password');
+            $hash = $this->encoder->hashPassword($user, 'password');
             
             $user->setPseudo($faker->name())
                 ->setFirstName($faker->firstname($genre))
@@ -119,6 +120,9 @@ class AppFixtures extends Fixture
         }
 
         
+
+        
+        
         $jeuxvideos = [];
         for ($jeu=0; $jeu < 20; $jeu++) { 
                 $jeuxvideo = new Jeuxvideo();
@@ -127,8 +131,20 @@ class AppFixtures extends Fixture
                             ->setDescription($faker->text())
                             ->setPrice($faker->numberBetween(0, 80))
                             ->setUser($users[mt_rand(0, count($users) -1)])
+                            
                 ;
 
+                for ($plat=0; $plat < 1; $plat++) { 
+                    $platform = new Platform();
+                    $platform->setName($faker->firstName)
+                            ->setImage($faker->imageUrl())
+                            ->addGame($jeuxvideo)
+                    ;
+
+                    $manager->persist($platform);
+                }
+                $jeuxvideo->setPlatform($platform);
+                
                 for ($cat=0; $cat < 1; $cat++) { 
                     $categorie = new Categorie();
 
@@ -142,6 +158,7 @@ class AppFixtures extends Fixture
                 }
 
                 $jeuxvideo->addCategory($categorie);
+                            
 
                 if (mt_rand(1, 12)) {
                     $comment = new Comment();
@@ -159,14 +176,16 @@ class AppFixtures extends Fixture
             
             $manager->persist($jeuxvideo);
             $jeuxvideos[] = $jeuxvideo;
-        } 
+        }
+        
+        
 
         $carriers = [];
         for ($carr=0; $carr < 5; $carr++) { 
             $carrier = new Carrier();
             $carrier->setName($faker->company())
                     ->setDescription($faker->text())
-                    ->setPrice($faker->numberBetween(0, 80))
+                    ->setPrice($faker->numberBetween(5, 100) + 2)
             ;
 
             $manager->persist($carrier);
@@ -177,9 +196,9 @@ class AppFixtures extends Fixture
         for ($orde=0; $orde < 15; $orde++) { 
             $orders = new Order();
 
-            $orders->setCarrierName($carriers[\mt_rand(0, count($carriers) - 1)])
+            $orders->setCarrierName($carriers[\mt_rand(3, count($carriers) - 1)])
                     ->setDelivery($addresses[\mt_rand(0, count($addresses) - 1)])
-                    ->setCarrierPrice($faker->numberBetween(0, 20))
+                    ->setCarrierPrice($faker->numberBetween(3, 20))
                     ->setIsPaid(\mt_rand(0, 1))
                     ->setReference($faker->sentence())
                     ->setUser($users[mt_rand(0, count($users) -1)])
@@ -189,7 +208,7 @@ class AppFixtures extends Fixture
             $manager->persist($orders);
             $orderss[] = $orders;
 
-            $price = $faker->numberBetween(0, 80);
+            $price = ($faker->numberBetween(0, 100) + 2);
             $quantity = $faker->numberBetween(1, 10);
 
             for ($deta=0; $deta < count($orderss); $deta++) { 

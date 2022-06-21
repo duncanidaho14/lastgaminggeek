@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer la Plateforme{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Editer la Plateforme</h1>
+
+        {{ include('platform/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('platform_index') }}">Retour à la liste de plateforme</a>
+
+        {{ include('platform/_delete_form.html.twig') }}
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
+{% endblock %}

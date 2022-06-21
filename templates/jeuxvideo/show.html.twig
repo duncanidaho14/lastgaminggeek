@@ -13,7 +13,7 @@
             <div class="col-8">
                 <h1 data-aos="fade-left">Acheter {{ jeuxvideo.name }} ! ✅</h1>
             
-                <h2>Prix : {{jeuxvideo.price|number_format(2, ',', '.')}} €</h2>
+                <h2>Prix : {{jeuxvideo.price|number_format(2, ',', ' ')}} €</h2>
                 <p>Description : {{jeuxvideo.description|raw}}</p>
                 <h2>Date de création : {{jeuxvideo.createdAt|date("m/d/Y")}} - mise à jour le {{jeuxvideo.updatedAt|date("m/d/Y")}}</h2>
                 <button class="btn btn-success btn-block">

@@ -135,6 +135,12 @@ class Jeuxvideo
     */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Platform::class, inversedBy="game")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $platform;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -327,4 +333,16 @@ class Jeuxvideo
     // {
     //     $this->imageSize = $imageSize;
     // }
+
+    public function getPlatform(): ?Platform
+    {
+        return $this->platform;
+    }
+
+    public function setPlatform(?Platform $platform): self
+    {
+        $this->platform = $platform;
+
+        return $this;
+    }
 }

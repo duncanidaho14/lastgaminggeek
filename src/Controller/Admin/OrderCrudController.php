@@ -20,7 +20,7 @@ class OrderCrudController extends AbstractCrudController
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        return $this->entityManager = $entityManager;
+        $this->entityManager = $entityManager;
     }
     public static function getEntityFqcn(): string
     {

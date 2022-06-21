@@ -11,7 +11,7 @@
         "api-platform/core": "^2.6",
         "blackfire/php-sdk": "^1.29",
         "composer/package-versions-deprecated": "1.11.99.2",
-        "doctrine/annotations": "^1.0",
+        "doctrine/annotations": "^1.13",
         "doctrine/cache": "^2.1",
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
@@ -19,6 +19,7 @@
         "easycorp/easyadmin-bundle": "^3.5",
         "fakerphp/faker": "^1.15",
         "gesdinet/jwt-refresh-token-bundle": "^0.12.0",
+        "google/apiclient": "2.12.1",
         "league/csv": "^8.0",
         "lexik/jwt-authentication-bundle": "^2.13",
         "nelmio/cors-bundle": "^2.1",
@@ -120,7 +121,10 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.3.*"
+            "require": "5.3.*",
+            "google/apiclient-services": [
+                "Gmail"
+            ]
         }
     }
 }

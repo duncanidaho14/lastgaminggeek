@@ -14,40 +14,41 @@
 
 <div class="container-fluid">
     <div class="row">
-    {% set active = "active" %}
-    {% set first = 0 + 1 %}
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">            
-    <div class="carousel-indicators">
-                {% for jeux in jeuxvideos %}
-                {% if jeux|length < 0 %}
-                        <h2>Il n'y a aucun jeux</h2>
-                    {% else %}
-                    <button class="carousel-indicator{% if loop.first %}
-                            active
-                        {% endif %} " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" 
-                        
-                            aria-current="true" aria-label="{{loop.index0}}">
-                    </button>
-                {% endif %}
-                {% endfor %}
-            </div>
+        {% set active = "active" %}
+        {% set first = 0 + 1 %}
+        {% if jeuxvideos|length < 0 %}
 
-            <div class="carousel-inner">
-                {% for jeuxvideo in jeuxvideos %}
-                    <div class="carousel-item {% if loop.first == 1 %} active {% endif %}">
-                        <img src="/uploads/images/{{jeuxvideo.coverImage}}" class="carousel-container" alt="{{jeuxvideo.name}}">
-                    </div>
-                {% endfor %}
+                <h2>Il n'y a aucun jeux</h2>
+        {% else %}
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">            
+                <div class="carousel-indicators">
+                    {% for jeux in jeuxvideos %}
+                        <button class="carousel-indicator{% if loop.first %}
+                                active
+                            {% endif %} " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" 
+                            
+                                aria-current="true" aria-label="{{loop.index0}}">
+                        </button>
+                    {% endfor %}
+                </div>
+
+                <div class="carousel-inner">
+                    {% for jeuxvideo in jeuxvideos %}
+                        <div class="carousel-item {% if loop.first == 1 %} active {% endif %}">
+                            <img src="/uploads/images/{{jeuxvideo.coverImage}}" class="carousel-container" alt="{{jeuxvideo.name}}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -61,24 +62,24 @@
         <div>
             <h2 data-aos="zoom-out-right">Les jeux du moment</h2>
                 <div class="row col-md-12 py-5">
-                {% for jeux in paginator.data %}
-                    {% if jeux|length < 0 %}
+                    {% if paginator.data|length < 0 %}
                         <h2>Il n'y a aucun jeux</h2>
                     {% else %}
-                        <div class="col-md-4 py-4 card-image">
-                            <div class="card">
-                                <a href="{{path('article_show', {'slug': jeux.slug})}}">
-                                    <img data-aos="zoom-in" class="card-img-top handle-link" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="Card image cap">
-                                </a>
-                                <div class="card-body">
-                                    <h3 class="card-title"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.name}}</a></h3>
-                                    <p class="card-text"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.description|raw|slice(0, 40)}}...</a></p>
-                                    <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, '.', ',')}} €</a>
+                        {% for jeux in paginator.data %}
+                            <div class="col-md-4 py-4 card-image">
+                                <div class="card">
+                                    <a href="{{path('article_show', {'slug': jeux.slug})}}">
+                                        <img data-aos="zoom-in" class="card-img-top handle-link" src="{{vich_uploader_asset(jeux, 'imageFile')}}" alt="{{jeux.name}}">
+                                    </a>
+                                    <div class="card-body">
+                                        <h3 class="card-title"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.name}}</a></h3>
+                                        <p class="card-text"><a class="handle-link" href="{{path('article_show', {'slug': jeux.slug})}}">{{jeux.description|raw|slice(0, 40)}}...</a></p>
+                                        <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{(jeux.price)|number_format(2, ',', ' ')}} €</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endfor %}
                     {% endif %}
-                {% endfor %}
                 </div>
             </div>
             <div class="pagination">
