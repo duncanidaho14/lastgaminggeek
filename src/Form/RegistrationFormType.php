@@ -21,19 +21,50 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('pseudo', TextType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Vôtre email'
+                ]
+            ])
+            ->add('pseudo', TextType::class, [
+                'label' => 'Pseudo',
+                'attr' => [
+                    'placeholder' => 'Vôtre pseudo'
+                ]
+            ])
             // ->add('avatar', TextType::class)
-            ->add('imageFile', VichFileType::class)
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
+            ->add('imageFile', VichFileType::class, [
+                'label' => 'Avatar'
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Vôtre prénom'
+                ]
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Vôtre nom'
+                ]
+            ])
             // ->add('isVerified', TextType::class)
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, [
+                'label' => 'mot de passe',
+                'attr' => [
+                    'placeholder' => 'Vôtre mot de passe'
+                ]
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'label' => 'répéter le mot de passe',
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => "répéter le même mot de passe"                    
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -48,6 +79,7 @@ class RegistrationFormType extends AbstractType
                 ])
                 ->add('agreeTerms', CheckboxType::class, [
                     'mapped' => true,
+                    'label' => 'Les Termes utilisateurs',
                     'constraints' => [
                         new IsTrue([
                             'message' => 'You should agree to our terms.',
