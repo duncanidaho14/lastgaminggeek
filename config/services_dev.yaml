@@ -9,9 +9,6 @@ parameters:
     app.path.user_images: /uploads/user
     app.path.platform_images: /uploads/platform
 
-    # app.cache.adapter: cache.adapter.array
-    # redis.host: 127.0.0.1
-    # redis.port: 6379
 
 services:
     # default configuration for services in *this* file
