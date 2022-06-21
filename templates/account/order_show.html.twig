@@ -7,8 +7,11 @@
 {% block body %}
     <div class="row">
         <div class="container">
+        {% if order.reference|length == null %}
+            <h1>Vous n'avez pas de commande</h1>
+        {% else %}
             <h1>{{order.reference}} </h1>
-            
+        {% endif %}
         </div>
     </div>
 {% endblock %}

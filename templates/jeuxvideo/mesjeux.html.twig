@@ -8,11 +8,10 @@
 <div class="container">
     <div class="row">
         <a href="{{path('app_account')}}" class= "btn btn-outline-primary"><i class="fas fa-angle-double-left"></i>Retour</a>
-
         <section class="dark">
 	        <div class="container py-4">
 
-		    <h1 class="h1 text-center" id="pageHeaderTitle">Mes jeux vidéos</h1>
+		    <h1 class="h1 text-center" id="pageHeaderTitle" style="color: white;">Mes jeux vidéos</h1>
             {% for jeux in jeuxvideo %}
             
                 <article class="postcard dark blue">
@@ -31,7 +30,7 @@
                         <div class="postcard__preview-txt">{{jeux.description|raw}}</div>
                         <ul class="postcard__tagbox">
                             <li class="tag__item"><i class="fas fa-tag mr-2"></i><a href="{{path('edit_article', {'slug': jeux.slug})}}">Modifier le jeux {{jeux.name}}</a></li>
-                            <li class="tag__item"><i class="fas fa-clock mr-2"></i> {{jeux.price|number_format(2, '.', ',')}} €</li>
+                            <li class="tag__item"><i class="fas fa-clock mr-2"></i> {{jeux.price|number_format(2, ',', ' ')}} €</li>
                             <li class="tag__item play blue">
                                 <a href="{{path('article_delete', {'slug': jeux.slug})}}"><i class="fas fa-play mr-2"></i>Supprimer le jeux {{jeux.name}}</a>
                             </li>
@@ -63,6 +62,8 @@
                             </ul>
                         </div>
                     </article>
+                {% else %}
+                    <h3>Il n'y a pas de catégorie de jeux vidéo pour ce jeu</h3>
                 {% endfor %}
 
                 <div class="h1 text-center text-dark" id="pageHeaderTitle">Commentaires</div>
@@ -84,18 +85,23 @@
                             <div class="postcard__preview-txt">{{comments.comment}}</div>
                             <ul class="postcard__tagbox">
                                 <li class="tag__item"><i class="fas fa-tag mr-2"></i><a href="{{path('edit_article', {'slug': comments.slug})}}">Modifier le jeux {{comments.game.name}}</a></li>
-                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{comments.game.price|number_format(2, ',', '.')}} €</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{comments.game.price|number_format(2, ',', ' ')}} €</li>
                                 <li class="tag__item play blue">
                                     <a href="{{path('article_delete', {'slug': comments.slug})}}"><i class="fas fa-play mr-2"></i>Supprimer le jeux {{comments.game.name}}</a>
                                 </li>
                             </ul>
                         </div>
                     </article>
+                {% else %}
+                    <h3>Il n'y a pas de commentaire pour ce jeu</h3>
                 {% endfor %}
+            {% else %}
+                <h3 style="color: white;">Vous n'avez jamais vendu de jeux vidéo</h3>
             {% endfor %}
                 </div>
             
         </section>
+        
     </div>
 </div>
         {# </ul> #}

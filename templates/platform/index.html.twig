@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Console{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+    <br>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{path('platform_new')}}" class="btn btn-info btn-sm float-right">Ajouter une plateforme</a>
+        {% endif %}
+        <h1>Console</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Image</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for platform in platforms %}
+                    <tr>
+                        <td>{{ platform.id }}</td>
+                        <td>{{ platform.name }}</td>
+                        <td><img src="{{ vich_uploader_asset(platform, 'imageFile') }}" alt="{{ platform.name }}"></td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('platform_show', {'id': platform.id}) }}" style="color: black;">voir</a>
+                                <a href="{{ path('platform_edit', {'id': platform.id}) }}" style="color: black;">editer</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune plateforme</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
+{% endblock %}

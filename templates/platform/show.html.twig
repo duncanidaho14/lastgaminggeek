@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Platform{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Platform</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ platform.id }}</td>
+                </tr>
+                <tr>
+                    <th>Console</th>
+                    <td>{{ platform.name }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><img src="/public{{vich_uploader_asset(platform, 'imageFile')}}" alt="{{ platform.name }}" /></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('platform_index') }}">Retour à la liste de plateforme</a>
+
+        <a href="{{ path('platform_edit', {'id': platform.id}) }}">editer</a>
+
+        {{ include('platform/_delete_form.html.twig') }}
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
+{% endblock %}

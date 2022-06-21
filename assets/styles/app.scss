@@ -50,7 +50,7 @@ h1 {
 }
 
 a {
-    color: var(--font-color3);
+    color: var(--font-color2);
 }
 
 a:after{
@@ -58,7 +58,7 @@ a:after{
 }
 
 p {
-    color: var(--font-color3);
+    color: var(--font-color2);
 }
 .carousel-container {
     width: 100%;
@@ -139,6 +139,14 @@ label.hiddentype.form-label {
     margin-right: 5px;
 }
 
+// login page
+
+.no-account {
+    display: block;
+    width: 100%;
+    height: 500px;
+}
+
 // carousel
 
 button.carousel-indicator {
@@ -166,7 +174,7 @@ button.carousel-indicator {
     color: var(--font-color2);
 }
 
-// article show
+// article show jeux video
 
 .img_show {
     display: flex;

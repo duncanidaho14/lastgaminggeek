@@ -11,7 +11,7 @@
         <a href="{{path('app_account')}}" class="btn btn-block btn-close-white">Retour à mon compte</a>
         <hr>
         {% if app.user.addresses|length == 0 %}
-            <p>Vous n'avez pas encore d'adresse lié à votre compte, Veuillez en ajouter une. <a href=""></a></p>
+            <p style="color: black;">Vous n'avez pas encore d'adresse lié à votre compte, Veuillez ajouter  <a href="{{path('account_address_add')}}" style="color: black;">une adresse.</a></p>
         {% else %}
         <div class="row">
             <div class="col-md-4">
