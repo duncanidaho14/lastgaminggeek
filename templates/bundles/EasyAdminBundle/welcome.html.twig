@@ -50,7 +50,7 @@
             <div class="card-body">
               <h5 class="card-title">{{jeux.name}}</h5>
               <p class="card-text">{{jeux.description|raw}}</p>
-              <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{jeux.price|number_format(2, ',', '.')}} €</a>
+              <a href="{{path('article_show', {'slug': jeux.slug})}}" class="btn btn-primary">{{jeux.price|number_format(2, ',', ' ')}} €</a>
             </div>
           </div>
         </div>
