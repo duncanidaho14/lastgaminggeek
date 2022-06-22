@@ -9,6 +9,11 @@
         <h1 data-aos="fade-right"
             data-aos-offset="500"
             data-aos-easing="ease-in-sine">Gaming Geek Jeux Videos d'Occasions</h1>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
 </div>
 
