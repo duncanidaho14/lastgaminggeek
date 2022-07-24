@@ -18,3 +18,13 @@
     </ul>
 </div>
 {% endblock %}
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
+{% endblock %}

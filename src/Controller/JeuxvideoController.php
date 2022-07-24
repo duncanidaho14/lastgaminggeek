@@ -35,6 +35,13 @@ class JeuxvideoController extends AbstractController
     /**
      * @Route("/mes-jeux", name="jeuxvideo")
      * @Security("is_granted('ROLE_USER')", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas le voir")
+     * 
+     * This function will find all the games that belong to the user who is currently logged in and
+     * display them on the page.
+     * 
+     * @param JeuxvideoRepository jeuxvideoInstance the repository instance
+     * 
+     * @return Response The user's games
      */
     public function index(JeuxvideoRepository $jeuxvideoInstance): Response
     {
@@ -47,6 +54,25 @@ class JeuxvideoController extends AbstractController
     /**
      * @Route("/jeuxvideo/creation", name="create_article", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_USER')")
+     * 
+     * I want to create a game, and I want to create a comment for this game. 
+     * 
+     * I want to create a game, and I want to create a category for this game. 
+     * 
+     * I want to create a game, and I want to create a comment for this game, and I want to create a
+     * category for this game. 
+     * 
+     * I want to create a game, and I want to create a comment for this game, and I want to create a
+     * category for this game, and I want to create a user for this game. 
+     * 
+     * I want to create a game, and I want to create a comment for this game, and I want to create a
+     * category for this game, and I want to create a user for this game, and I want to create a user
+     * for this comment. 
+     * 
+     * I want to create a game, and I want to create a comment
+     * 
+     * @param Request request The request object.
+     * @param EntityManagerInterface entityManager The EntityManagerInterface instance.
      */
     public function createGame(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -88,6 +114,17 @@ class JeuxvideoController extends AbstractController
     /**
      * @Route("/jeuxvideo/edition/{slug}", name="edit_article")
      * @Security("is_granted('ROLE_USER') and user === jeuxvideo.getUser()", message="Ce jeux video ne vous appartient pas, vous ne pouvez pas le modifier")
+     * 
+     * The function editGame() is called when the user clicks on the edit button. It displays the form
+     * to edit the game. When the user clicks on the submit button, the function checks if the form is
+     * valid. If it is, it persists the changes and flushes them. Then it displays a success message
+     * 
+     * @param Request request The request object.
+     * @param Jeuxvideo jeuxvideo The Jeuxvideo object that will be edited.
+     * @param EntityManagerInterface entityManager The EntityManagerInterface is the object that allows
+     * you to persist and flush objects to the database.
+     * 
+     * @return Response The response is the render of the edit.html.twig file.
      */
     public function editGame(Request $request, Jeuxvideo $jeuxvideo, EntityManagerInterface $entityManager): Response
     {
@@ -112,9 +149,17 @@ class JeuxvideoController extends AbstractController
     }
 
     /**
-     * @Route("/jeuxvideo/{slug}", name="article_show")
-     * @Security("is_granted('ROLE_USER')")
-     */
+    * @Route("/jeuxvideo/{slug}", name="article_show")
+    * @Security("is_granted('ROLE_USER')")
+    * I want to display the game page with the comments form and the comments list
+    * 
+    * @param JeuxvideoRepository jeuxvideoRepository The repository for the Jeuxvideo entity.
+    * @param Request request The request object.
+    * @param EntityManagerInterface manager the EntityManagerInterface
+    * @param slug The slug of the game to display
+    * 
+    * @return Response The response of the controller.
+    */
     public function displayJeuxvideo(JeuxvideoRepository $jeuxvideoRepository, Request $request, EntityManagerInterface $manager, $slug): Response
     {
         $comment = new Comment();
@@ -143,6 +188,11 @@ class JeuxvideoController extends AbstractController
     /**
      * @Route("/jeuxvideo/delete/{slug}", name="article_delete")
      * @Security("is_granted('ROLE_USER') and user == jeuxvideo.getUser()", message="Vous n'avez pas le droit d'accéder à ce jeux")
+     * 
+     * This function deletes a game from the database and redirects to the home page.
+     * 
+     * @param Jeuxvideo jeuxvideo The object to delete
+     * @param EntityManagerInterface entityManager The EntityManagerInterface instance.
      */
     public function delete(Jeuxvideo $jeuxvideo, EntityManagerInterface $entityManager): Response
     {

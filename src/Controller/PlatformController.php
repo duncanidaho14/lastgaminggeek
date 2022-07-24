@@ -52,7 +52,7 @@ class PlatformController extends AbstractController
 
     /**
      * @Route("/{id}", name="platform_show", methods={"GET"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function show(Platform $platform): Response
     {

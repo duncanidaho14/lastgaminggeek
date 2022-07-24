@@ -29,6 +29,17 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/inscription", name="app_register")
+     * 
+     * The function register() is called when the user submits the registration form. It checks if the
+     * form is valid, if it is, it creates a new user, hashes the password and saves the user in the
+     * database
+     * 
+     * @param Request request The incoming request object.
+     * @param UserPasswordHasherInterface passwordEncoder This is the service that will be used to
+     * encode the password.
+     * @param ManagerRegistry doctrine The Doctrine service.
+     * 
+     * @return Response The response is being returned.
      */
     public function register(Request $request, UserPasswordHasherInterface  $passwordEncoder, ManagerRegistry $doctrine): Response
     {

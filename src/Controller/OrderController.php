@@ -3,21 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Classes\Cache;
 use DateTimeInterface;
 use App\Classes\Basket;
-use App\Classes\Cache;
 use App\Entity\Carrier;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\CacheInterface;
+use ApiPlatform\Core\Filter\Validator\Length;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ApiPlatform\Core\Filter\Validator\Length;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class OrderController extends AbstractController
@@ -31,7 +32,15 @@ class OrderController extends AbstractController
 
     /**
      * @Route("/commande", name="order")
+     * @Security("is_granted('ROLE_USER')")
      * 
+     * I want to get the value of the basket and display it in the view.
+     * </code>
+     * 
+     * @param Basket basket the basket object
+     * @param Request request The request object.
+     * 
+     * @return Response The value of the key 'jeuxvideo'
      */
     public function index(Basket $basket, Request $request): Response
     {
@@ -59,7 +68,18 @@ class OrderController extends AbstractController
 
     /**
      * @Route("/commande/recapitulatif", name="order_recap", methods={"POST"})
+     * @Security("is_granted('ROLE_USER')")
      * 
+     * I want to get the value of the cache and put it in the variable .
+     * I want to use this variable in the form.
+     * I want to use this variable in the foreach loop.
+     * I want to use this variable in the render
+     * 
+     * @param CacheInterface cache The cache service
+     * @param Basket basket the basket object
+     * @param Request request The request object.
+     * 
+     * @return Response The return is the render of the add.html.twig file.
      */
     public function add(CacheInterface $cache, Basket $basket, Request $request): Response
     {

@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Classes\Basket;
+use App\Entity\Jeuxvideo;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Jeuxvideo;
 
 class BasketController extends AbstractController
 {
@@ -21,6 +22,7 @@ class BasketController extends AbstractController
 
     /**
      * @Route("/mon-panier", name="basket")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function index(Basket $basket): Response
     {   
@@ -63,6 +65,13 @@ class BasketController extends AbstractController
 
     /**
      * @Route("/mon-panier/decrease/{id}", name="decrease_to_basket")
+     * 
+     * It decreases the quantity of a product in the basket
+     * 
+     * @param Basket basket The basket object
+     * @param id The id of the product to be removed from the basket
+     * 
+     * @return Response A redirect to the basket route.
      */
     public function decrease(Basket $basket, $id): Response
     {

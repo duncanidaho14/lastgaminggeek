@@ -55,6 +55,7 @@
                 <h2>Votre email : {{user.email}}</h2>
                 <h2>Votre compte a été crée le  : {{user.createdAt|date("m/d/Y H:i")}}</h2>
                 <h2>Votre compte a été modifié le  : {{user.updatedAt|date("m/d/Y H:i")}}</h2>
+                <h2><a href="{{path('account_change_password')}}" alt="lien pour changer le mot de passe." class="btn btn-primary" btn-block> Changer mon mot de passe</a></h2>
             </section>
         </div>
     </div>

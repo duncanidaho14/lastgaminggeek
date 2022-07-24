@@ -9,28 +9,43 @@ use App\Entity\Carrier;
 use App\Entity\Jeuxvideo;
 use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Security\Core\Security as SecurityCore;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 
 class StripeController extends AbstractController
 {
 
     private $entityManager;
+    
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
+
     /**
      * @Route("/commande/create-session/{reference}", name="stripe_create_session")
+     * 
+     * I create a Stripe session with the products of the order, the shipping price and the shipping
+     * name.
+     * 
+     * then I redirect the user to the Stripe checkout page.
+     * 
+     * @param Order order The order object
+     * @param Basket basket the basket object
+     * @param SerializerInterface serializer The serializer service.
+     * @param reference the order reference
+     * 
+     * @return The response is a JSON object containing the following keys:
      */
     public function index(Order $order, Basket $basket, SerializerInterface $serializer, $reference)
     {
@@ -108,6 +123,14 @@ class StripeController extends AbstractController
 
     /**
      * @Route("/commande/success/{stripeSessionId}", name="stripe_success")
+     * 
+     * It checks if the order exists and if it's paid, if not, it sets it to paid and flushes the
+     * entity manager
+     * 
+     * @param Basket basket The basket object
+     * @param stripeSessionId The ID of the Checkout Session that contains the order.
+     * 
+     * @return Response The order object
      */
     public function stripeSuccess(Basket $basket, $stripeSessionId): Response
     {
@@ -130,6 +153,13 @@ class StripeController extends AbstractController
 
     /**
      * @Route("/commande/erreur/{stripeSessionId}", name="stripe_cancel")
+     * 
+     * It gets the order from the database using the stripeSessionId, and if the order exists and the
+     * user is the same as the one logged in, it renders the error page
+     * 
+     * @param stripeSessionId The ID of the Checkout Session that was created.
+     * 
+     * @return Response The order object
      */
     public function stripeCancel($stripeSessionId): Response
     {
