@@ -1,17 +1,19 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Modifier son Jeux video
+    Modifier son Jeux video {{jeuxvideo.name}}
 {% endblock %}
+
+{% form_theme form 'jeuxvideo/_collection.html.twig' %}
 
 {% block body %}
 <div class="container">
     <div class="row">
-            <h1>Editer {{jeuxvideo.name}}</h1>
+            <h1 data-aos="fade-right">Editer l'article du siècle : {{jeuxvideo.name}} !</h1>
 
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
+                {{ form_start(form) }}
+                {{ form_widget(form)}}
+                {{ form_end(form) }}
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
@@ -21,4 +23,16 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('build/app.js')}}"></script>
+    <script src="{{asset('build/jeux.js')}}"></script>
+
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        AOS.init();
+    });
+
+    </script>
 {% endblock %}

@@ -17,8 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\CommentType;
 use App\Entity\Categorie;
-
-
+use App\Entity\Platform;
 
 class JeuxvideoController extends AbstractController
 {
@@ -30,6 +29,13 @@ class JeuxvideoController extends AbstractController
     public function __construct(SecurityCore $security)
     {
         $this->security = $security;
+    }
+
+    public function newIndex(JeuxvideoRepository $jeuxvideoRepository)
+    {
+        return $this->render('jeuxvideo/index.html.twig', [
+            'jeuxvideo' => $jeuxvideoRepository->findAll()
+        ]);
     }
 
     /**
@@ -80,6 +86,7 @@ class JeuxvideoController extends AbstractController
 
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
         $jeuxvideo->setUser($this->getUser());
+        
         foreach($jeuxvideo->getCategories() as $categories){
             $jeuxvideo->setUser($this->getUser());
             $categories->addGame($jeuxvideo);
@@ -96,7 +103,7 @@ class JeuxvideoController extends AbstractController
 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $jeuxvideo->setUser($this->getUser());
+            
             
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
@@ -129,10 +136,28 @@ class JeuxvideoController extends AbstractController
     public function editGame(Request $request, Jeuxvideo $jeuxvideo, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(JeuxvideoType::class, $jeuxvideo);
-
+        
+        $jeuxvideo->setUser($this->getUser());
+        /* Adding the user to the categories. */
+        foreach($jeuxvideo->getCategories() as $categories){
+            $jeuxvideo->setUser($this->getUser());
+            $categories->addGame($jeuxvideo);
+            //$categories->setImage($image);
+            $entityManager->persist($categories);
+        }
+            /* Adding the user to the comments. */
+        foreach ($jeuxvideo->getComments() as $comments) {
+            $jeuxvideo->setUser($this->getUser());
+            $comments->setUser($this->getUser());
+            $comments->setComment($jeuxvideo);
+            $entityManager->persist($comments);
+        }
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) { 
+        if ($form->isSubmitted() && $form->isValid()) {
+                
+            
+
             $entityManager->persist($jeuxvideo);
             $entityManager->flush();
 

@@ -17,7 +17,7 @@ import categories from './img/app-6702045.svg';
 import comments from './img/comments-97860.svg';
 
 import 'bootstrap';
-
+import './js/jeux.js';
 /**
  * Permet d'afficher l'onglet d'une couleur différente
  * Ne marche que sur chrome Android
@@ -71,3 +71,36 @@ function toggleTheme() {
 })();
 
 // start the Stimulus application
+
+
+$('#add-categories').click(function(){
+    // Je récupère le numéro des futurs champs que je vais créer
+    const index = +$('#widgets-counter').val();
+
+    // Je récupère le prototype des entrées
+    const tmpl = $('#jeuxvideo_categories').data('prototype').replace(/__name__/g, index);
+
+    // J'injecte ce code au sein de la div
+    $('#jeuxvideo_categories').append(tmpl);
+
+    $('#widgets-counter').val(index + 1);
+
+    // Je gère le bouton supprimer
+    handleDeleteButtons();
+});
+
+function handleDeleteButtons() {
+    $('button[data-action="delete"]').click(function(){
+        const target = this.dataset.target;
+        $(target).remove();
+    });
+}
+
+function updateCounter() {
+    const count = +$('#jeuxvideo_categories div.form-group').length;
+
+    $('#widgets-counter').val(count);
+}
+
+updateCounter();
+handleDeleteButtons();
