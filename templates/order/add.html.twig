@@ -26,7 +26,7 @@
             <div class="row col-md-12">
                 {% for key, product in basket %}
                     <div class="col-md-6">
-                        <img src="{{vich_uploader_asset(product.jeuxvideo, 'imageFile')}}" alt="{{product.jeuxvideo.name}}" height="95px">
+                        <img src="{{vich_uploader_asset(product.jeuxvideo, 'imageFile')}}" class="product-jeux-img" alt="{{product.jeuxvideo.name}}" height="95px">
                         <h3>{{product.jeuxvideo.name}}</h3>
                     </div>
                     <div class="col-md-6">

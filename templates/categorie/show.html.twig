@@ -19,7 +19,7 @@
                         {% for catgame in cat.game %}
                             <h3>{{catgame.name}}</h3>
                             <figure>
-                                <img src="{{vich_uploader_asset(catgame, 'imageFile')}}" alt="{{catgame.name}}">
+                                <img src="{{vich_uploader_asset(catgame, 'imageFile')}}" class="categorie_image" alt="{{catgame.name}}">
                                 <figcaption>{{catgame.name}} crée le : {{catgame.updatedAt|date("m/d/Y H:i")}}</figcaption>
                             </figure>
                         {% endfor %}
