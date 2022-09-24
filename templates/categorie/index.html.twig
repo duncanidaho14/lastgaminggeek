@@ -5,18 +5,17 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <h1 data-aos="fade-right">Catégorie</h1>
+        <h1 data-aos="fade-right" class="categorie_title">Catégorie</h1>
         {% if categories|length == 0 %}
             <h2>Il n'y a pas de catégorie</h2>
         {% else %}
-            <ul style="list-style-type: none;">
                 {% for categorie in categories %}
-                    <li><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></li>
-                    <li><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="nom de l'image de la categorie : {{categorie.name}}"></li>
-                    <li>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</li>
-                    <hr>
+                    <div class="col-sm-4">
+                        <div><a href="{{path('app_categorie', {'slug': categorie.slug})}}">{{categorie.name}}</a></div>
+                        <div><img src="{{vich_uploader_asset(categorie, 'imageFile')}}" alt="nom de l'image de la categorie : {{categorie.name}}" class="categorie_image"></div>
+                        <div>Crée le : {{categorie.updatedAt|date("m/d/Y H:i")}}</div>   
+                    </div>
                 {% endfor %}
-            </ul>
         {% endif %}
     </div>
 </div>

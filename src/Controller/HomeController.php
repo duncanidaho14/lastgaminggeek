@@ -2,30 +2,30 @@
 
 namespace App\Controller;
 
+use App\Classes\Cache;
 use App\Entity\Jeuxvideo;
 use App\Entity\UploadCsv;
+use App\Service\Paginator;
 use App\Form\UploadCsvType;
 use App\Repository\UserRepository;
 use App\Repository\JeuxvideoRepository;
-use Doctrine\Common\Annotations\Reader;
 use Gedmo\Mapping\Annotation\Uploadable;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 //use League\Csv\Reader;
 
-use App\Classes\Cache;
-use App\Service\Paginator;
+
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/{page<\d+>?1}", name="accueil")
+     * 
      *
      * @param CacheInterface $cache
      * @param UserRepository $userRepo
@@ -34,6 +34,7 @@ class HomeController extends AbstractController
      * @param [int] $page
      * @return Response
      */
+    #[Route("/{page<\d+>?1}", name:"accueil")]
     public function index(CacheInterface $cache, UserRepository $userRepo, JeuxvideoRepository $jeuxvideoRepo, Paginator $paginator, $page): Response
     {
 

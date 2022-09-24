@@ -5,7 +5,7 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use PHPUnit\Framework\Exception;
 use Doctrine\ORM\Tools\SchemaTool;
-
+use Symfony\Component\Routing\Annotation\Route;
 
 class HomeControllerTest extends WebTestCase
 {

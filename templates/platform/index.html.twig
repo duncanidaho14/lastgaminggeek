@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Console{% endblock %}
+{% block title %}Gaming Geek Console{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -9,8 +9,8 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{path('platform_new')}}" class="btn btn-info btn-sm float-right">Ajouter une plateforme</a>
         {% endif %}
-        <h1>Console</h1>
-            <table class="table">
+        <h1 data-aos="fade-right" class="console_title">Console</h1>
+            <table class="table platform_table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -23,14 +23,14 @@
                 </thead>
                 <tbody>
                 {% for platform in platforms %}
-                    <tr>
-                        <td>{{ platform.id }}</td>
-                        <td>{{ platform.name }}</td>
-                        <td><img src="{{ vich_uploader_asset(platform, 'imageFile') }}" alt="{{ platform.name }}"></td>
+                    <tr class="platform_pop">
+                        <td class="platform_td">{{ platform.id }}</td>
+                        <td class="platform_td">{{ platform.name }}</td>
+                        <td class="platform_td"><img src="{{ vich_uploader_asset(platform, 'imageFile') }}" alt="le nom de la plateforme est {{ platform.name }}" class="platform_image" /></td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('platform_show', {'id': platform.id}) }}" style="color: black;">voir</a>
-                                <a href="{{ path('platform_edit', {'id': platform.id}) }}" style="color: black;">editer</a>
+                                <a href="{{ path('platform_show', {'id': platform.id}) }}" class="platform_td">voir</a>
+                                <a href="{{ path('platform_edit', {'id': platform.id}) }}" class="platform_td">editer</a>
                             </td>
                         {% endif %}
                     </tr>
@@ -52,6 +52,10 @@
     <script>
     window.addEventListener('DOMContentLoaded', function() {
         AOS.init();
+        let platform_td = document.querySelectorAll('platform_td');
+        for(let i=0; i < platform_td.length; i++){
+            platform_td[i].style.color = "var(--font-color);";
+        }
     });
 
     </script>

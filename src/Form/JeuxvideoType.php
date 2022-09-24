@@ -34,6 +34,7 @@ class JeuxvideoType extends AbstractType
 
                 // uses the Platform.name property as the visible option string
                 'choice_label' => 'name',
+                'empty_data' => 'image'
             ])
             ->add('price', MoneyType::class)
             ->add('description', TextareaType::class)

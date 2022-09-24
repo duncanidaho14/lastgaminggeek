@@ -1,0 +1,41 @@
+{% set url = path('article_show', {'slug': jeuxvideo.slug}) %}
+
+<div class="col-md-4">
+    <div class="card bg-light mb-3">
+        <div class="card-header text-center">
+            {{ jeuxvideo.name }} , <strong>{{ jeuxvideo.price|number_format(2, ',', ' ') }}&euro;</strong> <br>
+
+            {% if jeuxvideo.categories|length > 0 %}
+                
+            {% else %}
+                <small>Pas encore catégorisé</small>
+            {% endif %}
+
+            {% if jeuxvideo.comments|length > 0 %}
+                
+            {% else %}
+                <small>Pas encore commenté</small>
+            {% endif %}
+        </div>
+        
+        <a href="{{ url }}">
+            <img src="{{ jeuxvideo.imageFile }}" alt="Image du jeux video {{jeuxvideo.name}}" style="height: 200px; width: 100%; display: block">
+        </a>
+
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="{{ url }}">
+                    {{ jeuxvideo.name }}
+                </a>
+            </h4>
+            <p class="card-text">
+                {{ jeuxvideo.description }}
+            </p>
+            <a href="{{ url }}" class="btn btn-primary float-right">En savoir plus !</a>
+
+            {% if app.user and app.user == ad.author %}
+                <a href="{{ path('article_show', {'slug': jeuxvideo.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

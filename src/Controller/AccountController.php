@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -18,6 +19,17 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/compte/changer-mon-mot-de-passe", name="account_change_password")
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * If the form is submitted and valid, we check if the old password is valid, if it is, we encode
+     * the new password and persist the user.
+     * 
+     * @param Request request The request object.
+     * @param UserPasswordEncoderInterface encoder This is the encoder service that will be used to
+     * encode the password.
+     * @param EntityManagerInterface manager The EntityManagerInterface instance.
+     * 
+     * @return Response The form is being returned.
      */
     public function changePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager): Response
     {
@@ -48,6 +60,12 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/compte/mes-commandes/{reference}", name="account_order_show")
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * It's a function that shows the orders of the user who is logged in.
+     * 
+     * @param EntityManagerInterface manager The EntityManagerInterface instance.
+     * @param reference The order reference number
      */
     public function showMyOrder(EntityManagerInterface $manager, $reference): Response
     {
@@ -61,6 +79,13 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/compte/mes-commandes", name="account_order")
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * It gets the orders of the current user and displays them in a table.
+     * 
+     * @param EntityManagerInterface manager
+     * 
+     * @return Response The order is being returned.
      */
     public function myOrder(EntityManagerInterface $manager): Response
     {
@@ -72,10 +97,15 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Afficher le compte utilisateur
      * 
      * @Route("/compte", name="app_account")
-     * @return Response
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * It renders the account/index.html.twig template and passes the user object to it.
+     * 
+     * @param UserRepository userRepo The repository class for the User entity.
+     * 
+     * @return Response The user object.
      */
     public function index(UserRepository $userRepo): Response
     {
